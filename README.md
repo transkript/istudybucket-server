@@ -82,8 +82,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
 There are many great platforms for social interaction and communication in the world. None of which really targets the needs of student in this exponentially growing digital age.
 
 
@@ -132,7 +130,7 @@ Install any of the mentioned IDEs on your computer which will come with the appr
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/feljtech/istudybucket-backend/Project-Name.git
+   git clone https://github.com/feljtech/istudybucket-backend.git
    ```
 2. Open the cloned directory in your IDE (pref IntelliJ IDEA Ultimate)
 
