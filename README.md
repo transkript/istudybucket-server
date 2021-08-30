@@ -180,10 +180,10 @@ Distributed under the MIT License. See `LICENSE` for more information.
     - Github: [@elroykanye](https://github.com/elroykanye)
 
   * ##### Nfon Andy
-      - Email: nfonandrew73gmail.com
-      - Twitter: [@nfonandrew73](https://twitter.com/nfonandrew73)
-      - Github: [@andrew21](https://github.com/andrew21-mch)
-      
+    - Email: nfonandrew73gmail.com
+    - Twitter: [@nfonandrew73](https://twitter.com/nfonandrew73)
+    - Github: [@andrew21](https://github.com/andrew21-mch)
+    
 * ##### Your name
     - Email: your_email@example.com
     - Twitter: [@your_twitter](https://twitter.com/your_username)
