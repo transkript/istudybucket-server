@@ -179,6 +179,11 @@ Distributed under the MIT License. See `LICENSE` for more information.
     - Twitter: [@elroykanye](https://twitter.com/elroykanye)
     - Github: [@elroykanye](https://github.com/elroykanye)
     
+* ##### Tanjuate Brunostar
+    - Email: tanjubrunostar0@gmail.com
+    - Twitter: [@TBStar7](https://twitter.com/TBStar7)
+    - Github: [@Brunostar](https://github.com/Brunostar)
+
 * ##### Your name
     - Email: your_email@example.com
     - Twitter: [@your_twitter](https://twitter.com/your_username)
