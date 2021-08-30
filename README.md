@@ -179,7 +179,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
     - Twitter: [@elroykanye](https://twitter.com/elroykanye)
     - Github: [@elroykanye](https://github.com/elroykanye)
 
-  * ##### Nfon Andy
+* ##### Nfon Andy
     - Email: nfonandrew73gmail.com
     - Twitter: [@nfonandrew73](https://twitter.com/nfonandrew73)
     - Github: [@andrew21](https://github.com/andrew21-mch)
