@@ -184,6 +184,11 @@ Distributed under the MIT License. See `LICENSE` for more information.
     - Twitter: [@nfonandrew73](https://twitter.com/nfonandrew73)
     - Github: [@andrew21](https://github.com/andrew21-mch)
     
+* ##### Tanjuate Brunostar
+    - Email: tanjubrunostar0@gmail.com
+    - Twitter: [@TBStar7](https://twitter.com/TBStar7)
+    - Github: [@Brunostar](https://github.com/Brunostar)
+
 * ##### Your name
     - Email: your_email@example.com
     - Twitter: [@your_twitter](https://twitter.com/your_username)
