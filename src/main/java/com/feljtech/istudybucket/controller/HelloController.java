@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HelloController {
     @RequestMapping("/")
     public String home() {
-        return "index";
+        return "index.ftl";
     }
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String hello(Model model, @RequestParam(value="name", required = false, defaultValue = "Elroy Kanye") String name) {
         model.addAttribute("name", name);
-        return "hello";
+        return "hello.ftl";
     }
 }
