@@ -122,9 +122,9 @@ Install any of the mentioned IDEs on your computer which will come with the appr
 #### Otherwise: VSCode, Text Editor, Nano, Vim, whatever you prefer to suffer with
 
 * maven
-  - Download maven from: [Maven](https://maven.apache.org/download.cgi) 
+  - Download maven from: [Maven](https://maven.apache.org/download.cgi)
   - Install the downloaded maven on your computer by following [this](https://maven.apache.org/install.html)
-  
+
 
 ### Installation
 
@@ -138,7 +138,7 @@ Install any of the mentioned IDEs on your computer which will come with the appr
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-We will use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. 
+We will use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space.
 We may also link to more resources.
 
 _For more examples, please refer to the [Documentation](https://not-yet-set)_
@@ -178,6 +178,11 @@ Distributed under the MIT License. See `LICENSE` for more information.
     - Email: elroykanye@gmail.com
     - Twitter: [@elroykanye](https://twitter.com/elroykanye)
     - Github: [@elroykanye](https://github.com/elroykanye)
+
+  * ##### Nfon Andy
+    - Email: nfonandrew73gmail.com
+    - Twitter: [@nfonandrew73](https://twitter.com/nfonandrew73)
+    - Github: [@andrew21](https://github.com/andrew21-mch)
     
 * ##### Your name
     - Email: your_email@example.com
@@ -190,4 +195,3 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 * [GitHub Pages](https://pages.github.com)
 * [Spring Boot](https://spring.io/projects/spring-boot)
-
