@@ -196,6 +196,11 @@ Distributed under the MIT License. See `LICENSE` for more information.
  
 
 * ##### Your name
+    - Email: njongemy@gmail.com
+    - Twitter: [@eLabrava20](https://twitter.com/eLabrav20)
+    - Github: [@Njong392](https://github.com/Njong392)
+
+* ##### Your name
     - Email: your_email@example.com
     - Twitter: [@your_twitter](https://twitter.com/your_username)
     - Github: [@your_github](https://github.com/your_github)
