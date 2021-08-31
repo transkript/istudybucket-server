@@ -190,10 +190,14 @@ Distributed under the MIT License. See `LICENSE` for more information.
     - Github: [@Brunostar](https://github.com/Brunostar)
 
 * ##### Your name
+    - Email: ngwajude161@gmai.com
+    - Twitter: [@judisco_jardon](https://twitter.com/Jardon237)
+    - Github: [@Jardon237](https://github.com/Jardon237)
+
+* ##### Your name
     - Email: your_email@example.com
     - Twitter: [@your_twitter](https://twitter.com/your_username)
     - Github: [@your_github](https://github.com/your_github)
-
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
