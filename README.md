@@ -192,7 +192,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 * ##### Abongwa Bonalais Amahnui
     - Email: abongwabonalais@gmail.com
     - Twitter: [@bonalaisa](https://twitter.com/bonalaisa)
-    - Github: [@Burnleydev1(https://github.com/Burnleydev1)
+    - Github: [@Burnleydev1](https://github.com/Burnleydev1)
  
 
 * ##### Your name
