@@ -195,7 +195,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
     - Github: [@Burnleydev1](https://github.com/Burnleydev1)
  
 
-* ##### Your name
+* ##### Njong Bingeh Afumbom Emy
     - Email: njongemy@gmail.com
     - Twitter: [@eLabrava20](https://twitter.com/eLabrav20)
     - Github: [@Njong392](https://github.com/Njong392)
