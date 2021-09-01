@@ -200,6 +200,11 @@ Distributed under the MIT License. See `LICENSE` for more information.
     - Twitter: [@eLabrava20](https://twitter.com/eLabrav20)
     - Github: [@Njong392](https://github.com/Njong392)
 
+* ##### Mofor Emmanuel
+    - Email: moforemmanuel1000@gmail.com
+    - Twitter: [@moforemmanuel1](https://twitter.com/moforemmanuel1)
+    - Github: [@moforemmanuel](https://github.com/moforemmanuel)
+
 * ##### Your name
     - Email: your_email@example.com
     - Twitter: [@your_twitter](https://twitter.com/your_username)
