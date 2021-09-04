@@ -188,18 +188,12 @@ Distributed under the MIT License. See `LICENSE` for more information.
     - Email: tanjubrunostar0@gmail.com
     - Twitter: [@TBStar7](https://twitter.com/TBStar7)
     - Github: [@Brunostar](https://github.com/Brunostar)
-    
-* ##### Abongwa Bonalais Amahnui
-    - Email: abongwabonalais@gmail.com
-    - Twitter: [@bonalaisa](https://twitter.com/bonalaisa)
-    - Github: [@Burnleydev1(https://github.com/Burnleydev1)
 
 * ##### Abongwa Bonalais Amahnui
     - Email: abongwabonalais@gmail.com
     - Twitter: [@bonalaisa](https://twitter.com/bonalaisa)
     - Github: [@Burnleydev1](https://github.com/Burnleydev1)
  
-
 * ##### Njong Bingeh Afumbom Emy
     - Email: njongemy@gmail.com
     - Twitter: [@eLabrava20](https://twitter.com/eLabrav20)
