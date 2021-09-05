@@ -102,7 +102,7 @@ A list of commonly used resources that we find helpful are listed in the acknowl
 * [Spring](https://spring.io)
 * [Spring Boot](https://spring.io/projects/spring-boot)
 * [Spring Data](https://spring.io/projects/spring-data)
-
+git clone https://github.com/feljtech/istudybucket-backend.git
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -188,6 +188,10 @@ Distributed under the MIT License. See `LICENSE` for more information.
     - Email: tanjubrunostar0@gmail.com
     - Twitter: [@TBStar7](https://twitter.com/TBStar7)
     - Github: [@Brunostar](https://github.com/Brunostar)
+* ### Ngwa Jude
+    - Email: ngwajude161@gmai.com
+    - Twitter: [@judisco_jardon](https://twitter.com/Jardon237)
+    - Github: [@Jardon237](https://github.com/Jardon237)
 
 * ##### Abongwa Bonalais Amahnui
     - Email: abongwabonalais@gmail.com
@@ -202,13 +206,12 @@ Distributed under the MIT License. See `LICENSE` for more information.
 * ##### Mofor Emmanuel
     - Email: moforemmanuel1000@gmail.com
     - Twitter: [@moforemmanuel1](https://twitter.com/moforemmanuel1)
-    - Github: [@moforemmanuel](https://github.com/moforemmanuel)
+    - Github: [@moforemmanuel](https://github.com/moforemmanue
 
 * ##### Your name
     - Email: your_email@example.com
     - Twitter: [@your_twitter](https://twitter.com/your_username)
     - Github: [@your_github](https://github.com/your_github)
-
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
