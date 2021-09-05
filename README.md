@@ -188,7 +188,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
     - Email: tanjubrunostar0@gmail.com
     - Twitter: [@TBStar7](https://twitter.com/TBStar7)
     - Github: [@Brunostar](https://github.com/Brunostar)
-* ### Ngwa Jude
+* #### Ngwa Jude
     - Email: ngwajude161@gmai.com
     - Twitter: [@judisco_jardon](https://twitter.com/Jardon237)
     - Github: [@Jardon237](https://github.com/Jardon237)
