@@ -30,6 +30,11 @@ public class Chat {
     @Column(name = "chat_type", length = 32)
     private String chatType;
 
+    // one to many relationship with Message entity
     @OneToMany(mappedBy = "chat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Message> messages;
+
+    // one to one relationship with Bucket entity
+    @OneToOne(mappedBy = "chatRoom")
+    private Bucket bucket;
 }

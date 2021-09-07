@@ -1,5 +1,7 @@
 package com.feljtech.istudybucket.entity;
 
+import com.feljtech.istudybucket.entity.relation.UserInBucket;
+import com.feljtech.istudybucket.entity.relation.UserVotePost;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -61,4 +63,16 @@ public class User {
     // one to many relationship with Post entity
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Post> posts;
+
+    // one to many relationship with Comment entity
+    @OneToMany(mappedBy = "commentAuthor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Comment> comments;
+
+    // [special] many to many relationship with Bucket entity
+    @OneToMany(mappedBy = "user")
+    private Set<UserInBucket> memberships;
+
+    @OneToMany(mappedBy = "user")
+    private Set<UserVotePost> votes;
+
 }
