@@ -1,5 +1,6 @@
 package com.feljtech.istudybucket.entity;
 
+//Trophy class which contains userid and other infos
 public class Trophy {
     private Long id;
 
