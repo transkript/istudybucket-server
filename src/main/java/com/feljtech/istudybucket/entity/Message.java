@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * @author Andrew Tatah
@@ -19,17 +18,19 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Chat {
+public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long chatId;
+    private Long messageId;
 
-    @Column(name = "chat_title", length = 32)
-    private String chatTitle;
+    @Column(name = "content")
+    private String content;
 
-    @Column(name = "chat_type", length = 32)
-    private String chatType;
+    @Column(name = "sender_id")
+    private Long senderId;
 
-    @OneToMany(mappedBy = "chat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Message> messages;
+    // many to one relationship to Chat entity
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "chat_id", nullable = false)
+    private Chat chat;
 }

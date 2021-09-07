@@ -38,8 +38,12 @@ public class Post {
     @Column(name = "comment_count")
     private Long commentCount;
 
-    // TODO add post type
+    @Column(name = "post_type", length = 16)
+    private String postType;
 
-    // TODO add relationships to author
+    // many to one relationship to User entity (author)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User author;
 
 }

@@ -32,6 +32,8 @@ public class Address {
     @Column(name = "country", length = 32)
     private String country;
 
-    // TODO add relationship to user
+    // one to one relationship with User entity
+    @OneToOne(mappedBy = "address")
+    private User user;
     
 }

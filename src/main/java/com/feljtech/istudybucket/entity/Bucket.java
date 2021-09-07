@@ -24,7 +24,7 @@ public class Bucket {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long bucketId;
 
-    @Column(name = "bucket_title", length = 32)
+    @Column(name = "bucket_title", length = 32, unique = true)
     private String bucketTitle;
 
     @Column(name = "description", length = 128)
