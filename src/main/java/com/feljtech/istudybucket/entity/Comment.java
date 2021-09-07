@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * @author Abongwa Bonalais
@@ -32,11 +33,16 @@ public class Comment {
     @Column(name = "creation_date")
     private Date creationDate;
 
+    // many to one relationship with User entity
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User commentAuthor;
 
-    // relationships
-    private Long sourcePostId;
+    // many to one relationship with Post
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post sourcePost;
 
-    private Long userId;
-
-
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Comment> comments;
 }

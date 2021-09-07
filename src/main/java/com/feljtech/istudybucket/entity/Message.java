@@ -18,22 +18,19 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Address {
+public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long addressId;
+    private Long messageId;
 
-    @Column(name = "street", length = 32)
-    private String street;
+    @Column(name = "content")
+    private String content;
 
-    @Column(name = "town", length = 32)
-    private String town;
+    @Column(name = "sender_id")
+    private Long senderId;
 
-    @Column(name = "country", length = 32)
-    private String country;
-
-    // one to one relationship with User entity
-    @OneToOne(mappedBy = "address")
-    private User user;
-    
+    // many to one relationship to Chat entity
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "chat_id", nullable = false)
+    private Chat chat;
 }

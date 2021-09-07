@@ -24,6 +24,5 @@ public class UserServiceImpl implements UserService {
                 .firstName(registerForm.getFirstName())
                 .lastName(registerForm.getLastName()).build();
         return userRepository.save(user).getUserId();
-
     }
 }

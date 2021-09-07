@@ -20,7 +20,7 @@ public class Trophy {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long trophyId;
 
-    @Column(name = "trophy_name", length = 32)
+    @Column(name = "trophy_name", length = 32, unique = true)
     private String trophyName;
 
     @Column(name = "image_url")
