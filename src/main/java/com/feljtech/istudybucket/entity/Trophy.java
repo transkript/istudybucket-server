@@ -1,17 +1,30 @@
 package com.feljtech.istudybucket.entity;
 
-//Trophy class which contains userid and other infos
+import lombok.*;
+
+import javax.persistence.*;
+
+/**
+ * @author Abongwa Bonalais
+ *
+ * Modified By: Elroy Kanye
+ * Modified Date: 07-09-2021
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Entity
 public class Trophy {
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long trophyId;
 
-    private Long userId;
-
-    private Long commentId;
-
-    private String TrophyType;
-
+    @Column(name = "trophy_name", length = 32)
     private String trophyName;
 
-    private String trophyImageUrl;
+    @Column(name = "image_url")
+    private String imageUrl;
 
+    //TODO add relationship to user
 }

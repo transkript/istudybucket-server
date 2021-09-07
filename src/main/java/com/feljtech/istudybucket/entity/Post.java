@@ -1,14 +1,45 @@
 package com.feljtech.istudybucket.entity;
 
-import java.sql.Time;
-//Post class which can either be query, resource or other post type
-public class Post {
-    private Long id;
-    private String postType;
-    private Long numberOfComment;
-    private Time postTime;
-    private String postContent;
-    private Long userId;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
+/**
+ * @author Elroy Kanye
+ *
+ * Modified By: ...
+ * Modified Date: ...
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Entity
+public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long postId;
+
+    @Column(name = "post_title", length = 32)
+    private String postTitle;
+
+    @Column(name = "content", length = 512)
+    private String content;
+
+    @Column(name = "upvotes")
+    private Long upvotes;
+
+    @Column(name = "downvotes")
+    private Long downvotes;
+
+    @Column(name = "comment_count")
+    private Long commentCount;
+
+    // TODO add post type
+
+    // TODO add relationships to author
 
 }
