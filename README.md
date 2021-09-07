@@ -102,7 +102,6 @@ A list of commonly used resources that we find helpful are listed in the acknowl
 * [Spring](https://spring.io)
 * [Spring Boot](https://spring.io/projects/spring-boot)
 * [Spring Data](https://spring.io/projects/spring-data)
-git clone https://github.com/feljtech/istudybucket-backend.git
 
 <!-- GETTING STARTED -->
 ## Getting Started
