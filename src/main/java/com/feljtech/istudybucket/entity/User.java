@@ -11,9 +11,11 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
-
 /**
- * User
+ * @author Elroy Kanye
+ *
+ * Modified by: ...
+ * Modified on: ...
  */
 @Data
 @NoArgsConstructor
@@ -55,9 +57,8 @@ public class User {
     private int userRole;
 
 
-    // one to one relationship with Address entity
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "user_id")
+    // embedded field -Address
+    @Embedded
     private Address address;
 
     // one to many relationship with Post entity
