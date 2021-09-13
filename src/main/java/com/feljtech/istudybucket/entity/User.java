@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.Date;
 import java.util.Set;
 
@@ -56,9 +57,20 @@ public class User {
     @Column(name = "user_role")
     private int userRole;
 
+    @Column(name = "creation_date")
+    private Instant creationDate;
 
-    // embedded field -Address
-    @Embedded
+    @Column(name = "user_enabled")
+    private Boolean userEnabled;
+
+    // one to one relationship with verification token
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "token_id")
+    private VerificationToken userToken;
+
+    // one to one relationship with Address
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "address_id")
     private Address address;
 
     // one to many relationship with Post entity

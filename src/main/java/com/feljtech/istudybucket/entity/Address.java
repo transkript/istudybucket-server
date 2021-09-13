@@ -17,7 +17,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Embeddable
+@Entity
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,4 +31,7 @@ public class Address {
 
     @Column(name = "country", length = 32)
     private String country;
+
+    @OneToOne(mappedBy = "address")
+    private User user;
 }

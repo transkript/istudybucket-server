@@ -22,6 +22,7 @@ import java.util.Set;
 public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "chat_id")
     private Long chatId;
 
     @Column(name = "chat_title", length = 32)
