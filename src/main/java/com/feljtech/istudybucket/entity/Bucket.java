@@ -47,7 +47,7 @@ public class Bucket {
 
     // one to one relationship with Chat entity
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "chat_id", referencedColumnName = "bucket_id")
+    @JoinColumn(name = "bucket_id", referencedColumnName = "chat_id")
     private Chat chatRoom;
 
     // [special] many to many relation with User entity
