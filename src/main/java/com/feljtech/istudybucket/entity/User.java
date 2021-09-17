@@ -65,7 +65,7 @@ public class User {
     // one to one relationship with verification token
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "token_id")
-    private VerificationToken userToken;
+    private VerificationToken userVerificationToken;
 
     // one to one relationship with Address
     @OneToOne(cascade = CascadeType.ALL)
