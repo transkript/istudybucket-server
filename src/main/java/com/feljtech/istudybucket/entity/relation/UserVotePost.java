@@ -3,14 +3,14 @@ package com.feljtech.istudybucket.entity.relation;
 import com.feljtech.istudybucket.entity.Post;
 import com.feljtech.istudybucket.entity.User;
 import com.feljtech.istudybucket.entity.composite.UserVotePostKey;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
