@@ -1,6 +1,6 @@
 package com.feljtech.istudybucket.service.impl;
 
-import com.feljtech.istudybucket.entity.model.NotificationEmail;
+import com.feljtech.istudybucket.dto.email.NotificationEmail;
 import com.feljtech.istudybucket.excetion.IstudybucketException;
 import com.feljtech.istudybucket.service.MailService;
 import freemarker.template.Configuration;
