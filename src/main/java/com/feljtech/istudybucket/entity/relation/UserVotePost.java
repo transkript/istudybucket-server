@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
