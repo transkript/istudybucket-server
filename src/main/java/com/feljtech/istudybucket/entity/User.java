@@ -19,7 +19,6 @@ import java.util.Set;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
