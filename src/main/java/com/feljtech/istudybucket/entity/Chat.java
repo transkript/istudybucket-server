@@ -16,7 +16,6 @@ import java.util.Set;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Entity
 public class Chat {
