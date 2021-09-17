@@ -1,4 +1,4 @@
-package com.feljtech.istudybucket.entity.model;
+package com.feljtech.istudybucket.dto.email;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
