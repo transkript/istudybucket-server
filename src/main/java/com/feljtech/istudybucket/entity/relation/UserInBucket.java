@@ -12,7 +12,6 @@ import java.util.Date;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
