@@ -1,14 +1,14 @@
 package com.feljtech.istudybucket.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -26,6 +26,7 @@ public class VerificationToken {
     private Instant expirtyDate;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "userToken")
+    @ToString.Exclude
     private User user;
 
 }
