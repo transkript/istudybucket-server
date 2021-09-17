@@ -1,6 +1,6 @@
 package com.feljtech.istudybucket.controller;
 
-import com.feljtech.istudybucket.dto.RegisterForm;
+import com.feljtech.istudybucket.dto.form.RegisterForm;
 import com.feljtech.istudybucket.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,7 @@ public class AuthController {
 
     @PostMapping(value = "/register")
     public ResponseEntity<String> register(@RequestBody RegisterForm registerForm, HttpServletRequest request) {
-        authService.register(registerForm, request);
+        authService.register(registerForm);
         return new ResponseEntity<>("User registration successful", HttpStatus.OK);
     }
 }

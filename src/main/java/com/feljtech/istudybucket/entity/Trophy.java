@@ -10,9 +10,11 @@ import javax.persistence.*;
  * Modified By: Elroy Kanye
  * Modified Date: 07-09-2021
  */
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Entity
 public class Trophy {

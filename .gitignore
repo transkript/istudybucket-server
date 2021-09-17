@@ -31,3 +31,13 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Crazy ###
+crazy.sh
+commit-list.txt
+new-commit-list.txt
+stoopid
+*commit-list.txt*
+*crazy.sh*
+*new-commit-list.txt*
+*stoopid*

@@ -1,7 +1,9 @@
 package com.feljtech.istudybucket.service;
 
-import com.feljtech.istudybucket.dto.email.NotificationEmail;
+import com.feljtech.istudybucket.dto.email.VerificationEmail;
 
 public interface MailService {
-    void sendEmail(NotificationEmail notificationEmail) ;
+
+    void sendVerificationEmail(VerificationEmail verificationEmail);
+
 }

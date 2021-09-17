@@ -1,10 +1,7 @@
 package com.feljtech.istudybucket.entity;
 
 import com.feljtech.istudybucket.entity.relation.UserVotePost;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -15,9 +12,11 @@ import java.util.Set;
  * Modified By: ...
  * Modified Date: ...
  */
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Entity
 public class Post {
@@ -31,11 +30,11 @@ public class Post {
     @Column(name = "content", length = 512)
     private String content;
 
-    @Column(name = "upvotes")
-    private Long upvotes;
+    @Column(name = "up_votes")
+    private Long upVotes;
 
-    @Column(name = "downvotes")
-    private Long downvotes;
+    @Column(name = "down_votes")
+    private Long downVotes;
 
     @Column(name = "comment_count")
     private Long commentCount;
@@ -46,13 +45,16 @@ public class Post {
     // many to one relationship to User entity (author)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
+    @ToString.Exclude
     private User author;
 
     // one to many relationship with Comment entity
     @OneToMany(mappedBy = "sourcePost", fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Set<Comment> comments;
     
     @OneToMany(mappedBy = "post")
+    @ToString.Exclude
     private Set<UserVotePost> votes;
 
 }
