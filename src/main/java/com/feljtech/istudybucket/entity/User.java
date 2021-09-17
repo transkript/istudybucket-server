@@ -2,10 +2,7 @@ package com.feljtech.istudybucket.entity;
 
 import com.feljtech.istudybucket.entity.relation.UserInBucket;
 import com.feljtech.istudybucket.entity.relation.UserVotePost;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -18,7 +15,10 @@ import java.util.Set;
  * Modified by: ...
  * Modified on: ...
  */
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -75,17 +75,21 @@ public class User {
 
     // one to many relationship with Post entity
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
     private Set<Post> posts;
 
     // one to many relationship with Comment entity
     @OneToMany(mappedBy = "commentAuthor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
     private Set<Comment> comments;
 
     // [special] many to many relationship with Bucket entity
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     private Set<UserInBucket> memberships;
 
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     private Set<UserVotePost> votes;
 
 }
