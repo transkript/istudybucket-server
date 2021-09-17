@@ -12,7 +12,7 @@ i=0
 while read c; do
     if [ $i -le 200 ]; then
         git add $c;
-        git commit -m "ek-autocomm: added $c";
+        git commit -m "mail sending service impl: modified $c";
     fi
     if [ $i -gt 80 ]; then
         echo $c >> new-commit-list.txt
