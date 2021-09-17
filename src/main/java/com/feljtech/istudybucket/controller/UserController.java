@@ -2,7 +2,7 @@ package com.feljtech.istudybucket.controller;
 
 import com.feljtech.istudybucket.dto.form.RegisterForm;
 import com.feljtech.istudybucket.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,19 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
  * @author kanye
  * Controller for the User entity: Handles all requests under the "/user/" endpoint
  */
+@AllArgsConstructor
 @RestController
 @RequestMapping(value = "user")
 public class UserController {
-    private final UserService userService;
-
     /**
      * Autowired userService bean by Constructor DI into userController
-     * @param userService: the userService bean to be injected
      */
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService;
 
     /**
      * registers a user from a RegisterForm object, consumed from JSON.
