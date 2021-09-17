@@ -3,5 +3,7 @@ package com.feljtech.istudybucket.service;
 import com.feljtech.istudybucket.dto.form.RegisterForm;
 
 public interface AuthService {
-    void register(RegisterForm registerForm);
+    void registerAccount(RegisterForm registerForm);
+
+    boolean verifyAccount(String verificationToken, String username);
 }
