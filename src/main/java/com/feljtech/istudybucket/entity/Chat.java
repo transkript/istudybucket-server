@@ -1,9 +1,6 @@
 package com.feljtech.istudybucket.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,7 +11,10 @@ import java.util.Set;
  * Modified By: Elroy Kanye
  * Modified Date: 07-09-2021
  */
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -33,6 +33,7 @@ public class Chat {
 
     // one to many relationship with Message entity
     @OneToMany(mappedBy = "chat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
     private Set<Message> messages;
 
     // one to one relationship with Bucket entity
