@@ -3,7 +3,7 @@ package com.feljtech.istudybucket.service.impl;
 import com.feljtech.istudybucket.dto.RegisterForm;
 import com.feljtech.istudybucket.entity.User;
 import com.feljtech.istudybucket.entity.VerificationToken;
-import com.feljtech.istudybucket.entity.model.NotificationEmail;
+import com.feljtech.istudybucket.dto.email.NotificationEmail;
 import com.feljtech.istudybucket.repository.UserRepository;
 import com.feljtech.istudybucket.repository.VerificationTokenRepository;
 import com.feljtech.istudybucket.service.AuthService;
