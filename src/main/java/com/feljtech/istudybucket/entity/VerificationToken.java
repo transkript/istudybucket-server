@@ -10,7 +10,6 @@ import java.time.Instant;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Entity
 public class VerificationToken {
