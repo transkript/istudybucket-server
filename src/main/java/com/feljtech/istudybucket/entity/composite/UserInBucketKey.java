@@ -10,7 +10,6 @@ import java.io.Serializable;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Embeddable
