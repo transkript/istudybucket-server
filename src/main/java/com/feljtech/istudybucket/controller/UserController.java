@@ -21,14 +21,5 @@ public class UserController {
      */
     private final UserService userService;
 
-    /**
-     * registers a user from a RegisterForm object, consumed from JSON.
-     * typically, control is passed to the userService bean.
-     * @param registerForm: the form as an object - spring auto converts based on input names.
-     * @return the id of the user on a successful registration
-     */
-    @PostMapping(value = "register")
-    public Long register(@RequestBody RegisterForm registerForm) {
-        return userService.registerUser(registerForm);
-    }
+
 }
