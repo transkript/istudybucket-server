@@ -30,7 +30,7 @@ public class AuthController {
 
     @PostMapping(value = "/register")
     public ResponseEntity<String> register(@RequestBody RegisterForm registerForm, HttpServletRequest request) {
-        authService.register(registerForm, request);
+        authService.register(registerForm);
         return new ResponseEntity<>("User registration successful", HttpStatus.OK);
     }
 }
