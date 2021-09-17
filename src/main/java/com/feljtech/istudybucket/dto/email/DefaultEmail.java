@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class DefaultEmail {
-    private String recipient;
-    private String subject;
-    private String message;
+    protected String recipient;
+    protected String subject;
+    protected String message;
 }
