@@ -3,15 +3,15 @@ package com.feljtech.istudybucket.entity.relation;
 import com.feljtech.istudybucket.entity.Bucket;
 import com.feljtech.istudybucket.entity.User;
 import com.feljtech.istudybucket.entity.composite.UserInBucketKey;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
