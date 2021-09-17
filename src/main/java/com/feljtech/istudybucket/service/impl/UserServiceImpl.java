@@ -19,10 +19,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long registerUser(RegisterForm registerForm) {
+
         User user = User.builder()
-                .username(registerForm.getUsername())
-                .firstName(registerForm.getFirstName())
-                .lastName(registerForm.getLastName()).build();
+                .username(registerForm.getUsername()).build();
         return userRepository.save(user).getUserId();
     }
 }

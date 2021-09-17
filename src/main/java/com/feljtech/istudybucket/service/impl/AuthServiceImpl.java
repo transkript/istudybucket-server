@@ -1,6 +1,6 @@
 package com.feljtech.istudybucket.service.impl;
 
-import com.feljtech.istudybucket.dto.RegisterForm;
+import com.feljtech.istudybucket.dto.form.RegisterForm;
 import com.feljtech.istudybucket.entity.User;
 import com.feljtech.istudybucket.entity.VerificationToken;
 import com.feljtech.istudybucket.dto.email.NotificationEmail;

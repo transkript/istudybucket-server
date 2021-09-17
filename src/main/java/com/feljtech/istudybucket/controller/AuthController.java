@@ -1,6 +1,6 @@
 package com.feljtech.istudybucket.controller;
 
-import com.feljtech.istudybucket.dto.RegisterForm;
+import com.feljtech.istudybucket.dto.form.RegisterForm;
 import com.feljtech.istudybucket.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

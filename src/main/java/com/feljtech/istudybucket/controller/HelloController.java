@@ -3,10 +3,12 @@ package com.feljtech.istudybucket.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+@RequestMapping(value = "hello")
 @Controller()
 public class HelloController {
     @RequestMapping("/")
@@ -18,5 +20,10 @@ public class HelloController {
     public String hello(Model model, @RequestParam(value="name", required = false, defaultValue = "Elroy Kanye") String name) {
         model.addAttribute("name", name);
         return "hello.ftl";
+    }
+
+    @GetMapping(value = "verify")
+    public String verifyEmail() {
+        return "verify-email.ftl";
     }
 }
