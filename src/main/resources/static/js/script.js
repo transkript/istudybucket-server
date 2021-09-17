@@ -1,3 +1,3 @@
 function sample() {
-    console.log("Helo JS static")
+    console.log("Hello JS static")
 }
