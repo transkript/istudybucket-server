@@ -2,13 +2,9 @@ package com.feljtech.istudybucket.dto.email;
 
 import lombok.*;
 
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Data
-public class NotificationEmail implements DefaultEmail {
-    private String recipient;
-    private String subject;
-    private String body;
+public class NotificationEmail extends DefaultEmail {
 
 }
