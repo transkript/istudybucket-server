@@ -1,6 +1,5 @@
 package com.feljtech.istudybucket.service.impl;
 
-import com.feljtech.istudybucket.dto.email.DefaultEmail;
 import com.feljtech.istudybucket.dto.email.VerificationEmail;
 import com.feljtech.istudybucket.dto.form.RegisterForm;
 import com.feljtech.istudybucket.entity.User;
@@ -15,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @SuppressWarnings("FieldCanBeLocal")
 @Service
@@ -29,7 +30,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public void register(RegisterForm registerForm) {
+    public void registerAccount(RegisterForm registerForm) {
         User newUser = User.builder() // build the new User object from the register form
                 .username(registerForm.getUsername())
                 .email(registerForm.getEmail())
@@ -43,9 +44,9 @@ public class AuthServiceImpl implements AuthService {
         String verToken = this.generateVerificationToken(newUser);
 
         // first, generate the DefaultEmail object
-        VerificationEmail verificationEmail = (VerificationEmail) DefaultEmail.builder()
-                .message("Verify")
-                .subject("iSB - Verify Email")
+        VerificationEmail verificationEmail = VerificationEmail.builder()
+                .message("verifiy")
+                .subject("iSB-verification")
                 .recipient(newUser.getEmail())
                 .build();
 
@@ -57,6 +58,16 @@ public class AuthServiceImpl implements AuthService {
         mailService.sendVerificationEmail(verificationEmail);
     }
 
+    @Override
+    public boolean verifyAccount(String verificationTokenValue, String username) {
+        AtomicBoolean accountValid = new AtomicBoolean(false);
+
+        Optional<VerificationToken> verificationTokenOpt = verificationTokenRepository.findByTokenValue(verificationTokenValue);
+        verificationTokenOpt.ifPresent(verificationToken -> accountValid.set(verificationToken.getUser().getUsername().equals(username)));
+        return accountValid.get();
+    }
+
+    // helper methods for this class
     private String generateVerificationToken(User newUser) {
         String token = UUID.randomUUID().toString();
         VerificationToken verificationToken = VerificationToken.builder() // build the verification token object
