@@ -1,6 +1,6 @@
 package com.feljtech.istudybucket.controller;
 
-import com.feljtech.istudybucket.form.RegisterForm;
+import com.feljtech.istudybucket.dto.form.RegisterForm;
 import com.feljtech.istudybucket.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
