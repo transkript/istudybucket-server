@@ -15,7 +15,6 @@ import javax.persistence.*;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Entity
 public class Trophy {
