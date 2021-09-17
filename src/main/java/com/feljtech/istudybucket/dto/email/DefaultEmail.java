@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Data
+@Builder
 public class DefaultEmail {
     protected String recipient;
     protected String subject;
