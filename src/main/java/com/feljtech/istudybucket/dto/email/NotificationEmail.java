@@ -1,15 +1,12 @@
 package com.feljtech.istudybucket.dto.email;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
-public class NotificationEmail {
+public class NotificationEmail implements DefaultEmail {
     private String recipient;
     private String subject;
     private String body;
