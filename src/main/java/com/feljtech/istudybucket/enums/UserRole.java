@@ -6,9 +6,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public enum UserRole {
-    ADMIN(101),
-    TEACHER(202),
-    STUDENT(303);
+    ADMIN("ADMIN"),
+    USER("USER"),
+    TEACHER("TEACHER"),
+    STUDENT("STUDENT");
 
-    private int userRole;
+    private String userRole;
 }

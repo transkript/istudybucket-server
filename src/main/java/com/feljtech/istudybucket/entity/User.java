@@ -2,6 +2,7 @@ package com.feljtech.istudybucket.entity;
 
 import com.feljtech.istudybucket.entity.relation.UserInBucket;
 import com.feljtech.istudybucket.entity.relation.UserVotePost;
+import com.feljtech.istudybucket.enums.UserRole;
 import lombok.*;
 
 import javax.persistence.*;
@@ -53,19 +54,20 @@ public class User {
     @Column(name = "gender", length = 16)
     private String gender;
 
+    // TODO verify enum type matches db
     @Column(name = "user_role")
-    private int userRole;
+    private UserRole userRole;
 
     @Column(name = "creation_date")
     private Instant creationDate;
 
     @Column(name = "user_enabled")
-    private Boolean userEnabled;
+    private Boolean userVerified;
 
     // one to one relationship with verification token
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "token_id")
-    private VerificationToken userToken;
+    private VerificationToken userVerificationToken;
 
     // one to one relationship with Address
     @OneToOne(cascade = CascadeType.ALL)

@@ -3,11 +3,14 @@ package com.feljtech.istudybucket.dto.email;
 
 import lombok.*;
 
-@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class VerificationEmail extends DefaultEmail {
+@Builder
+public class VerificationEmail {
+    protected String recipient;
+    protected String subject;
+    protected String message;
     private String verificationUrl;
     private String recipientName;
 }
