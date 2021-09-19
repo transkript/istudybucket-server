@@ -61,13 +61,8 @@ public class User {
     @Column(name = "creation_date")
     private Instant creationDate;
 
-    @Column(name = "user_enabled")
+    @Column(name = "user_verified")
     private Boolean userVerified;
-
-    // one to one relationship with verification token
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "token_id")
-    private VerificationToken userVerificationToken;
 
     // one to one relationship with Address
     @OneToOne(cascade = CascadeType.ALL)
