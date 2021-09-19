@@ -1,12 +1,12 @@
 package com.feljtech.istudybucket.controller;
 
 import com.feljtech.istudybucket.dto.form.RegisterForm;
+import com.feljtech.istudybucket.entity.User;
 import com.feljtech.istudybucket.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author kanye
@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @AllArgsConstructor
 @RestController
-@RequestMapping(value = "user")
+@RequestMapping(value = "/api/user")
 public class UserController {
     /**
      * Autowired userService bean by Constructor DI into userController
      */
     private final UserService userService;
 
-
+    @GetMapping(value = "/all")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
 }
