@@ -24,8 +24,10 @@ public class VerificationToken {
     @Column(name = "expiry_date")
     private Instant expirtyDate;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "userVerificationToken")
-    @ToString.Exclude
-    private User user;
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "user_email")
+    private String userEmail;
 
 }
