@@ -1,8 +1,8 @@
 package com.feljtech.istudybucket.service.impl;
 
 import com.feljtech.istudybucket.dto.email.VerificationEmail;
-import com.feljtech.istudybucket.dto.form.LoginForm;
-import com.feljtech.istudybucket.dto.form.RegisterForm;
+import com.feljtech.istudybucket.dto.request.UserLoginRequest;
+import com.feljtech.istudybucket.dto.request.UserRegisterRequest;
 import com.feljtech.istudybucket.entity.User;
 import com.feljtech.istudybucket.entity.VerificationToken;
 import com.feljtech.istudybucket.enums.UserRole;
@@ -47,17 +47,17 @@ public class AuthServiceImpl implements AuthService {
 
     /**
      * implementation for user registeration
-     * @param registerForm : request body for registration
+     * @param userRegisterRequest : request body for registration
      * @return response entity based on success
      */
     @Override
     @Transactional
-    public ResponseEntity<?> registerAccount(RegisterForm registerForm) {
+    public ResponseEntity<?> registerAccount(UserRegisterRequest userRegisterRequest) {
         // TODO refactor this method for response entity
         User newUser = User.builder() // build the new User object from the register form
-                .username(registerForm.getUsername())
-                .email(registerForm.getEmail())
-                .password(this.encodePassword(registerForm.getPassword())) // encode password
+                .username(userRegisterRequest.getUsername())
+                .email(userRegisterRequest.getEmail())
+                .password(this.encodePassword(userRegisterRequest.getPassword())) // encode password
                 .creationDate(Instant.now())
                 .userVerified(Boolean.FALSE)
                 .userRole(UserRole.USER)
@@ -122,24 +122,24 @@ public class AuthServiceImpl implements AuthService {
 
     /**
      * implementation for user authentication
-     * @param loginForm: request body for this method
+     * @param userLoginRequest: request body for this method
      * @return: response entity containing status and jwtResponse body
      * @throws Exception: in case authentication is unsuccessful
      */
-    public ResponseEntity<?> loginUser(LoginForm loginForm) throws Exception {
+    public ResponseEntity<?> loginUser(UserLoginRequest userLoginRequest) throws Exception {
 
-        authenticateUser(loginForm);
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(loginForm.getUsername());
+        authenticateUser(userLoginRequest);
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(userLoginRequest.getUsername());
 
         final String token = jwtTokenUtil.generateToken(userDetails);
         return new ResponseEntity<>(new JwtResponse(token), HttpStatus.OK);
     }
 
     /* ************* helper methods for this class ************* */
-    private void authenticateUser(LoginForm loginForm) throws Exception {
+    private void authenticateUser(UserLoginRequest userLoginRequest) throws Exception {
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginForm.getUsername(), loginForm.getPassword())
+                    new UsernamePasswordAuthenticationToken(userLoginRequest.getUsername(), userLoginRequest.getPassword())
             );
         } catch (AuthenticationException e) {
             throw new Exception("AUTH FAILED", e);

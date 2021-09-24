@@ -4,6 +4,7 @@ import com.feljtech.istudybucket.entity.relation.UserInBucket;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.Date;
 import java.util.Set;
 
@@ -42,7 +43,7 @@ public class Bucket {
     private String groupImage;
 
     @Column(name = "creation_date")
-    private Date creationDate;
+    private Instant creationDate;
 
     // one to one relationship with Chat entity
     @OneToOne(cascade = CascadeType.ALL)

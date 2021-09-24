@@ -1,4 +1,4 @@
-package com.feljtech.istudybucket.dto.form;
+package com.feljtech.istudybucket.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -10,9 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginForm {
-    @JsonProperty(value = "username", required = true)
+public class UserRegisterRequest {
+    @JsonProperty("username")
     private String username;
-    @JsonProperty(value = "password", required = true)
+    @JsonProperty("email")
+    private String email;
+    @JsonProperty("password")
     private String password;
 }
