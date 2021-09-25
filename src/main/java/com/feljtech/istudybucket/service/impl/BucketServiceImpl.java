@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,8 +34,9 @@ public class BucketServiceImpl implements BucketService {
     }
 
     @Override
-    public BucketDto getAllBucketsById(Long bucketId) {
-        return null;
+    @Transactional(readOnly = true)
+    public BucketDto getBucketById(Long bucketId) {
+        return bucketToDto(bucketRepository.findById(bucketId).orElseThrow());
 
     }
 
@@ -44,7 +44,7 @@ public class BucketServiceImpl implements BucketService {
         return BucketDto.builder()
                 .bucketId(bucket.getBucketId())
                 .bucketTitle(bucket.getBucketTitle())
-                .bucketDescription(bucket.getDescription())
+                .description(bucket.getDescription())
                 .creatorName(bucket.getCreatorName())
                 .groupImage(bucket.getGroupImage())
                 .build();
@@ -53,7 +53,7 @@ public class BucketServiceImpl implements BucketService {
     private Bucket dtoToBucket(BucketDto bucketDto) {
         return Bucket.builder()
                 .bucketTitle(bucketDto.getBucketTitle())
-                .description(bucketDto.getBucketDescription())
+                .description(bucketDto.getDescription())
                 .creatorName(bucketDto.getCreatorName())
                 .creationDate(Instant.now())
                 .groupImage(bucketDto.getGroupImage())
