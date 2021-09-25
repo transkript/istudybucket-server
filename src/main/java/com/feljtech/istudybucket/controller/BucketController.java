@@ -36,9 +36,9 @@ public class BucketController {
     }
 
     @GetMapping(value = "/{bucketId}")
-    public ResponseEntity<BucketDto> getById(@PathVariable(value = "add") Long bucketId) {
+    public ResponseEntity<BucketDto> getById(@PathVariable(value = "bucketId") Long bucketId) {
         return new ResponseEntity<>(
-                bucketService.getAllBucketsById(bucketId),
+                bucketService.getBucketById(bucketId),
                 HttpStatus.OK
         );
     }
