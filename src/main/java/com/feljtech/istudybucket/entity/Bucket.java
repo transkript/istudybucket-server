@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -53,5 +54,5 @@ public class Bucket {
     // [special] many to many relation with User entity
     @OneToMany(mappedBy = "bucket")
     @ToString.Exclude
-    private Set<UserInBucket> memberships;
+    private List<UserInBucket> memberships;
 }
