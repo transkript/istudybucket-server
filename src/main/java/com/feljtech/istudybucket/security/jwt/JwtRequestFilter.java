@@ -26,7 +26,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         final String requestTokenHeader = httpServletRequest.getHeader("Authorization");
 
-        final String tokenPrefix = "ISB";
+        final String tokenPrefix = "Bearer";
 
         String username = null;
         String jwtToken = null;
