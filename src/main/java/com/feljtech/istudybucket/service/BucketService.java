@@ -9,5 +9,5 @@ public interface BucketService {
 
     List<BucketDto> getAllBuckets();
 
-    BucketDto getAllBucketsById(Long bucketId);
+    BucketDto getBucketById(Long bucketId);
 }
