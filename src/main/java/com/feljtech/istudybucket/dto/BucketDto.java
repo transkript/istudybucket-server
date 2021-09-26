@@ -3,6 +3,8 @@ package com.feljtech.istudybucket.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.time.Instant;
+
 @Getter
 @Setter
 @Builder
@@ -21,9 +23,12 @@ public class BucketDto {
     @JsonProperty(value = "creator_name")
     private String creatorName;
 
+    @JsonProperty(value = "creation_date")
+    private String creationDate;
+
     @JsonProperty(value = "group_image")
     private String groupImage;
 
-    @JsonProperty(value = "number_of_members")
-    private Long numberOfMembers;
+    @JsonProperty(value = "member_count")
+    private Integer memberCount;
 }
