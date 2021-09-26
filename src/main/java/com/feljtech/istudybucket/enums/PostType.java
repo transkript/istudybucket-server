@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public enum PostType {
-    QUESTION("question"),
-    RESOURCE("resource");
+    QUESTION("QUESTION"),
+    RESOURCE("RESOURCE");
 
     private String postType;
 }
