@@ -140,9 +140,11 @@
                             <version>0.1.0</version>
                         </path>
                     </annotationProcessorPaths>
+                    <!--
                     <compilerArgs>
                         <arg>-Amapstruct.defaultComponentModel=spring</arg>
                     </compilerArgs>
+                    -->
                 </configuration>
             </plugin>
         </plugins>
