@@ -10,7 +10,7 @@ import org.mapstruct.Mapping;
 import java.time.Instant;
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", implementationPackage = "<PACKAGE_NAME>.impl")
 public interface BucketMapper {
     @Mapping(target = "memberCount", expression = "java(mapMemberships(bucket.getMemberships()))")
     @Mapping(target = "creationDate", expression = "java(mapCreationDate(bucket.getCreationDate()))")
