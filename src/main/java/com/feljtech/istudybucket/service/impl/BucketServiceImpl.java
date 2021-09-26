@@ -39,28 +39,6 @@ public class BucketServiceImpl implements BucketService {
     @Transactional(readOnly = true)
     public BucketDto getBucketById(Long bucketId) {
         return bucketMapper.mapBucketToDto(bucketRepository.findById(bucketId).orElseThrow());
-
     }
 
-    /*
-    private BucketDto bucketToDto(Bucket bucket) {
-        return BucketDto.builder()
-                .bucketId(bucket.getBucketId())
-                .bucketTitle(bucket.getBucketTitle())
-                .description(bucket.getDescription())
-                .creatorName(bucket.getCreatorName())
-                .groupImage(bucket.getGroupImage())
-                .build();
-    }
-
-    private Bucket dtoToBucket(BucketDto bucketDto) {
-        return Bucket.builder()
-                .bucketTitle(bucketDto.getBucketTitle())
-                .description(bucketDto.getDescription())
-                .creatorName(bucketDto.getCreatorName())
-                .creationDate(Instant.now())
-                .groupImage(bucketDto.getGroupImage())
-                .build();
-    }
-     */
 }
