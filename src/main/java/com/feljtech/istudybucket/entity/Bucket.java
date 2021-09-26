@@ -37,9 +37,6 @@ public class Bucket {
     @Column(name = "creator_name", length = 32)
     private String creatorName;
 
-    @Column(name = "participants")
-    private Long participants;
-
     @Column(name = "group_image")
     private String groupImage;
 
