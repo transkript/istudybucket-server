@@ -19,7 +19,7 @@ import java.util.List;
 public class BucketController {
     private final BucketService bucketService;
 
-    @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BucketDto> createBucket(@RequestBody BucketDto newBucket) {
         return new ResponseEntity<>(
                 bucketService.createBucket(newBucket),
