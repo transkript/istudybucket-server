@@ -1,6 +1,5 @@
 package com.feljtech.istudybucket.controller;
 
-import com.feljtech.istudybucket.dto.form.RegisterForm;
 import com.feljtech.istudybucket.entity.User;
 import com.feljtech.istudybucket.service.UserService;
 import lombok.AllArgsConstructor;

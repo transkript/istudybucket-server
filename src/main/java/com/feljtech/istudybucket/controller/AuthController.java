@@ -1,7 +1,7 @@
 package com.feljtech.istudybucket.controller;
 
-import com.feljtech.istudybucket.dto.form.LoginForm;
-import com.feljtech.istudybucket.dto.form.RegisterForm;
+import com.feljtech.istudybucket.dto.request.UserLoginRequest;
+import com.feljtech.istudybucket.dto.request.UserRegisterRequest;
 import com.feljtech.istudybucket.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,12 +28,12 @@ public class AuthController {
     /**
      * registers a user from a RegisterForm object, consumed from JSON.
      * typically, control is passed to the userService bean.
-     * @param registerForm: the form as an object - spring auto converts based on input names.
+     * @param userRegisterRequest: the form as an object - spring auto converts based on input names.
      * @return http status of the process
      */
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> register(@RequestBody RegisterForm registerForm) {
-        authService.registerAccount(registerForm);
+    public ResponseEntity<String> register(@RequestBody UserRegisterRequest userRegisterRequest) {
+        authService.registerAccount(userRegisterRequest);
         return new ResponseEntity<>("User registration successful", HttpStatus.OK);
     }
 
@@ -52,12 +52,12 @@ public class AuthController {
 
     /**
      * activate user authentication process
-     * @param loginForm: request body of the endpoint
+     * @param userLoginRequest: request body of the endpoint
      * @return: response containing jwtResponse body
      * @throws Exception: in case auth failed
      */
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> login(@RequestBody LoginForm loginForm) throws Exception {
-        return authService.loginUser(loginForm);
+    public ResponseEntity<?> login(@RequestBody UserLoginRequest userLoginRequest) throws Exception {
+        return authService.loginUser(userLoginRequest);
     }
 }

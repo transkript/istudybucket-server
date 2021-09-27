@@ -1,9 +1,12 @@
 package com.feljtech.istudybucket.entity;
 
 import com.feljtech.istudybucket.entity.relation.UserVotePost;
+import com.feljtech.istudybucket.enums.PostType;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.Instant;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -30,17 +33,11 @@ public class Post {
     @Column(name = "content", length = 512)
     private String content;
 
-    @Column(name = "up_votes")
-    private Long upVotes;
-
-    @Column(name = "down_votes")
-    private Long downVotes;
-
-    @Column(name = "comment_count")
-    private Long commentCount;
-
     @Column(name = "post_type", length = 16)
-    private String postType;
+    private PostType postType;
+
+    @Column(name = "creation_date")
+    private Instant creationDate;
 
     // many to one relationship to User entity (author)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -51,10 +48,10 @@ public class Post {
     // one to many relationship with Comment entity
     @OneToMany(mappedBy = "sourcePost", fetch = FetchType.LAZY)
     @ToString.Exclude
-    private Set<Comment> comments;
+    private List<Comment> comments;
     
     @OneToMany(mappedBy = "post")
     @ToString.Exclude
-    private Set<UserVotePost> votes;
+    private List<UserVotePost> votes;
 
 }

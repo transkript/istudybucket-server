@@ -4,7 +4,9 @@ import com.feljtech.istudybucket.entity.relation.UserInBucket;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -35,14 +37,11 @@ public class Bucket {
     @Column(name = "creator_name", length = 32)
     private String creatorName;
 
-    @Column(name = "participants")
-    private Long participants;
-
     @Column(name = "group_image")
     private String groupImage;
 
     @Column(name = "creation_date")
-    private Date creationDate;
+    private Instant creationDate;
 
     // one to one relationship with Chat entity
     @OneToOne(cascade = CascadeType.ALL)
@@ -52,5 +51,5 @@ public class Bucket {
     // [special] many to many relation with User entity
     @OneToMany(mappedBy = "bucket")
     @ToString.Exclude
-    private Set<UserInBucket> memberships;
+    private List<UserInBucket> memberships;
 }

@@ -29,5 +29,5 @@ public class UserVotePost {
     private Post post;
 
     @Column(name = "vote")
-    private byte vote;
+    private Boolean vote;
 }
