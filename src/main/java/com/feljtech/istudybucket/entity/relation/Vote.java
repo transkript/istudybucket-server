@@ -3,6 +3,7 @@ package com.feljtech.istudybucket.entity.relation;
 import com.feljtech.istudybucket.entity.Post;
 import com.feljtech.istudybucket.entity.User;
 import com.feljtech.istudybucket.entity.composite.UserVotePostKey;
+import com.feljtech.istudybucket.enums.VoteType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,20 +15,22 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-public class UserVotePost {
+@Table(name = "user_vote_post")
+public class Vote {
     @EmbeddedId
     private UserVotePostKey id;
 
-    @ManyToOne
-    @MapsId("userId")
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name = "vote")
+    private VoteType vote;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
     @MapsId("postId")
-    @JoinColumn(name = "post_id")
     private Post post;
 
-    @Column(name = "vote")
-    private Boolean vote;
+    @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
+    @JoinColumn(nullable = false)
+    @MapsId("userId")
+    private User user;
+
 }
