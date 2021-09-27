@@ -9,5 +9,9 @@ public enum VoteType {
     UPVOTE(1),
     DOWNVOTE(-1);
 
-    private int vote;
+    private Integer vote;
+
+    public static Integer valueOf(VoteType voteType) {
+        return voteType.vote;
+    }
 }
