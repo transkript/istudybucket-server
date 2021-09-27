@@ -1,13 +1,12 @@
 package com.feljtech.istudybucket.entity;
 
-import com.feljtech.istudybucket.entity.relation.UserVotePost;
+import com.feljtech.istudybucket.entity.relation.Vote;
 import com.feljtech.istudybucket.enums.PostType;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Elroy Kanye
@@ -49,9 +48,10 @@ public class Post {
     @OneToMany(mappedBy = "sourcePost", fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Comment> comments;
-    
-    @OneToMany(mappedBy = "post")
+
+    @OneToMany(mappedBy = "post", orphanRemoval = true)
     @ToString.Exclude
-    private List<UserVotePost> votes;
+    private List<Vote> votes;
+
 
 }
