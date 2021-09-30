@@ -23,7 +23,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private final JwtTokenUtil jwtTokenUtil;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(
+            HttpServletRequest httpServletRequest,
+            HttpServletResponse httpServletResponse,
+            FilterChain filterChain) throws ServletException, IOException {
         final String requestTokenHeader = httpServletRequest.getHeader("Authorization");
 
         final String tokenPrefix = "Bearer";
@@ -57,7 +60,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 // that the current user is authenticated
                 // so it passes the security config successfully.
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
             }
         }
         filterChain.doFilter(httpServletRequest, httpServletResponse);

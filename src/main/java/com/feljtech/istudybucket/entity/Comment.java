@@ -4,7 +4,7 @@ package com.feljtech.istudybucket.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.Instant;
 import java.util.Set;
 
 /**
@@ -26,17 +26,17 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long commentId;
 
-    @Column(name = "author_name", length = 32)
-    private String authorName;
-
     @Column(name = "creation_date")
-    private Date creationDate;
+    private Instant creationDate;
+
+    @Column(name = "content")
+    private String content;
 
     // many to one relationship with User entity
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     @ToString.Exclude
-    private User commentAuthor;
+    private User author;
 
     // many to one relationship with Post
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

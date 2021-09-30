@@ -4,8 +4,9 @@ import com.feljtech.istudybucket.dto.PostDto;
 import com.feljtech.istudybucket.entity.Comment;
 import com.feljtech.istudybucket.entity.Post;
 import com.feljtech.istudybucket.entity.User;
-import com.feljtech.istudybucket.entity.relation.UserVotePost;
+import com.feljtech.istudybucket.entity.relation.Vote;
 import com.feljtech.istudybucket.enums.PostType;
+import com.feljtech.istudybucket.enums.VoteType;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -56,10 +57,10 @@ public interface PostMapper {
      * @param postVotes the list of relations
      * @return the streamed count of all relations with a true value of vote
      */
-    default Integer mapUpVotes(List<UserVotePost> postVotes) {
+    default Integer mapUpVotes(List<Vote> postVotes) {
         return Math.toIntExact(
                 postVotes.stream()
-                        .filter(UserVotePost::getVote)
+                        .filter(vote -> VoteType.valueOf(vote.getVote()) == 1)
                         .count()
         );
     }
@@ -69,10 +70,10 @@ public interface PostMapper {
      * @param postVotes the list of relations
      * @return the streamed count of all relations with a true value of vote
      */
-    default Integer mapDownVotes(List<UserVotePost> postVotes) {
+    default Integer mapDownVotes(List<Vote> postVotes) {
         return Math.toIntExact(
                 postVotes.stream()
-                        .filter(userVotePost -> !userVotePost.getVote())
+                        .filter(vote -> VoteType.valueOf(vote.getVote()) == -1)
                         .count()
         );
     }

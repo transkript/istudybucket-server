@@ -1,14 +1,14 @@
 package com.feljtech.istudybucket.entity;
 
 import com.feljtech.istudybucket.entity.relation.UserInBucket;
-import com.feljtech.istudybucket.entity.relation.UserVotePost;
+import com.feljtech.istudybucket.entity.relation.Vote;
 import com.feljtech.istudybucket.enums.UserRole;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author Elroy Kanye
@@ -72,20 +72,20 @@ public class User {
     // one to many relationship with Post entity
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
-    private Set<Post> posts;
+    private List<Post> posts;
 
     // one to many relationship with Comment entity
-    @OneToMany(mappedBy = "commentAuthor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
-    private Set<Comment> comments;
+    private List<Comment> comments;
 
     // [special] many to many relationship with Bucket entity
     @OneToMany(mappedBy = "user")
     @ToString.Exclude
-    private Set<UserInBucket> memberships;
+    private List<UserInBucket> memberships;
 
-    @OneToMany(mappedBy = "user")
-    @ToString.Exclude
-    private Set<UserVotePost> votes;
+    // one to one relation with a post vote
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Vote vote;
 
 }
