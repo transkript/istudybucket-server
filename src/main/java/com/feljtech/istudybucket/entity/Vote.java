@@ -1,8 +1,5 @@
-package com.feljtech.istudybucket.entity.relation;
+package com.feljtech.istudybucket.entity;
 
-import com.feljtech.istudybucket.entity.Post;
-import com.feljtech.istudybucket.entity.User;
-import com.feljtech.istudybucket.entity.composite.UserVotePostKey;
 import com.feljtech.istudybucket.enums.VoteType;
 import lombok.*;
 
@@ -15,7 +12,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "user_vote_post")
 public class Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
