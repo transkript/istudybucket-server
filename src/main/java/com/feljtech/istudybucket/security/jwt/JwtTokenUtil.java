@@ -17,12 +17,13 @@ import java.util.function.Function;
 public class JwtTokenUtil implements Serializable {
     private static final long serialVersionUID = -2550185165626007488L;
 
-    private static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60 * 1000;
+    @Value("${jwt.expiration}")
+    private Long jwtExpiration;
 
     @Value("${jwt.secret}")
-    private String secret;
+    private String jwtSecret;
 
-    // retreive username from jwt token
+    // retrieve username from jwt token
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
@@ -32,6 +33,11 @@ public class JwtTokenUtil implements Serializable {
         return getClaimFromToken(token, Claims::getExpiration);
     }
 
+    // retrieve expiration date in millis
+    public Long getExpirationTimeInMillis(String token) {
+        return getExpirationDateFromToken(token).toInstant().toEpochMilli();
+    }
+
     private <K> K getClaimFromToken(String token, Function<Claims, K> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);
@@ -39,7 +45,7 @@ public class JwtTokenUtil implements Serializable {
 
     // for retrieving any info from the token, we will need the secret key
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
     }
 
     // check if token has expired
@@ -60,13 +66,13 @@ public class JwtTokenUtil implements Serializable {
     //2. Sign the JWT using the HS512 algorithm and secret key.
     //3. According to JWS Compact Serialization(https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41#section-3.1)
     //   compaction of the JWT to a URL-safe string
-    private String doGenerateToken(Map<String, Object> claims, String subject) {
+    private String doGenerateToken(Map<String, Object> claims, String username) {
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(subject)
+                .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY))
-                .signWith(SignatureAlgorithm.HS512, secret).compact();
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
+                .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
     }
 
     // validate token
