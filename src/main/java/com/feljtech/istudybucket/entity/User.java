@@ -1,7 +1,7 @@
 package com.feljtech.istudybucket.entity;
 
 import com.feljtech.istudybucket.entity.relation.UserInBucket;
-import com.feljtech.istudybucket.entity.relation.Vote;
+import com.feljtech.istudybucket.entity.relation.UserLinkUser;
 import com.feljtech.istudybucket.enums.UserRole;
 import lombok.*;
 
@@ -64,11 +64,6 @@ public class User {
     @Column(name = "user_verified")
     private Boolean userVerified;
 
-    // one to one relationship with Address
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "address_id")
-    private Address address;
-
     // one to many relationship with Post entity
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
@@ -87,5 +82,25 @@ public class User {
     // one to one relation with a post vote
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Vote vote;
+
+    // one to one relationship with Address
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "address_address_id")
+    private Address address;
+
+    // one to many relationship with message
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Message> messages;
+
+    // one to many relation with trophies
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Trophy> trophies;
+
+    // relation to other users
+    @OneToMany(mappedBy = "rightLinkUser", orphanRemoval = true)
+    private List<UserLinkUser> linkToUsers;
+
+    @OneToMany(mappedBy = "leftLinkUser", orphanRemoval = true)
+    private List<UserLinkUser> linkOfUsers;
 
 }
