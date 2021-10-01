@@ -31,6 +31,7 @@ public class Address {
     @Column(name = "country", length = 32)
     private String country;
 
-    @OneToOne(mappedBy = "address")
+    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
     private User user;
+
 }
