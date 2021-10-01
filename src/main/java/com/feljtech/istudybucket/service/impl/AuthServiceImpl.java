@@ -1,17 +1,19 @@
 package com.feljtech.istudybucket.service.impl;
 
 import com.feljtech.istudybucket.dto.email.VerificationEmail;
-import com.feljtech.istudybucket.dto.request.UserLoginRequest;
-import com.feljtech.istudybucket.dto.request.UserRegisterRequest;
+import com.feljtech.istudybucket.dto.request.LoginRequest;
+import com.feljtech.istudybucket.dto.request.RegisterRequest;
 import com.feljtech.istudybucket.entity.User;
 import com.feljtech.istudybucket.entity.VerificationToken;
 import com.feljtech.istudybucket.enums.UserRole;
 import com.feljtech.istudybucket.repository.UserRepository;
 import com.feljtech.istudybucket.repository.VerificationTokenRepository;
+import com.feljtech.istudybucket.security.jwt.JwtRefreshTokenRequest;
 import com.feljtech.istudybucket.security.jwt.JwtResponse;
 import com.feljtech.istudybucket.security.jwt.JwtTokenUtil;
 import com.feljtech.istudybucket.service.AuthService;
 import com.feljtech.istudybucket.service.MailService;
+import com.feljtech.istudybucket.service.RefreshTokenService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -40,6 +42,7 @@ public class AuthServiceImpl implements AuthService {
     private final VerificationTokenRepository verificationTokenRepository;
     private final MailService mailService;
     private final AuthenticationManager authenticationManager;
+    private final RefreshTokenService refreshTokenService;
 
     private final String BASE_URL = "http://localhost:8080/";
     private UserDetailsService userDetailsService;
@@ -47,17 +50,17 @@ public class AuthServiceImpl implements AuthService {
 
     /**
      * implementation for user registeration
-     * @param userRegisterRequest : request body for registration
+     * @param registerRequest : request body for registration
      * @return response entity based on success
      */
     @Override
     @Transactional
-    public ResponseEntity<?> registerAccount(UserRegisterRequest userRegisterRequest) {
+    public ResponseEntity<?> registerAccount(RegisterRequest registerRequest) {
         // TODO refactor this method for response entity
         User newUser = User.builder() // build the new User object from the register form
-                .username(userRegisterRequest.getUsername())
-                .email(userRegisterRequest.getEmail())
-                .password(this.encodePassword(userRegisterRequest.getPassword())) // encode password
+                .username(registerRequest.getUsername())
+                .email(registerRequest.getEmail())
+                .password(this.encodePassword(registerRequest.getPassword())) // encode password
                 .creationDate(Instant.now())
                 .userVerified(Boolean.FALSE)
                 .userRole(UserRole.USER)
@@ -122,24 +125,76 @@ public class AuthServiceImpl implements AuthService {
 
     /**
      * implementation for user authentication
-     * @param userLoginRequest: request body for this method
+     * @param loginRequest: request body for this method
      * @return: response entity containing status and jwtResponse body
      * @throws Exception: in case authentication is unsuccessful
      */
-    public ResponseEntity<?> loginUser(UserLoginRequest userLoginRequest) throws Exception {
+    public ResponseEntity<?> loginUser(LoginRequest loginRequest) throws Exception {
 
-        authenticateUser(userLoginRequest);
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(userLoginRequest.getUsername());
+        authenticateUser(loginRequest);
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getUsername());
 
-        final String token = jwtTokenUtil.generateToken(userDetails);
-        return new ResponseEntity<>(new JwtResponse(token), HttpStatus.OK);
+        final String jwtToken = jwtTokenUtil.generateToken(userDetails);
+        final String refreshToken = refreshTokenService.generateRefreshToken().getRefreshToken();
+        final Instant jwtExpiration = Instant.now().plusMillis(jwtTokenUtil.getExpirationTimeInMillis(jwtToken));
+
+        return new ResponseEntity<>(
+                JwtResponse.builder()
+                        .jwtToken(jwtToken)
+                        .refreshToken(refreshToken)
+                        .username(userDetails.getUsername())
+                        .expiresAt(jwtExpiration)
+                        .build(),
+                HttpStatus.OK
+        );
     }
 
+    @Override
+    public ResponseEntity<?> validateRefreshToken(JwtRefreshTokenRequest jwtRefreshTokenRequest) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<?> refreshToken(JwtRefreshTokenRequest jwtRefreshTokenRequest) {
+        refreshTokenService.validateRefreshToken(jwtRefreshTokenRequest.getRefreshToken());
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(jwtRefreshTokenRequest.getUsername());
+
+        String jwtToken = jwtTokenUtil.generateToken(userDetails);
+        String jwtRefreshToken = jwtRefreshTokenRequest.getRefreshToken();
+        Instant jwtExpiration = Instant.now().plusMillis(jwtTokenUtil.getExpirationTimeInMillis(jwtToken));
+        String username = jwtRefreshTokenRequest.getUsername();
+
+        return new ResponseEntity<>(
+                JwtResponse.builder()
+                        .jwtToken(jwtToken)
+                        .refreshToken(jwtRefreshToken)
+                        .expiresAt(jwtExpiration)
+                        .username(username)
+                        .build(),
+                HttpStatus.OK
+        );
+    }
+
+    @Override
+    public ResponseEntity<String> logoutUser(JwtRefreshTokenRequest jwtRefreshTokenRequest) {
+        try {
+            refreshTokenService.deleteRefreshToken(jwtRefreshTokenRequest.getRefreshToken());
+            return new ResponseEntity<>(
+                    jwtRefreshTokenRequest.getUsername().concat(" has logged out!"),
+                    HttpStatus.OK
+            );
+        } catch (Exception exception) {
+            return new ResponseEntity<>("Invalid token", HttpStatus.FORBIDDEN);
+        }
+    }
+
+
     /* ************* helper methods for this class ************* */
-    private void authenticateUser(UserLoginRequest userLoginRequest) throws Exception {
+    private void authenticateUser(LoginRequest loginRequest) throws Exception {
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(userLoginRequest.getUsername(), userLoginRequest.getPassword())
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
             );
         } catch (AuthenticationException e) {
             throw new Exception("AUTH FAILED", e);
