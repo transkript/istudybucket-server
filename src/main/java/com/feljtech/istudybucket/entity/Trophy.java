@@ -3,6 +3,7 @@ package com.feljtech.istudybucket.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.Instant;
 
 /**
  * @author Abongwa Bonalais
@@ -27,6 +28,13 @@ public class Trophy {
 
     @Column(name = "image_url")
     private String imageUrl;
+
+    @Column(name = "awarded_date")
+    private Instant awardedDate;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_user_id", nullable = false)
+    private User user;
 
     //TODO add relationship to user
 }
