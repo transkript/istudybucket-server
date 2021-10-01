@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRegisterRequest {
+public class RegisterRequest {
     @JsonProperty("username")
     private String username;
     @JsonProperty("email")
