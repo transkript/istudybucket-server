@@ -43,8 +43,4 @@ public class Comment {
     @JoinColumn(name = "post_id", nullable = false)
     @ToString.Exclude
     private Post sourcePost;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private Set<Comment> comments;
 }
