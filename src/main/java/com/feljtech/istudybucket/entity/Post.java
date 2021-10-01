@@ -1,6 +1,5 @@
 package com.feljtech.istudybucket.entity;
 
-import com.feljtech.istudybucket.entity.relation.Vote;
 import com.feljtech.istudybucket.enums.PostType;
 import lombok.*;
 
