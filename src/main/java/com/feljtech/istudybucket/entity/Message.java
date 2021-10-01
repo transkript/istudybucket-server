@@ -33,4 +33,10 @@ public class Message {
     @JoinColumn(name = "chat_id", nullable = false)
     @ToString.Exclude
     private Chat chat;
+
+    // many to one relationship with user
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "user_user_id", nullable = false)
+    private User user;
+
 }
