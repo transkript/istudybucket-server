@@ -24,7 +24,6 @@ public interface CommentMapper {
     @InheritInverseConfiguration
     @Mapping(target = "author", ignore = true)
     @Mapping(target = "sourcePost", ignore = true)
-    @Mapping(target = "comments", ignore = true)
     @Mapping(target = "creationDate", expression = "java(inverseMapCreationDate())")
     Comment mapDtoToComment(CommentDto commentDto);
 
