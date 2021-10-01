@@ -1,13 +1,17 @@
 package com.feljtech.istudybucket.controller;
 
-import com.feljtech.istudybucket.dto.request.UserLoginRequest;
-import com.feljtech.istudybucket.dto.request.UserRegisterRequest;
+import com.feljtech.istudybucket.dto.request.LoginRequest;
+import com.feljtech.istudybucket.dto.request.RegisterRequest;
+import com.feljtech.istudybucket.security.jwt.JwtRefreshTokenRequest;
+import com.feljtech.istudybucket.security.jwt.JwtResponse;
 import com.feljtech.istudybucket.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * @author Elroy Kanye
@@ -28,12 +32,12 @@ public class AuthController {
     /**
      * registers a user from a RegisterForm object, consumed from JSON.
      * typically, control is passed to the userService bean.
-     * @param userRegisterRequest: the form as an object - spring auto converts based on input names.
+     * @param registerRequest: the form as an object - spring auto converts based on input names.
      * @return http status of the process
      */
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> register(@RequestBody UserRegisterRequest userRegisterRequest) {
-        authService.registerAccount(userRegisterRequest);
+    public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest) {
+        authService.registerAccount(registerRequest);
         return new ResponseEntity<>("User registration successful", HttpStatus.OK);
     }
 
@@ -52,12 +56,23 @@ public class AuthController {
 
     /**
      * activate user authentication process
-     * @param userLoginRequest: request body of the endpoint
+     * @param loginRequest: request body of the endpoint
      * @return: response containing jwtResponse body
      * @throws Exception: in case auth failed
      */
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> login(@RequestBody UserLoginRequest userLoginRequest) throws Exception {
-        return authService.loginUser(userLoginRequest);
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws Exception {
+        return authService.loginUser(loginRequest);
     }
+
+    @PostMapping("/refresh/token")
+    public ResponseEntity<?> refreshToken(@Valid @RequestBody JwtRefreshTokenRequest jwtRefreshTokenRequest) {
+        return authService.refreshToken(jwtRefreshTokenRequest);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(@Valid @RequestBody JwtRefreshTokenRequest jwtRefreshTokenRequest) {
+        return authService.logoutUser(jwtRefreshTokenRequest);
+    }
+
 }
