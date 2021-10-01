@@ -17,20 +17,19 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user_vote_post")
 public class Vote {
-    @EmbeddedId
-    private UserVotePostKey id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long voteId;
 
     @Column(name = "vote")
     private VoteType vote;
 
     @ManyToOne(optional = false)
-    @JoinColumn(nullable = false)
-    @MapsId("postId")
+    @JoinColumn(name = "post_post_id", nullable = false)
     private Post post;
 
     @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
-    @JoinColumn(nullable = false)
-    @MapsId("userId")
+    @JoinColumn(name = "user_user_id", nullable = false)
     private User user;
 
 }
