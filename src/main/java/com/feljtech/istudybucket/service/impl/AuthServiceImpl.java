@@ -6,6 +6,7 @@ import com.feljtech.istudybucket.dto.request.RegisterRequest;
 import com.feljtech.istudybucket.entity.User;
 import com.feljtech.istudybucket.entity.VerificationToken;
 import com.feljtech.istudybucket.enums.UserRole;
+import com.feljtech.istudybucket.excetion.IstudybucketException;
 import com.feljtech.istudybucket.repository.UserRepository;
 import com.feljtech.istudybucket.repository.VerificationTokenRepository;
 import com.feljtech.istudybucket.security.jwt.JwtRefreshTokenRequest;
@@ -197,7 +198,7 @@ public class AuthServiceImpl implements AuthService {
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
             );
         } catch (AuthenticationException e) {
-            throw new Exception("AUTH FAILED", e);
+            throw new IstudybucketException("Authentication failed");
         }
     }
 
