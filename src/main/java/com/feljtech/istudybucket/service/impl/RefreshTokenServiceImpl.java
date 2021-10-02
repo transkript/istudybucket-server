@@ -29,12 +29,12 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     @Override
     public void validateRefreshToken(String token) {
-        refreshTokenRepository.findByToken(token)
+        refreshTokenRepository.findByRefreshToken(token)
                 .orElseThrow(() -> new IstudybucketException("Invalid refresh token"));
     }
 
     @Override
     public void deleteRefreshToken(String token) {
-        refreshTokenRepository.deleteByToken(token);
+        refreshTokenRepository.deleteByRefreshToken(token);
     }
 }
