@@ -1,4 +1,4 @@
-package com.feljtech.istudybucket.dto.email;
+package com.feljtech.istudybucket.api.dto.email;
 
 
 import lombok.*;
