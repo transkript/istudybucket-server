@@ -1,11 +1,10 @@
-package com.feljtech.istudybucket.entity;
+package com.feljtech.istudybucket.data.entity;
 
 
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.util.Set;
 
 /**
  * @author Abongwa Bonalais
