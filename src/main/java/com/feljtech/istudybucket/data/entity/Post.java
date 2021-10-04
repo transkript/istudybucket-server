@@ -1,6 +1,6 @@
-package com.feljtech.istudybucket.entity;
+package com.feljtech.istudybucket.data.entity;
 
-import com.feljtech.istudybucket.enums.PostType;
+import com.feljtech.istudybucket.data.enums.PostType;
 import lombok.*;
 
 import javax.persistence.*;
