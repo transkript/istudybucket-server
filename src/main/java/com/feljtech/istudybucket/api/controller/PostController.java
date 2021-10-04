@@ -1,7 +1,7 @@
-package com.feljtech.istudybucket.controller;
+package com.feljtech.istudybucket.api.controller;
 
-import com.feljtech.istudybucket.dto.PostDto;
-import com.feljtech.istudybucket.service.PostService;
+import com.feljtech.istudybucket.api.dto.PostDto;
+import com.feljtech.istudybucket.business.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
