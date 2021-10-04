@@ -1,6 +1,6 @@
-package com.feljtech.istudybucket.service;
+package com.feljtech.istudybucket.business.service;
 
-import com.feljtech.istudybucket.entity.RefreshToken;
+import com.feljtech.istudybucket.data.entity.RefreshToken;
 
 public interface RefreshTokenService {
     RefreshToken generateRefreshToken();
