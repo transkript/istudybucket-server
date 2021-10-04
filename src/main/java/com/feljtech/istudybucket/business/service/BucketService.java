@@ -1,6 +1,6 @@
-package com.feljtech.istudybucket.service;
+package com.feljtech.istudybucket.business.service;
 
-import com.feljtech.istudybucket.dto.BucketDto;
+import com.feljtech.istudybucket.api.dto.BucketDto;
 
 import java.util.List;
 
