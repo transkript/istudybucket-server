@@ -1,8 +1,8 @@
-package com.feljtech.istudybucket.service;
+package com.feljtech.istudybucket.business.service;
 
-import com.feljtech.istudybucket.dto.request.LoginRequest;
-import com.feljtech.istudybucket.dto.request.RegisterRequest;
-import com.feljtech.istudybucket.security.jwt.JwtRefreshTokenRequest;
+import com.feljtech.istudybucket.api.dto.request.LoginRequest;
+import com.feljtech.istudybucket.api.dto.request.RegisterRequest;
+import com.feljtech.istudybucket.config.jwt.JwtRefreshTokenRequest;
 import org.springframework.http.ResponseEntity;
 
 public interface AuthService {
