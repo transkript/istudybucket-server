@@ -1,4 +1,4 @@
-package com.feljtech.istudybucket.entity;
+package com.feljtech.istudybucket.data.entity;
 //Media Class which hold media files, png, mp4 etc
 public class Media {
     private Long Id;
