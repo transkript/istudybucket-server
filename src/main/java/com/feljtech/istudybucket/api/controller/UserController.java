@@ -1,7 +1,7 @@
-package com.feljtech.istudybucket.controller;
+package com.feljtech.istudybucket.api.controller;
 
-import com.feljtech.istudybucket.entity.User;
-import com.feljtech.istudybucket.service.UserService;
+import com.feljtech.istudybucket.data.entity.User;
+import com.feljtech.istudybucket.business.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
