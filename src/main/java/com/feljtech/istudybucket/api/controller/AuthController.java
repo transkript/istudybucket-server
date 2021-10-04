@@ -1,10 +1,9 @@
-package com.feljtech.istudybucket.controller;
+package com.feljtech.istudybucket.api.controller;
 
-import com.feljtech.istudybucket.dto.request.LoginRequest;
-import com.feljtech.istudybucket.dto.request.RegisterRequest;
-import com.feljtech.istudybucket.security.jwt.JwtRefreshTokenRequest;
-import com.feljtech.istudybucket.security.jwt.JwtResponse;
-import com.feljtech.istudybucket.service.AuthService;
+import com.feljtech.istudybucket.api.dto.request.LoginRequest;
+import com.feljtech.istudybucket.api.dto.request.RegisterRequest;
+import com.feljtech.istudybucket.config.jwt.JwtRefreshTokenRequest;
+import com.feljtech.istudybucket.business.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
