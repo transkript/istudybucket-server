@@ -1,8 +1,8 @@
-package com.feljtech.istudybucket.entity.relation;
+package com.feljtech.istudybucket.data.entity.relation;
 
-import com.feljtech.istudybucket.entity.Bucket;
-import com.feljtech.istudybucket.entity.User;
-import com.feljtech.istudybucket.entity.composite.UserInBucketKey;
+import com.feljtech.istudybucket.data.entity.Bucket;
+import com.feljtech.istudybucket.data.entity.User;
+import com.feljtech.istudybucket.data.entity.composite.UserInBucketKey;
 import lombok.*;
 
 import javax.persistence.*;
