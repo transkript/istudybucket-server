@@ -1,4 +1,4 @@
-package com.feljtech.istudybucket.security.jwt;
+package com.feljtech.istudybucket.config.jwt;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
