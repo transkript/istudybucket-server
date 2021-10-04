@@ -1,12 +1,12 @@
-package com.feljtech.istudybucket.service.impl;
+package com.feljtech.istudybucket.business.service.impl;
 
-import com.feljtech.istudybucket.dto.PostDto;
-import com.feljtech.istudybucket.entity.Post;
-import com.feljtech.istudybucket.entity.User;
-import com.feljtech.istudybucket.mapper.PostMapper;
-import com.feljtech.istudybucket.repository.PostRepository;
-import com.feljtech.istudybucket.repository.UserRepository;
-import com.feljtech.istudybucket.service.PostService;
+import com.feljtech.istudybucket.api.dto.PostDto;
+import com.feljtech.istudybucket.business.service.PostService;
+import com.feljtech.istudybucket.data.entity.Post;
+import com.feljtech.istudybucket.data.entity.User;
+import com.feljtech.istudybucket.business.mapper.PostMapper;
+import com.feljtech.istudybucket.data.repository.PostRepository;
+import com.feljtech.istudybucket.data.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
