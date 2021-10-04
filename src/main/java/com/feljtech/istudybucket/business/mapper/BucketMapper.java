@@ -1,8 +1,8 @@
-package com.feljtech.istudybucket.mapper;
+package com.feljtech.istudybucket.business.mapper;
 
-import com.feljtech.istudybucket.dto.BucketDto;
-import com.feljtech.istudybucket.entity.Bucket;
-import com.feljtech.istudybucket.entity.relation.UserInBucket;
+import com.feljtech.istudybucket.api.dto.BucketDto;
+import com.feljtech.istudybucket.data.entity.Bucket;
+import com.feljtech.istudybucket.data.entity.relation.UserInBucket;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
