@@ -1,10 +1,10 @@
-package com.feljtech.istudybucket.mapper;
+package com.feljtech.istudybucket.business.mapper;
 
-import com.feljtech.istudybucket.dto.CommentDto;
-import com.feljtech.istudybucket.entity.Comment;
-import com.feljtech.istudybucket.entity.Post;
-import com.feljtech.istudybucket.entity.User;
-import com.feljtech.istudybucket.util.InstantUtil;
+import com.feljtech.istudybucket.api.dto.CommentDto;
+import com.feljtech.istudybucket.data.entity.Comment;
+import com.feljtech.istudybucket.data.entity.Post;
+import com.feljtech.istudybucket.data.entity.User;
+import com.feljtech.istudybucket.business.util.InstantUtil;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
