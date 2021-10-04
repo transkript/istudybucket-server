@@ -1,13 +1,11 @@
-package com.feljtech.istudybucket.entity;
+package com.feljtech.istudybucket.data.entity;
 
-import com.feljtech.istudybucket.entity.relation.UserInBucket;
+import com.feljtech.istudybucket.data.entity.relation.UserInBucket;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Andrew Tatah
