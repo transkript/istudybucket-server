@@ -1,4 +1,4 @@
-package com.feljtech.istudybucket.config;
+package com.feljtech.istudybucket.config.global;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
