@@ -1,4 +1,4 @@
-package com.feljtech.istudybucket.security.jwt;
+package com.feljtech.istudybucket.config.jwt;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
