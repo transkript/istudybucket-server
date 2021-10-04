@@ -1,6 +1,6 @@
-package com.feljtech.istudybucket.service;
+package com.feljtech.istudybucket.business.service;
 
-import com.feljtech.istudybucket.dto.PostDto;
+import com.feljtech.istudybucket.api.dto.PostDto;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
