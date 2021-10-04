@@ -1,12 +1,12 @@
-package com.feljtech.istudybucket.mapper;
+package com.feljtech.istudybucket.business.mapper;
 
-import com.feljtech.istudybucket.dto.PostDto;
-import com.feljtech.istudybucket.entity.Comment;
-import com.feljtech.istudybucket.entity.Post;
-import com.feljtech.istudybucket.entity.User;
-import com.feljtech.istudybucket.entity.Vote;
-import com.feljtech.istudybucket.enums.PostType;
-import com.feljtech.istudybucket.enums.VoteType;
+import com.feljtech.istudybucket.api.dto.PostDto;
+import com.feljtech.istudybucket.data.entity.Comment;
+import com.feljtech.istudybucket.data.entity.Post;
+import com.feljtech.istudybucket.data.entity.User;
+import com.feljtech.istudybucket.data.entity.Vote;
+import com.feljtech.istudybucket.data.enums.PostType;
+import com.feljtech.istudybucket.data.enums.VoteType;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
