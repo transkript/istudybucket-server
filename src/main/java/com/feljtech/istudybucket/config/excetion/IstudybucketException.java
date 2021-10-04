@@ -1,4 +1,4 @@
-package com.feljtech.istudybucket.excetion;
+package com.feljtech.istudybucket.config.excetion;
 
 public class IstudybucketException extends RuntimeException {
     public IstudybucketException(String exceptionMessage) {
