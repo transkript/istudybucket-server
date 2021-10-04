@@ -1,4 +1,4 @@
-package com.feljtech.istudybucket.config;
+package com.feljtech.istudybucket.config.global;
 
 public enum Constants {
     BASE_URL("http://localhost:8080");
