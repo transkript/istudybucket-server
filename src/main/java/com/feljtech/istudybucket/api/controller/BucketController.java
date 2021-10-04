@@ -1,8 +1,7 @@
-package com.feljtech.istudybucket.controller;
+package com.feljtech.istudybucket.api.controller;
 
-import com.feljtech.istudybucket.dto.BucketDto;
-import com.feljtech.istudybucket.entity.Bucket;
-import com.feljtech.istudybucket.service.BucketService;
+import com.feljtech.istudybucket.api.dto.BucketDto;
+import com.feljtech.istudybucket.business.service.BucketService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
