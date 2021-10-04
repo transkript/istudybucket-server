@@ -1,6 +1,6 @@
-package com.feljtech.istudybucket.controller;
+package com.feljtech.istudybucket.api.controller;
 
-import com.feljtech.istudybucket.dto.VoteDto;
+import com.feljtech.istudybucket.api.dto.VoteDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
