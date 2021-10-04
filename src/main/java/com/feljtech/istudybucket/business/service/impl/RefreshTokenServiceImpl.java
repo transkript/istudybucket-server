@@ -1,9 +1,9 @@
-package com.feljtech.istudybucket.service.impl;
+package com.feljtech.istudybucket.business.service.impl;
 
-import com.feljtech.istudybucket.entity.RefreshToken;
-import com.feljtech.istudybucket.excetion.IstudybucketException;
-import com.feljtech.istudybucket.repository.RefreshTokenRepository;
-import com.feljtech.istudybucket.service.RefreshTokenService;
+import com.feljtech.istudybucket.data.entity.RefreshToken;
+import com.feljtech.istudybucket.config.excetion.IstudybucketException;
+import com.feljtech.istudybucket.data.repository.RefreshTokenRepository;
+import com.feljtech.istudybucket.business.service.RefreshTokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
