@@ -1,7 +1,7 @@
-package com.feljtech.istudybucket.service.impl;
+package com.feljtech.istudybucket.business.service.impl;
 
-import com.feljtech.istudybucket.dto.email.VerificationEmail;
-import com.feljtech.istudybucket.service.MailContentBuilder;
+import com.feljtech.istudybucket.api.dto.email.VerificationEmail;
+import com.feljtech.istudybucket.business.service.MailContentBuilder;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import lombok.AllArgsConstructor;
