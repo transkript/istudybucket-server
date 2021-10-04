@@ -1,4 +1,4 @@
-package com.feljtech.istudybucket.dto.request;
+package com.feljtech.istudybucket.api.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
