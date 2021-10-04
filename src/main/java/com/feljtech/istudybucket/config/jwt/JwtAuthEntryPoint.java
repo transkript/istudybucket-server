@@ -1,4 +1,4 @@
-package com.feljtech.istudybucket.security.jwt;
+package com.feljtech.istudybucket.config.jwt;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
