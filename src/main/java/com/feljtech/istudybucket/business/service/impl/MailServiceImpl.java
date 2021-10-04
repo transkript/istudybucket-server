@@ -1,10 +1,10 @@
-package com.feljtech.istudybucket.service.impl;
+package com.feljtech.istudybucket.business.service.impl;
 
-import com.feljtech.istudybucket.dto.email.VerificationEmail;
-import com.feljtech.istudybucket.enums.Email;
-import com.feljtech.istudybucket.excetion.IstudybucketException;
-import com.feljtech.istudybucket.service.MailContentBuilder;
-import com.feljtech.istudybucket.service.MailService;
+import com.feljtech.istudybucket.api.dto.email.VerificationEmail;
+import com.feljtech.istudybucket.business.service.MailContentBuilder;
+import com.feljtech.istudybucket.business.service.MailService;
+import com.feljtech.istudybucket.data.enums.Email;
+import com.feljtech.istudybucket.config.excetion.IstudybucketException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailException;
