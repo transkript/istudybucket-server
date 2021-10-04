@@ -1,4 +1,4 @@
-package com.feljtech.istudybucket.enums;
+package com.feljtech.istudybucket.data.enums;
 
 public enum Email {
     DEFAULT_FROM("elroykanye@gmail.com"),
