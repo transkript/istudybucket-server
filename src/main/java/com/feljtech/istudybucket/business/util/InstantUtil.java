@@ -1,4 +1,4 @@
-package com.feljtech.istudybucket.util;
+package com.feljtech.istudybucket.business.util;
 
 import java.time.Instant;
 
