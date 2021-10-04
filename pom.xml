@@ -14,10 +14,15 @@
     <name>istudybucket</name>
     <description>Demo project for Spring Boot</description>
     <properties>
+        <!-- java versions -->
         <java.version>11</java.version>
+        <java.target.version>1.8</java.target.version>
+
+        <!-- extra dep versions -->
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <org.projectlombok.version>1.18.20</org.projectlombok.version>
         <io.springfox.version>3.0.0</io.springfox.version>
+        <javax.mail.version>1.4.7</javax.mail.version>
     </properties>
     <dependencies>
         <dependency>
@@ -87,7 +92,7 @@
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-            <version>1.4.7</version>
+            <version>${javax.mail.version}</version>
         </dependency>
 
         <!-- jwt -->
@@ -139,7 +144,7 @@
                 <version>3.8.1</version>
                 <configuration>
                     <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <target>${java.target.version}</target>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.mapstruct</groupId>
