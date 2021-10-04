@@ -1,14 +1,14 @@
-package com.feljtech.istudybucket.service.impl;
+package com.feljtech.istudybucket.business.service.impl;
 
-import com.feljtech.istudybucket.dto.CommentDto;
-import com.feljtech.istudybucket.entity.Comment;
-import com.feljtech.istudybucket.entity.Post;
-import com.feljtech.istudybucket.entity.User;
-import com.feljtech.istudybucket.mapper.CommentMapper;
-import com.feljtech.istudybucket.repository.CommentRepository;
-import com.feljtech.istudybucket.repository.PostRepository;
-import com.feljtech.istudybucket.repository.UserRepository;
-import com.feljtech.istudybucket.service.CommentService;
+import com.feljtech.istudybucket.api.dto.CommentDto;
+import com.feljtech.istudybucket.data.entity.Comment;
+import com.feljtech.istudybucket.data.entity.Post;
+import com.feljtech.istudybucket.data.entity.User;
+import com.feljtech.istudybucket.business.mapper.CommentMapper;
+import com.feljtech.istudybucket.data.repository.CommentRepository;
+import com.feljtech.istudybucket.data.repository.PostRepository;
+import com.feljtech.istudybucket.data.repository.UserRepository;
+import com.feljtech.istudybucket.business.service.CommentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
