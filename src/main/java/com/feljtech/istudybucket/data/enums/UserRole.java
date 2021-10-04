@@ -1,4 +1,4 @@
-package com.feljtech.istudybucket.enums;
+package com.feljtech.istudybucket.data.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
