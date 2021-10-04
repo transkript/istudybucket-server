@@ -1,4 +1,4 @@
-package com.feljtech.istudybucket.entity;
+package com.feljtech.istudybucket.data.entity;
 
 import lombok.*;
 
