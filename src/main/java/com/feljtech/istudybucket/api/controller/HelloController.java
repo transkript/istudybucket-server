@@ -1,4 +1,4 @@
-package com.feljtech.istudybucket.controller;
+package com.feljtech.istudybucket.api.controller;
 
 
 import org.springframework.stereotype.Controller;
