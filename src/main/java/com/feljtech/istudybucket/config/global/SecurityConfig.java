@@ -1,9 +1,8 @@
-package com.feljtech.istudybucket.config;
+package com.feljtech.istudybucket.config.global;
 
-import com.feljtech.istudybucket.security.jwt.JwtAuthEntryPoint;
-import com.feljtech.istudybucket.security.jwt.JwtRequestFilter;
+import com.feljtech.istudybucket.config.jwt.JwtAuthEntryPoint;
+import com.feljtech.istudybucket.config.jwt.JwtRequestFilter;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,10 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import javax.servlet.Filter;
 
 @AllArgsConstructor
 @EnableWebSecurity
