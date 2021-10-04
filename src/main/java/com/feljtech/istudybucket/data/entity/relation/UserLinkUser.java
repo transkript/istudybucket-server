@@ -20,13 +20,6 @@ public class UserLinkUser {
 
     @Column(name = "link_date")
     private Instant linkDate;
-/*
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "right_link_user_user_id", nullable = false)
-    private User rightLinkUser;
-
-
- */
 
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @MapsId("rightLinkUserId")

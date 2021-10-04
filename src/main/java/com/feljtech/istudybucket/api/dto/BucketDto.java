@@ -3,8 +3,6 @@ package com.feljtech.istudybucket.api.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import java.time.Instant;
-
 @Getter
 @Setter
 @Builder

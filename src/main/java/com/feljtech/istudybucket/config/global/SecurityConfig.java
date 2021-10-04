@@ -27,19 +27,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
+
+        String[] ignorePatterns = new String[] {
+                // for authentication
+                "/api/auth/**", "/hello/**",
+
+                // for api docs
+                "/v2/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/**",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/swagger-ui/**",
+                "/webjars/**"
+        };
+
         httpSecurity.csrf().disable()
                 // dont authenticate this request
-                .authorizeRequests().antMatchers("/api/auth/**", "/hello/**").permitAll()
-                // for swagger docs
-                .antMatchers(
-                        "/v2/api-docs",
-                        "/configuration/ui",
-                        "/swagger-resources/**",
-                        "/configuration/security",
-                        "/swagger-ui.html",
-                        "/swagger-ui/**",
-                        "/webjars/**"
-                ).permitAll()
+                .authorizeRequests().antMatchers(ignorePatterns).permitAll()
                 // all other requests need to be authenticated
                 .anyRequest().authenticated()
                 .and() // AND

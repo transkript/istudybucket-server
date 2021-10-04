@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/comment")
 public class VoteController {
 
+    @SuppressWarnings("SameReturnValue")
     @PostMapping(value = "")
     public ResponseEntity<String> addVote(@RequestBody VoteDto voteDto) {
         return null;

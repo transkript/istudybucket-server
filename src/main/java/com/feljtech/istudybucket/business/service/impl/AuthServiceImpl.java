@@ -4,6 +4,7 @@ import com.feljtech.istudybucket.api.dto.email.VerificationEmail;
 import com.feljtech.istudybucket.api.dto.request.LoginRequest;
 import com.feljtech.istudybucket.api.dto.request.RegisterRequest;
 import com.feljtech.istudybucket.business.service.MailService;
+import com.feljtech.istudybucket.config.excetion.AuthException;
 import com.feljtech.istudybucket.data.entity.User;
 import com.feljtech.istudybucket.data.entity.VerificationToken;
 import com.feljtech.istudybucket.data.enums.UserRole;
@@ -57,35 +58,48 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public ResponseEntity<?> registerAccount(RegisterRequest registerRequest) {
-        // TODO refactor this method for response entity
-        User newUser = User.builder() // build the new User object from the register form
-                .username(registerRequest.getUsername())
-                .email(registerRequest.getEmail())
-                .password(this.encodePassword(registerRequest.getPassword())) // encode password
-                .creationDate(Instant.now())
-                .userVerified(Boolean.FALSE)
-                .userRole(UserRole.USER)
-                .build();
+        AtomicBoolean userAlreadyExists = new AtomicBoolean(false);
+        String newUsername = registerRequest.getUsername();
+        String newEmail = registerRequest.getEmail();
 
-        userRepository.save(newUser); // save user to database
+        // query the database to find out if the user already exists
+        Optional<User> userOptional = userRepository.findByUsernameOrEmail(newUsername, newEmail);
+        userOptional.ifPresentOrElse(
+                user -> userAlreadyExists.set(true),
+                () -> {
+                    userAlreadyExists.set(false);
 
-        String verToken = this.generateVerificationToken(newUser);
+                    User newUser = User.builder() // build the new User object from the register form
+                            .username(registerRequest.getUsername())
+                            .email(registerRequest.getEmail())
+                            .password(this.encodePassword(registerRequest.getPassword())) // encode password
+                            .creationDate(Instant.now())
+                            .userVerified(Boolean.FALSE)
+                            .userRole(UserRole.USER)
+                            .build();
 
-        // first, generate the DefaultEmail object
-        VerificationEmail verificationEmail = VerificationEmail.builder()
-                .message("verifiy")
-                .subject("iSB-verification")
-                .recipient(newUser.getEmail())
-                .build();
+                    userRepository.save(newUser); // save user to database
 
-        // add the verification url and recipient name to the email object
-        verificationEmail.setVerificationUrl(BASE_URL.concat(verToken));
-        verificationEmail.setRecipientName(newUser.getUsername());
+                    String verToken = this.generateVerificationToken(newUser);
 
-        // send the email through MailService
-        mailService.sendVerificationEmail(verificationEmail);
+                    // first, generate the DefaultEmail object
+                    VerificationEmail verificationEmail = VerificationEmail.builder()
+                            .message("verifiy")
+                            .subject("iSB-verification")
+                            .recipient(newUser.getEmail())
+                            .build();
 
-        return new ResponseEntity<>("Registration successful", HttpStatus.OK);
+                    // add the verification url and recipient name to the email object
+                    verificationEmail.setVerificationUrl(BASE_URL.concat(verToken));
+                    verificationEmail.setRecipientName(newUser.getUsername());
+
+                    // send the email through MailService
+                    mailService.sendVerificationEmail(verificationEmail);
+                }
+        );
+        return userAlreadyExists.get() ?
+                new ResponseEntity<>("User already exists", HttpStatus.CONFLICT):
+                new ResponseEntity<>("Registration successful", HttpStatus.OK);
     }
 
     /**
@@ -149,12 +163,7 @@ public class AuthServiceImpl implements AuthService {
                 HttpStatus.OK
         );
     }
-
-    @Override
-    public ResponseEntity<?> validateRefreshToken(JwtRefreshTokenRequest jwtRefreshTokenRequest) {
-        return null;
-    }
-
+    
     @Override
     public ResponseEntity<?> refreshToken(JwtRefreshTokenRequest jwtRefreshTokenRequest) {
         refreshTokenService.validateRefreshToken(jwtRefreshTokenRequest.getRefreshToken());
@@ -193,12 +202,16 @@ public class AuthServiceImpl implements AuthService {
 
     /* ************* helper methods for this class ************* */
     private void authenticateUser(LoginRequest loginRequest) throws Exception {
+        String requestUsername = loginRequest.getUsername();
+        String requestPassword = loginRequest.getPassword();
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
+                    new UsernamePasswordAuthenticationToken(requestUsername, requestPassword)
             );
         } catch (AuthenticationException e) {
-            throw new IstudybucketException("Authentication failed");
+            log.error(e.toString());
+            //throw new IstudybucketException("Authentication failed");
+            throw new AuthException.LoginFailedException();
         }
     }
 

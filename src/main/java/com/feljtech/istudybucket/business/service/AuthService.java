@@ -12,8 +12,6 @@ public interface AuthService {
 
     ResponseEntity<?> loginUser(LoginRequest loginRequest) throws Exception;
 
-    ResponseEntity<?> validateRefreshToken(JwtRefreshTokenRequest jwtRefreshTokenRequest);
-
     ResponseEntity<?> refreshToken(JwtRefreshTokenRequest jwtRefreshTokenRequest);
 
     ResponseEntity<String> logoutUser(JwtRefreshTokenRequest jwtRefreshTokenRequest);

@@ -28,5 +28,6 @@ public interface BucketMapper {
     @InheritInverseConfiguration
     @Mapping(target = "memberships", ignore = true)
     @Mapping(target = "creationDate", ignore = true)
+    @Mapping(target = "chatRoom", ignore = true)
     Bucket mapDtoToBucket(BucketDto bucketDto);
 }

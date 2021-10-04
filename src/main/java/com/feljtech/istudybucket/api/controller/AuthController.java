@@ -35,9 +35,8 @@ public class AuthController {
      * @return http status of the process
      */
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest) {
-        authService.registerAccount(registerRequest);
-        return new ResponseEntity<>("User registration successful", HttpStatus.OK);
+    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
+        return authService.registerAccount(registerRequest);
     }
 
     /**
