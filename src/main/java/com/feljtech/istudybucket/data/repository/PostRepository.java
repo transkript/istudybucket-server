@@ -1,6 +1,6 @@
-package com.feljtech.istudybucket.repository;
+package com.feljtech.istudybucket.data.repository;
 
-import com.feljtech.istudybucket.entity.Post;
+import com.feljtech.istudybucket.data.entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
