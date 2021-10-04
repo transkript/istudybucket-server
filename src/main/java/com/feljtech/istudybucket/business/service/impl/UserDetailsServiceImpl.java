@@ -1,8 +1,8 @@
-package com.feljtech.istudybucket.service.impl;
+package com.feljtech.istudybucket.business.service.impl;
 
-import com.feljtech.istudybucket.entity.User;
-import com.feljtech.istudybucket.enums.UserRole;
-import com.feljtech.istudybucket.repository.UserRepository;
+import com.feljtech.istudybucket.data.entity.User;
+import com.feljtech.istudybucket.data.enums.UserRole;
+import com.feljtech.istudybucket.data.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
