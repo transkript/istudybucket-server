@@ -88,7 +88,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // TODO : add other required cross origins
         List<String> allowedOrigins = List.of(
                 "http://localhost:8080",
-                "http://localhost:4200"
+                "http://localhost:4200",
+                "http://localhost:3000"
         );
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowedOrigins(allowedOrigins);
