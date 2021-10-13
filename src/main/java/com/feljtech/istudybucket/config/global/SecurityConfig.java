@@ -16,9 +16,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-@AllArgsConstructor
+import java.util.List;
+
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
@@ -42,8 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/webjars/**"
         };
 
-        httpSecurity.csrf().disable()
-                // dont authenticate this request
+        httpSecurity.cors().and()
+                // disable csrf
+                .csrf().disable()
+                // don't authenticate this request
                 .authorizeRequests().antMatchers(ignorePatterns).permitAll()
                 // all other requests need to be authenticated
                 .anyRequest().authenticated()
@@ -62,7 +69,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // user for matching credentials
         // Use BCryptPasswordEncoder
         authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-
     }
 
     @Bean
@@ -74,5 +80,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    // Cross site origin config
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        // TODO : add other required cross origins
+        List<String> allowedOrigins = List.of(
+                "http://localhost:8080",
+                "http://localhost:4200"
+        );
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedOrigins(allowedOrigins);
+
+        // url based configuration source to set the main urls below the allowed origins
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        return source;
     }
 }
