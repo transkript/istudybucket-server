@@ -81,22 +81,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
-    // Cross site origin config
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        // TODO : add other required cross origins
-        List<String> allowedOrigins = List.of(
-                "http://localhost:8080",
-                "http://localhost:4200",
-                "http://localhost:3000"
-        );
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(allowedOrigins);
-
-        // url based configuration source to set the main urls below the allowed origins
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfiguration);
-        return source;
-    }
 }
