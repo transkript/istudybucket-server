@@ -18,9 +18,6 @@ public class BucketDto {
     @JsonProperty(value = "bucket_desc")
     private String description;
 
-    @JsonProperty(value = "creator_name")
-    private String creatorName;
-
     @JsonProperty(value = "creation_date")
     private String creationDate;
 
@@ -29,4 +26,11 @@ public class BucketDto {
 
     @JsonProperty(value = "member_count")
     private Integer memberCount;
+
+    // from relationships
+    @JsonProperty("creator_id")
+    private Long creatorId;
+
+    @JsonProperty("chat_id")
+    private Long chatId;
 }
