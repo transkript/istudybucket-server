@@ -1,4 +1,4 @@
-package com.feljtech.istudybucket.config.excetion;
+package com.feljtech.istudybucket.excetion;
 
 public class AuthException extends RuntimeException {
     public AuthException() {

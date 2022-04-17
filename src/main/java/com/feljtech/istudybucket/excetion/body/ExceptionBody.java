@@ -1,4 +1,4 @@
-package com.feljtech.istudybucket.config.excetion.body;
+package com.feljtech.istudybucket.excetion.body;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
