@@ -1,6 +1,7 @@
 package com.feljtech.istudybucket.config.constant;
 
 import com.feljtech.istudybucket.data.entity.*;
+import com.feljtech.istudybucket.data.enums.Gender;
 import com.feljtech.istudybucket.data.enums.PostType;
 import com.feljtech.istudybucket.data.enums.UserRole;
 
@@ -18,8 +19,8 @@ public class DefaultEntity {
     public final static User DEFAULT_USER = User.builder()
             .userId(1L).username("user").password("password").email("user@mail.com")
             .firstName("First").lastName("Last").phoneNumber("1234567890")
-            .dob(new Date()).gender("M").userRole(UserRole.USER).userVerified(true)
-            .creationDate(Instant.now()).buckets(List.of()).posts(List.of()).votes(List.of()).messages(List.of())
+            .dob(new Date()).gender(Gender.MALE).userRole(UserRole.USER).userVerified(true)
+            .createdDate(Instant.now()).buckets(List.of()).posts(List.of()).votes(List.of()).messages(List.of())
             .trophies(List.of()).linkOfUsers(List.of()).linkToUsers(List.of()).buckets(List.of())
             .build();
 

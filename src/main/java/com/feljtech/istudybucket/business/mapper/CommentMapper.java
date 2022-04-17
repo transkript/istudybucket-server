@@ -13,7 +13,7 @@ import java.time.Instant;
 /**
  * @author Elroy Kanye
  */
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", implementationPackage = "<PACKAGE_NAME>.impl")
 public interface CommentMapper {
     @Mappings({
             @Mapping(target = "postId", expression = "java(comment.getSourcePost().getPostId())"),
