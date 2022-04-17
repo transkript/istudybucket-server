@@ -1,14 +1,16 @@
 package com.feljtech.istudybucket.business.service.impl;
 
+import com.feljtech.istudybucket.api.dto.UserDto;
 import com.feljtech.istudybucket.api.dto.email.VerificationEmail;
 import com.feljtech.istudybucket.api.dto.request.LoginRequest;
 import com.feljtech.istudybucket.api.dto.request.RegisterRequest;
+import com.feljtech.istudybucket.api.dto.response.RegisterResponse;
 import com.feljtech.istudybucket.business.service.MailService;
-import com.feljtech.istudybucket.config.excetion.AuthException;
+import com.feljtech.istudybucket.business.service.UserService;
+import com.feljtech.istudybucket.excetion.AuthException;
 import com.feljtech.istudybucket.data.entity.User;
 import com.feljtech.istudybucket.data.entity.VerificationToken;
 import com.feljtech.istudybucket.data.enums.UserRole;
-import com.feljtech.istudybucket.config.excetion.IstudybucketException;
 import com.feljtech.istudybucket.data.repository.UserRepository;
 import com.feljtech.istudybucket.data.repository.VerificationTokenRepository;
 import com.feljtech.istudybucket.config.jwt.JwtRefreshTokenRequest;
@@ -39,6 +41,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @AllArgsConstructor
 @Slf4j
 public class AuthServiceImpl implements AuthService {
+    private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final VerificationTokenRepository verificationTokenRepository;
@@ -51,55 +54,36 @@ public class AuthServiceImpl implements AuthService {
     private JwtTokenUtil jwtTokenUtil;
 
     /**
-     * implementation for user registeration
+     * Implementation for user Registration
      * @param registerRequest : request body for registration
      * @return response entity based on success
      */
     @Override
     @Transactional
-    public ResponseEntity<?> registerAccount(RegisterRequest registerRequest) {
-        AtomicBoolean userAlreadyExists = new AtomicBoolean(false);
-        String newUsername = registerRequest.getUsername();
-        String newEmail = registerRequest.getEmail();
+    public RegisterResponse registerAccount(RegisterRequest registerRequest) {
+        UserDto userDto = UserDto.builder().email(registerRequest.getEmail())
+                .username(registerRequest.getUsername()).password(this.encodePassword(registerRequest.getPassword()))
+                .build();
 
-        // query the database to find out if the user already exists
-        Optional<User> userOptional = userRepository.findByUsernameOrEmail(newUsername, newEmail);
-        userOptional.ifPresentOrElse(
-                user -> userAlreadyExists.set(true),
-                () -> {
-                    userAlreadyExists.set(false);
+        Long uid = userService.saveUser(userDto);
 
-                    User newUser = User.builder() // build the new User object from the register form
-                            .username(registerRequest.getUsername())
-                            .email(registerRequest.getEmail())
-                            .password(this.encodePassword(registerRequest.getPassword())) // encode password
-                            .creationDate(Instant.now())
-                            .userVerified(Boolean.FALSE)
-                            .userRole(UserRole.USER)
-                            .build();
+        String verificationToken = this.generateVerificationToken(userDto);
 
-                    userRepository.save(newUser); // save user to database
+        // first, generate the DefaultEmail object
+        VerificationEmail verificationEmail = VerificationEmail.builder()
+                .message("Verify").subject("iSB-verification").recipient(userDto.getEmail())
+                .build();
 
-                    String verToken = this.generateVerificationToken(newUser);
+        // add the verification url and recipient name to the email object
+        verificationEmail.setVerificationUrl(BASE_URL.concat(verificationToken));
+        verificationEmail.setRecipientName(userDto.getUsername());
 
-                    // first, generate the DefaultEmail object
-                    VerificationEmail verificationEmail = VerificationEmail.builder()
-                            .message("verifiy")
-                            .subject("iSB-verification")
-                            .recipient(newUser.getEmail())
-                            .build();
+        // send the email through MailService
+        mailService.sendVerificationEmail(verificationEmail);
 
-                    // add the verification url and recipient name to the email object
-                    verificationEmail.setVerificationUrl(BASE_URL.concat(verToken));
-                    verificationEmail.setRecipientName(newUser.getUsername());
-
-                    // send the email through MailService
-                    mailService.sendVerificationEmail(verificationEmail);
-                }
-        );
-        return userAlreadyExists.get() ?
-                new ResponseEntity<>("User already exists", HttpStatus.CONFLICT):
-                new ResponseEntity<>("Registration successful", HttpStatus.OK);
+        return RegisterResponse.builder()
+                .userId(uid)
+                .message("Registration successful").build();
     }
 
     /**
@@ -121,19 +105,16 @@ public class AuthServiceImpl implements AuthService {
             verTokenValid.set(verificationToken.getUsername().equals(username));
 
             // get the Optional value for the user from the userRep object
-            Optional<User> userToBeVerified = userRepository.findByUsername(verificationToken.getUsername());
+            User userToBeVerified = userService.getUser(verificationToken.getUsername());
 
             // if user is present, perform the action declared,
             // pass call to update the user's verification
-            userToBeVerified.ifPresent(user -> {
-                boolean userUpdated = false;
-                if(verTokenValid.get()) {
-                    userUpdated = updateUserVerification(user, verTokenValid.get());
-                }
-                // delete the verification token if the operation was successful
-
-                if(userUpdated) verificationTokenRepository.deleteById(verificationToken.getTokenId());
-            });
+            boolean userUpdated = false;
+            if(verTokenValid.get()) {
+                userUpdated = updateUserVerification(userToBeVerified, verTokenValid.get());
+            }
+            // delete the verification token if the operation was successful
+            if(userUpdated) verificationTokenRepository.deleteById(verificationToken.getTokenId());
         });
         return verTokenValid.get();
     }
@@ -215,7 +196,7 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
-    private String generateVerificationToken(User newUser) {
+    private String generateVerificationToken(UserDto newUser) {
         String token = UUID.randomUUID().toString();
         VerificationToken verificationToken = VerificationToken.builder() // build the verification token object
                 .tokenValue(token)

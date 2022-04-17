@@ -1,7 +1,7 @@
 package com.feljtech.istudybucket.business.service.impl;
 
 import com.feljtech.istudybucket.data.entity.RefreshToken;
-import com.feljtech.istudybucket.config.excetion.IstudybucketException;
+import com.feljtech.istudybucket.excetion.IstudybucketException;
 import com.feljtech.istudybucket.data.repository.RefreshTokenRepository;
 import com.feljtech.istudybucket.business.service.RefreshTokenService;
 import lombok.AllArgsConstructor;

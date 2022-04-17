@@ -2,11 +2,13 @@ package com.feljtech.istudybucket.data.entity;
 
 import com.feljtech.istudybucket.data.entity.relation.UserInBucket;
 import com.feljtech.istudybucket.data.entity.relation.UserLinkUser;
+import com.feljtech.istudybucket.data.enums.Gender;
 import com.feljtech.istudybucket.data.enums.UserRole;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,16 +52,17 @@ public class User {
     @Column(name = "dob")
     private Date dob;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "gender", length = 16)
-    private String gender;
+    private Gender gender;
 
     // TODO verify enum type matches db
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role", nullable = false)
     private UserRole userRole;
 
-    @Column(name = "creation_date")
-    private Instant creationDate;
+    @Column(name = "created_date")
+    private Instant createdDate;
 
     @Column(name = "user_verified")
     private Boolean userVerified;
@@ -80,8 +83,10 @@ public class User {
     private List<UserInBucket> memberships;
 
     // one to one relation with a post vote
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Vote vote;
+    @Builder.Default
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Vote> votes = new ArrayList<>();
+
 
     // one to one relationship with Address
     @OneToOne(orphanRemoval = true)
@@ -102,5 +107,9 @@ public class User {
 
     @OneToMany(mappedBy = "leftLinkUser", orphanRemoval = true)
     private List<UserLinkUser> linkOfUsers;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Bucket> buckets = new ArrayList<>();
 
 }

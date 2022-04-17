@@ -29,7 +29,7 @@ public class PostServiceImpl implements PostService {
     @Transactional
     public ResponseEntity<String> addPost(PostDto postDto) {
         AtomicBoolean postAdded = new AtomicBoolean(false);
-        Optional<User> userOptional = userRepository.findByUsername(postDto.getAuthorName());
+        Optional<User> userOptional = userRepository.findById(postDto.getAuthorId());
         userOptional.ifPresentOrElse(
                 user -> {
                     Post post = postMapper.mapDtoToPost(postDto);
@@ -53,10 +53,10 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> getAllPostsByAuthorName(String authorName) {
+    public List<PostDto> getAllPostsByAuthorId(Long authorId) {
         return getAllPosts()
                 .stream()
-                .filter(postDto -> postDto.getAuthorName().equals(authorName))
+                .filter(postDto -> postDto.getAuthorId().equals(authorId))
                 .collect(Collectors.toList());
     }
 

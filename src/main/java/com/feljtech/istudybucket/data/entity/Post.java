@@ -34,8 +34,8 @@ public class Post {
     @Column(name = "post_type", length = 16)
     private PostType postType;
 
-    @Column(name = "creation_date")
-    private Instant creationDate;
+    @Column(name = "created_date")
+    private Instant createdDate;
 
     // many to one relationship to User entity (author)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

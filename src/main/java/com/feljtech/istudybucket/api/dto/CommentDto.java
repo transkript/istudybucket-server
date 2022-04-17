@@ -15,16 +15,16 @@ public class CommentDto {
     @JsonProperty(value = "comment_id")
     private Long commentId;
 
-    @JsonProperty(value = "post_id")
-    private Long postId;
-
-    @JsonProperty(value = "author_name")
-    private String authorName;
-
     @JsonProperty(value = "creation_date")
     private String creationDate;
 
     @JsonProperty(value = "content")
     private String content;
 
+    // from relationships
+    @JsonProperty(value = "post_id")
+    private Long postId;
+
+    @JsonProperty(value = "author_id")
+    private Long authorId;
 }
