@@ -10,6 +10,7 @@ import com.feljtech.istudybucket.data.enums.VoteType;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 import java.time.Instant;
 import java.util.List;
@@ -19,10 +20,13 @@ import java.util.Locale;
 public interface PostMapper {
 
     // post to dto mapping
-    @Mapping(target = "commentCount", expression = "java(mapCommentCount(post.getComments()))")
-    @Mapping(target = "authorName", expression = "java(mapAuthorName(post.getAuthor()))")
-    @Mapping(target = "upVotes", expression = "java(mapUpVotes(post.getVotes()))")
-    @Mapping(target = "downVotes", expression = "java(mapDownVotes(post.getVotes()))")
+    @Mappings({
+            @Mapping(target = "commentCount", expression = "java(post.getComments().size())"),
+            @Mapping(target = "authorId", expression = "java(post.getAuthor().getUserId())"),
+            @Mapping(target = "upVotes", expression = "java(mapUpVotes(post.getVotes()))"),
+            @Mapping(target = "downVotes", expression = "java(mapDownVotes(post.getVotes()))"),
+            @Mapping(target = "voteCount", expression = "java(post.getVotes().size())"),
+    })
     PostDto mapPostToDto(Post post);
 
     // dto to post mapping
@@ -30,27 +34,10 @@ public interface PostMapper {
     @Mapping(target = "comments", ignore = true)
     @Mapping(target = "votes", ignore = true)
     @Mapping(target = "author", ignore = true)
-    @Mapping(target = "creationDate", expression = "java(inverseMapCreationDate())")
+    @Mapping(target = "createdDate", ignore = true)
     @Mapping(target = "postType", expression = "java(inverseMapPostType(postDto.getPostType()))")
     Post mapDtoToPost(PostDto postDto);
 
-    /**
-     * Extracts the number of comments from the post
-     * @param comments the list of comments
-     * @return the size of the list
-     */
-    default Integer mapCommentCount(List<Comment> comments) {
-        return comments.size();
-    }
-
-    /**
-     * Extracts the username from the user object of the post
-     * @param user User object
-     * @return username of the associated user
-     */
-    default String mapAuthorName(User user) {
-        return user.getUsername();
-    }
 
     /**
      * Converts the UserVotePost relation to an upvote count
@@ -78,13 +65,6 @@ public interface PostMapper {
         );
     }
 
-    /**
-     * generates an Instant object for a new post
-     * @return the Instant object of the current time
-     */
-    default Instant inverseMapCreationDate() {
-        return Instant.now();
-    }
 
     /**
      * Converts the string representation of the post type to the enum
