@@ -72,7 +72,7 @@ public class AuthServiceImpl implements AuthService {
                             .username(registerRequest.getUsername())
                             .email(registerRequest.getEmail())
                             .password(this.encodePassword(registerRequest.getPassword())) // encode password
-                            .creationDate(Instant.now())
+                            .createdDate(Instant.now())
                             .userVerified(Boolean.FALSE)
                             .userRole(UserRole.USER)
                             .build();
