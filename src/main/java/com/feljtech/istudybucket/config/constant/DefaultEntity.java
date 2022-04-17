@@ -1,0 +1,38 @@
+package com.feljtech.istudybucket.config.constant;
+
+import com.feljtech.istudybucket.data.entity.Bucket;
+import com.feljtech.istudybucket.data.entity.Chat;
+import com.feljtech.istudybucket.data.entity.User;
+import com.feljtech.istudybucket.data.enums.UserRole;
+
+import java.time.Instant;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+public class DefaultEntity {
+    public final static Bucket DEFAULT_BUCKET = Bucket.builder()
+            .bucketId(1L).bucketTitle("Default Bucket").description("This is the default bucket")
+            .groupImage("/path/to/image").creationDate(Instant.now()).memberships(List.of())
+            .build();
+
+    public final static User DEFAULT_USER = User.builder()
+            .userId(1L).username("user").password("password").email("user@mail.com")
+            .firstName("First").lastName("Last").phoneNumber("1234567890")
+            .dob(new Date()).gender("M").userRole(UserRole.USER).userVerified(true)
+            .creationDate(Instant.now()).buckets(List.of())
+            .posts(List.of())
+            .votes(List.of())
+            .messages(List.of())
+            .trophies(List.of())
+            .linkOfUsers(List.of())
+            .linkToUsers(List.of())
+            .buckets(List.of())
+            .build();
+
+    public final static Chat DEFAULT_CHAT = Chat.builder()
+            .chatId(1L).chatTitle("Default Chat").chatType("GROUP")
+            .chatDescription("This is the default chat").creationDate(Instant.now())
+            .messages(List.of())
+            .build();
+}
