@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -80,8 +81,9 @@ public class User {
     private List<UserInBucket> memberships;
 
     // one to one relation with a post vote
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Vote vote;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Vote> votes = new ArrayList<>();
+
 
     // one to one relationship with Address
     @OneToOne(orphanRemoval = true)
@@ -102,5 +104,8 @@ public class User {
 
     @OneToMany(mappedBy = "leftLinkUser", orphanRemoval = true)
     private List<UserLinkUser> linkOfUsers;
+
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Bucket> buckets = new ArrayList<>();
 
 }

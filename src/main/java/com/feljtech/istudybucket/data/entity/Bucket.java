@@ -32,9 +32,6 @@ public class Bucket {
     @Column(name = "description", length = 128)
     private String description;
 
-    @Column(name = "creator_name", length = 32)
-    private String creatorName;
-
     @Column(name = "group_image")
     private String groupImage;
 
@@ -50,4 +47,9 @@ public class Bucket {
     @OneToMany(mappedBy = "bucket")
     @ToString.Exclude
     private List<UserInBucket> memberships;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "creator_user_id", nullable = false)
+    private User creator;
+
 }
