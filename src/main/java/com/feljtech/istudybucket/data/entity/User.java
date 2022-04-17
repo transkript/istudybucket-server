@@ -2,6 +2,7 @@ package com.feljtech.istudybucket.data.entity;
 
 import com.feljtech.istudybucket.data.entity.relation.UserInBucket;
 import com.feljtech.istudybucket.data.entity.relation.UserLinkUser;
+import com.feljtech.istudybucket.data.enums.Gender;
 import com.feljtech.istudybucket.data.enums.UserRole;
 import lombok.*;
 
@@ -51,16 +52,17 @@ public class User {
     @Column(name = "dob")
     private Date dob;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "gender", length = 16)
-    private String gender;
+    private Gender gender;
 
     // TODO verify enum type matches db
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role", nullable = false)
     private UserRole userRole;
 
-    @Column(name = "creation_date")
-    private Instant creationDate;
+    @Column(name = "created_date")
+    private Instant createdDate;
 
     @Column(name = "user_verified")
     private Boolean userVerified;
