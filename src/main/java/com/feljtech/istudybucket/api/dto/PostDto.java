@@ -26,12 +26,19 @@ public class PostDto {
     @JsonProperty(value = "down_votes")
     private Integer downVotes;
 
+    @JsonProperty(value = "vote_count")
+    private Integer voteCount;
+
     @JsonProperty(value = "comment_count")
     private Integer commentCount;
 
     @JsonProperty(value = "post_type")
     private String postType;
 
-    @JsonProperty(value = "author_name")
-    private String authorName;
+    @JsonProperty(value = "created_date")
+    private String createdDate;
+
+    // from relationship
+    @JsonProperty(value = "author_id")
+    private Long authorId;
 }

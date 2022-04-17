@@ -10,7 +10,7 @@ public interface PostService {
 
     List<PostDto> getAllPosts();
 
-    List<PostDto> getAllPostsByAuthorName(String authorName);
+    List<PostDto> getAllPostsByAuthorId(Long authorId);
 
     ResponseEntity<?> getPostById(Long postId);
 }

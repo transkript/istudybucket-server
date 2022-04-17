@@ -81,6 +81,7 @@ public class User {
     private List<UserInBucket> memberships;
 
     // one to one relation with a post vote
+    @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vote> votes = new ArrayList<>();
 
@@ -105,6 +106,7 @@ public class User {
     @OneToMany(mappedBy = "leftLinkUser", orphanRemoval = true)
     private List<UserLinkUser> linkOfUsers;
 
+    @Builder.Default
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Bucket> buckets = new ArrayList<>();
 
