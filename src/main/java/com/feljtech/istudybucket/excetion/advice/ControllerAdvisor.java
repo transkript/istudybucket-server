@@ -1,7 +1,7 @@
-package com.feljtech.istudybucket.config.excetion.advice;
+package com.feljtech.istudybucket.excetion.advice;
 
-import com.feljtech.istudybucket.config.excetion.AuthException;
-import com.feljtech.istudybucket.config.excetion.body.ExceptionBody;
+import com.feljtech.istudybucket.excetion.AuthException;
+import com.feljtech.istudybucket.excetion.body.ExceptionBody;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.List;
 
 @ControllerAdvice
-public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(AuthException.LoginFailedException.class)
     public ResponseEntity<ExceptionBody> handleLoginFailed(
