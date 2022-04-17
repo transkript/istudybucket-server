@@ -1,0 +1,19 @@
+api:
+  - src/main/java/com/feljtech/istudybucket/api/**/*
+  
+business:
+  - src/main/java/com/feljtech/istudybucket/business/**/*
+  
+config:
+  - src/main/java/com/feljtech/istudybucket/config/**/*
+  
+data:
+  - src/main/java/com/feljtech/istudybucket/data/**/*
+  
+exception:
+  - src/main/java/com/feljtech/istudybucket/exception/**/*
+  
+test:
+  - src/test/**/*
+
+  
