@@ -34,7 +34,7 @@ public class CommentServiceImpl implements CommentService {
         AtomicBoolean commentAdded = new AtomicBoolean(false);
         postRepository.findById(commentDto.getPostId())
                 .ifPresentOrElse( // if post exists
-                        sourcePost -> userRepository.findByUsername(commentDto.getAuthorName())
+                        sourcePost -> userRepository.findById(commentDto.getAuthorId())
                                 .ifPresentOrElse(
                                         authorUser -> {
                                             Comment comment = commentMapper.mapDtoToComment(commentDto);
