@@ -2,6 +2,7 @@ package com.feljtech.istudybucket.api.controller;
 
 import com.feljtech.istudybucket.api.dto.request.LoginRequest;
 import com.feljtech.istudybucket.api.dto.request.RegisterRequest;
+import com.feljtech.istudybucket.api.dto.response.RegisterResponse;
 import com.feljtech.istudybucket.config.jwt.JwtRefreshTokenRequest;
 import com.feljtech.istudybucket.business.service.AuthService;
 import lombok.AllArgsConstructor;
@@ -35,8 +36,8 @@ public class AuthController {
      * @return http status of the process
      */
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
-        return authService.registerAccount(registerRequest);
+    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest registerRequest) {
+        return ResponseEntity.ok(authService.registerAccount(registerRequest));
     }
 
     /**
