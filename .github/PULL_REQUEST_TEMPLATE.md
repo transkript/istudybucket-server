@@ -2,6 +2,7 @@
 <!-- Does this pull request fix an open issue? -->
 <!-- if yes, replace issue below with the issue's link in the parentesis below -->
 Fixes #[issue_number]
+<!-- Fixes #41 -->
 
 - [ ] Did you add comments for every public function/method?
 - [ ] Did you add at least one test demonstrating the PR?
