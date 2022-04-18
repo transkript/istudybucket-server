@@ -1,175 +1,108 @@
+# iStudyBucket API
+
+This is the backend of the iStudyBucket project, built with Spring and contains the application business logic. 
+iStudyBucket is an application which gives students the chance to share and learn together on content regarding school as they would on social media. The aim of this is to have a platform (similar to StackOverflow, Reddit, Facebook) where students (targetting Cameroon, and Africa later) can post, comment and review content from others strictly for learning purposes and education.
+
+This backend is built with Java and targets Java 11. We use Maven to manage dependencies, Freemarker for html templates, and JUnit for testing.
+
 <!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Thanks again! Now go create something AMAZING! :D
+**Note:** See individual language directories in this repo for technology-specific badges. 
+
+[![CircleCI](https://img.shields.io/circleci/project/github/auth0/open-source-template.svg?style=flat-square)](https://circleci.com/gh/auth0/open-source-template/tree/master)
+[![TravisCI](https://travis-ci.org/auth0/open-source-template.png)](https://travis-ci.org/auth0/open-source-template)
+[![CodeCov](https://img.shields.io/codecov/c/github/auth0/open-source-template/v3.svg?style=flat-square)](https://codecov.io/github/auth0/open-source-template)
+[![Coveralls](https://coveralls.io/repos/auth0/open-source-template/badge.svg?branch=master)](https://coveralls.io/r/auth0/open-source-template?branch=master)
+[![Code Climate](https://img.shields.io/codeclimate/maintainability/auth0/open-source-template.svg)](https://codeclimate.com/github/auth0/open-source-template)
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat)](https://opensource.org/licenses/MIT)
 -->
+## Table of Contents
+
+Make sure this is updated based on the sections included:
+
+- [Documentation](#documentation)
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+- [Contributing](#contributing)
+- [Support + Feedback](#support--feedback)
+- [Thank You](#thank-you)
+- [License](#license)
+
+## Documentation
+
+NO DOCUMENTATION AVAILABLE FOR THIS PROJECT YET
+
+## Installation
+
+##### To get this project running on your personal computer or server, ensure you have:
+- Java SE 11 or above | [Download JDK 11](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)
+- Maven | [Download Maven](https://maven.apache.org/download.cgi)
+- MySQL | [Download MySQL Community Server](https://dev.mysql.com/downloads/mysql/)
 
 
+##### To run this project, follow these steps
 
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
+- Clone this repository on your machine using this command:
+```bash
+git clone https://github.com/istudybucket/istudybucket-backend
+```
 
-<!-- Uncomment this after some reasonable progress
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
--->
+- Navigate to the application directory
+```bash
+mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8000
+```
+
+If you are using a modern IDE like Eclipse STS, NetBeans or IntelliJ (Ultimate / Community + Plugins), then your IDE may pick up the configurations from analysing the project in its workspace, and set up all necessary prerequisites for you.
 
 
-<!-- PROJECT LOGO -->
-<br />
-<p align="center">
-  <a href="">
-    <img src="images/logo.png" alt="istudybucket logo" width="80" height="80">
-  </a>
-
-<h3 align="center">iStudyBucket</h3>
-
-<p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />
-    <a href="https://feljtech.github.io/istudybucket-docs/"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="">View Demo</a>
-    ·
-    <a href="">Report Bug</a>
-    ·
-    <a href="https://github.com/feljtech/istudybucket-backend/issues">Request Feature</a>
-</p>
-
-
-
-<!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
-  </ol>
-</details>
-
-
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-There are many great platforms for social interaction and communication in the world. None of which really targets the needs of student in this exponentially growing digital age.
-
-
-Here's why:
-* Your time online should be invested in interacting with individuals who can help with your study issues or hooks you can't seem to set loose in school.
-* You shouldn't be stressing yourself with a problem when there is someone a few kilobytes of data access away from you who can solve it.
-* You should have an excuse for while you are online while studying :smile:
-
-iStudyBucket comes as a solution to this issue and this project focuses on the services which will consume requests from our mobile and web applications.
-
-A list of commonly used resources that we find helpful are listed in the acknowledgements.
-
-<!-- BUILT WITH -->
-### Built With
-
-* [FreeMarker](https://freemarker.apache.org/)
-* [MySQL](https://www.mysql.com/)
-* [Spring](https://spring.io)
-* [Spring Boot](https://spring.io/projects/spring-boot)
-* [Spring Data](https://spring.io/projects/spring-data)
-
-<!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Once you have successfully had the application running on your machine, you can carry on from here. Ensure you have an HTTP Client (preferably Postman) on your machine to communicate with the API.
 
-### Prerequisites
+You however do not need a specific HTTP Client as we have SwaggerUI in this application which can show you all the API endpoints and offers a simple interface for communicating with the application.
 
-#### Using IntelliJ IDEA Ultimate, STS, NetBeans or Eclipse
-Install any of the mentioned IDEs on your computer which will come with the appropriate maven version.
+ - Open your browser and open this link to access the SwaggerUI build: {link}
+ - Using SwaggerUI Client or your favorite HTTP Client, try out the application by making a simple request to this endpoint: {sample endpoint}
+ - Explore more by trying out these various endpoints: {various endpoints}
 
-* java
-    - Download and install a stable version of JDK (pref 11) from the Oracle JavaSE Downloads page: [JDK](https://www.oracle.com/in/java/technologies/javase-downloads.html)
-    - Either set the JAVA_HOME environment variable pointing to your JDK installation or have the java executable on your PATH.
-
-#### Otherwise: VSCode, Text Editor, Nano, Vim, whatever you prefer to suffer with
-
-* maven
-  - Download maven from: [Maven](https://maven.apache.org/download.cgi)
-  - Install the downloaded maven on your computer by following [this](https://maven.apache.org/install.html)
-
-
-### Installation
-
-1. Clone the repo
-   ```sh
-   git clone https://github.com/feljtech/istudybucket-backend.git
-   ```
-2. Open the cloned directory in your IDE (pref IntelliJ IDEA Ultimate)
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-We will use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space.
-We may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://not-yet-set)_
-
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-See the [open issues](https://github.com/feljtech/istudybucket-backend/issues) for a list of proposed features (and known issues).
-
-
-
-<!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+We appreciate feedback and contribution to this repo! Before you get started, please see the following:
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+- [iStudyBucket's general contribution guidelines](https://github.com/istudybucket/istudybucket-backend/blob/master/GENERAL-CONTRIBUTING.md)
+- [iStudyBucket's code of conduct guidelines](https://github.com/istudybucket/istudybucket-backend/blob/master/CODE-OF-CONDUCT.md)
+- [This repo's contribution guide](CONTRIBUTING.md)
+
+## Support + Feedback
+
+Include information on how to get support. Consider adding:
+
+- Use [Issues](https://github.com/istudybucket/istudybucket-backend/issues) for code-level support
+- Use [Community](https://matrix.to/#/#istudybucket:matrix.org) for usage, questions, specific cases
+
+<!-- TODO fix this
+## Vulnerability Reporting
+
+Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/whitehat) details the procedure for disclosing security issues.
 
 
+## What is Auth0?
 
-<!-- LICENSE -->
+Auth0 helps you to easily:
+
+- implement authentication with multiple identity providers, including social (e.g., Google, Facebook, Microsoft, LinkedIn, GitHub, Twitter, etc), or enterprise (e.g., Windows Azure AD, Google Apps, Active Directory, ADFS, SAML, etc.)
+- log in users with username/password databases, passwordless, or multi-factor authentication
+- link multiple user accounts together
+- generate signed JSON Web Tokens to authorize your API calls and flow the user identity securely
+- access demographics and analytics detailing how, when, and where users are logging in
+- enrich user profiles from other data sources using customizable JavaScript rules
+
+[Why Auth0?](https://auth0.com/why-auth0)
+-->
+
+## Thank You!
+
+{List out dependencies here}
+
 ## License
-<!-- Add a link to the license -->
-Distributed under the MIT License. See `LICENSE` for more information.
 
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-
-* [GitHub Pages](https://pages.github.com)
-* [Spring Boot](https://spring.io/projects/spring-boot)
+Link to [LICENSE](LICENSE) doc. Typically MIT but can be different for a specific platform.
