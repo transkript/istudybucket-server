@@ -6,9 +6,31 @@ This project and everyone participating in it is governed by the istudybucket Co
 If you want to ask a question, we assume that you have read the available Documentation.
 
 Before you ask a question, it is best to search for existing Issues that might help you. In case you have found a suitable issue and still need clarification, you can write your question in this issue. It is also advisable to search the internet for answers first.
-Also Endevour to follow our [Code of Conduct](https://github.com/istudybucket/istudybucket-backend/blob/master/CODE_OF_CONDUCT.md)
 
-## CONTRIBUTING
+# Contributing to istudybucket
+
+A big welcome and thank you for considering contributing to Auth0 open source projects! It’s people like you that make it a reality for users in our community.
+
+Reading and following these guidelines will help us make the contribution process easy and effective for everyone involved. It also communicates that you agree to respect the time of the developers managing and developing these open source projects. In return, we will reciprocate that respect by addressing your issue, assessing changes, and helping you finalize your pull requests.
+
+## Quicklinks
+
+* [Code of Conduct](https://github.com/istudybucket/istudybucket-backend/blob/master/CODE_OF_CONDUCT.md)
+* [Getting Started](https://github.com/istudybucket/istudybucket-backend#readme)
+ * [Issues](https://github.com/istudybucket/istudybucket-backend/issues)
+ * [Pull Requests](https://github.com/istudybucket/istudybucket-backend/pulls)
+
+## Code of Conduct
+
+We take our open source community seriously and hold ourselves and other contributors to high standards of communication. By participating and contributing to this project, you agree to uphold our [Code of Conduct](https://github.com/istudybucket/istudybucket-backend/blob/master/CODE_OF_CONDUCT.md)
+
+## Getting Started
+
+Contributions are made to this repo via Issues and Pull Requests (PRs). A few general guidelines that cover both:
+
+- Search for existing Issues and PRs before creating your own.
+- We work hard to makes sure issues are handled in a timely manner but, depending on the impact, it could take a while to investigate the root cause. A friendly ping in the comment thread to the submitter or a contributor can help draw attention if your issue is blocking.
+- If you've never contributed before, see [the first timer's guide on our blog](https://auth0.com/blog/a-first-timers-guide-to-an-open-source-project/) for resources and tips on how to get started.
 
 ### Open an Issue.
 Provide as much context as you can about what you’re running into.
