@@ -27,6 +27,7 @@ We take our open source community seriously and hold ourselves and other contrib
 ## Getting Started
 
 Contributions are made to this repo via Issues and Pull Requests (PRs). A few general guidelines that cover both:
+
 To introduce yourself and get help, you can join the [matrix](https://matrix.to/#/!OMnwXQbQKzyupbtNOb:matrix.org?via=matrix.org) forum. If you have any questions or concerns, you can get help there.
 
 - Search for existing Issues and PRs before creating your own.
