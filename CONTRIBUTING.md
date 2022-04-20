@@ -1,80 +1,38 @@
 Contributing to istudybucket
 First off, thanks for taking the time to contribute! ❤️
 
-## Code of Conduct
-
 This project and everyone participating in it is governed by the istudybucket Code of Conduct. By participating, you are expected to uphold this code. 
 
 If you want to ask a question, we assume that you have read the available Documentation.
 
 Before you ask a question, it is best to search for existing Issues that might help you. In case you have found a suitable issue and still need clarification, you can write your question in this issue. It is also advisable to search the internet for answers first.
 
-### Our Pledge
+# Contributing to istudybucket
 
-In the interest of fostering an open and welcoming environment, we as
-contributors and maintainers pledge to making participation in our project and
-our community a harassment-free experience for everyone, regardless of age, body
-size, disability, ethnicity, gender identity and expression, level of experience,
-nationality, personal appearance, race, religion, or sexual identity and
-orientation.
+A big welcome and thank you for considering contributing to iStudyBucket!
 
-### Our Standards
+Reading and following these guidelines will help us make the contribution process easy and effective for everyone involved. It also communicates that you agree to respect the time of the developers managing and developing these open source projects. In return, we will reciprocate that respect by addressing your issue, assessing changes, and helping you finalize your pull requests.
 
-Examples of behavior that contributes to creating a positive environment
-include:
+## Quicklinks
 
-* Using welcoming and inclusive language
-* Being respectful of differing viewpoints and experiences
-* Gracefully accepting constructive criticism
-* Focusing on what is best for the community
-* Showing empathy towards other community members
+* [Code of Conduct](https://github.com/istudybucket/istudybucket-backend/blob/master/CODE_OF_CONDUCT.md)
+* [Getting Started](https://github.com/istudybucket/istudybucket-backend#readme)
+* [Issues](https://github.com/istudybucket/istudybucket-backend/issues)
+* [Pull Requests](https://github.com/istudybucket/istudybucket-backend/pulls)
 
-Examples of unacceptable behavior by participants include:
+## Code of Conduct
 
-* The use of sexualized language or imagery and unwelcome sexual attention or
-advances
-* Trolling, insulting/derogatory comments, and personal or political attacks
-* Public or private harassment
-* Publishing others' private information, such as a physical or electronic
-  address, without explicit permission
-* Other conduct which could reasonably be considered inappropriate in a
-  professional setting
+We take our open source community seriously and hold ourselves and other contributors to high standards of communication. By participating and contributing to this project, you agree to uphold our [Code of Conduct](https://github.com/istudybucket/istudybucket-backend/blob/master/CODE_OF_CONDUCT.md)
 
-### Our Responsibilities
+## Getting Started
 
-Project maintainers are responsible for clarifying the standards of acceptable
-behavior and are expected to take appropriate and fair corrective action in
-response to any instances of unacceptable behavior.
+Contributions are made to this repo via Issues and Pull Requests (PRs). A few general guidelines that cover both:
 
-Project maintainers have the right and responsibility to remove, edit, or
-reject comments, commits, code, wiki edits, issues, and other contributions
-that are not aligned to this Code of Conduct, or to ban temporarily or
-permanently any contributor for other behaviors that they deem inappropriate,
-threatening, offensive, or harmful.
+To introduce yourself and get help, you can join the [matrix](https://matrix.to/#/!OMnwXQbQKzyupbtNOb:matrix.org?via=matrix.org) forum. If you have any questions or concerns, you can get help there.
 
-### Scope
-
-This Code of Conduct applies both within project spaces and in public spaces
-when an individual is representing the project or its community. Examples of
-representing a project or community include using an official project e-mail
-address, posting via an official social media account, or acting as an appointed
-representative at an online or offline event. Representation of a project may be
-further defined and clarified by project maintainers.
-
-### Enforcement
-
-Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by contacting the project team at [INSERT EMAIL ADDRESS]. All
-complaints will be reviewed and investigated and will result in a response that
-is deemed necessary and appropriate to the circumstances. The project team is
-obligated to maintain confidentiality with regard to the reporter of an incident.
-Further details of specific enforcement policies may be posted separately.
-
-Project maintainers who do not follow or enforce the Code of Conduct in good
-faith may face temporary or permanent repercussions as determined by other
-members of the project's leadership.
-
-## CONTRIBUTING
+- Search for existing Issues and PRs before creating your own.
+- We work hard to makes sure issues are handled in a timely manner but, depending on the impact, it could take a while to investigate the root cause. A friendly ping in the comment thread to the submitter or a contributor can help draw attention if your issue is blocking.
+- If you've never contributed before, see [the first timer's guide on our blog](https://auth0.com/blog/a-first-timers-guide-to-an-open-source-project/) for resources and tips on how to get started.
 
 ### Open an Issue.
 Provide as much context as you can about what you’re running into.
