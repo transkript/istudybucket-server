@@ -1,23 +1,23 @@
 package com.elroykanye.istudybucket.business.service.impl;
 
+import com.elroykanye.istudybucket.api.dto.PostDto;
 import com.elroykanye.istudybucket.business.mapper.PostMapper;
 import com.elroykanye.istudybucket.business.service.PostService;
-import com.elroykanye.istudybucket.api.dto.PostDto;
 import com.elroykanye.istudybucket.data.entity.Post;
-import com.elroykanye.istudybucket.data.entity.User;
 import com.elroykanye.istudybucket.data.repository.PostRepository;
 import com.elroykanye.istudybucket.data.repository.UserRepository;
+import com.elroykanye.istudybucket.excetion.EntityException;
+import com.elroykanye.istudybucket.excetion.IstudybucketException;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class PostServiceImpl implements PostService {
@@ -27,49 +27,44 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public ResponseEntity<String> addPost(PostDto postDto) {
-        AtomicBoolean postAdded = new AtomicBoolean(false);
-        Optional<User> userOptional = userRepository.findById(postDto.getAuthorId());
-        userOptional.ifPresentOrElse(
+    public String addPost(PostDto postDto) {
+        userRepository.findById(postDto.getAuthorId()).ifPresentOrElse(
                 user -> {
+                    log.info("Post author is valid");
                     Post post = postMapper.mapDtoToPost(postDto);
                     post.setAuthor(user);
                     postRepository.save(post);
-                    postAdded.set(true);
                 },
-                () -> postAdded.set(false)
+                () -> {
+                    log.error("Post author is invalid");
+                    throw new IstudybucketException.NotAuthorisedException("Invalid user id " + postDto.getAuthorId() + " for post");
+                }
         );
-        return postAdded.get() ?
-                new ResponseEntity<>("Post added", HttpStatus.CREATED):
-                new ResponseEntity<>("Post not added", HttpStatus.UNAUTHORIZED);
+        return "Post created successfully";
     }
 
     @Override
     public List<PostDto> getAllPosts() {
-        return postRepository.findAll()
-                .stream()
+        return postRepository.findAll().stream()
                 .map(postMapper::mapPostToDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<PostDto> getAllPostsByAuthorId(Long authorId) {
-        return getAllPosts()
-                .stream()
+        return getAllPosts().stream()
                 .filter(postDto -> postDto.getAuthorId().equals(authorId))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public ResponseEntity<?> getPostById(Long postId) {
-        AtomicBoolean postFound = new AtomicBoolean(false);
+    public PostDto getPostById(Long postId) {
         Optional<Post> postOptional = postRepository.findById(postId);
-        postOptional.ifPresentOrElse(
-                post -> postFound.set(true),
-                () -> postFound.set(false)
-        );
-        return postFound.get() ?
-                new ResponseEntity<>(postMapper.mapPostToDto(postOptional.orElseThrow()), HttpStatus.FOUND) :
-                new ResponseEntity<>("Post not found", HttpStatus.NOT_FOUND);
+        if(postOptional.isPresent()) {
+            log.info("Post with id {} found", postId);
+            return postMapper.mapPostToDto(postOptional.get());
+        }
+        log.warn("Post with id {} not found", postId);
+        throw new EntityException.EntityNotFoundException("post", postId);
     }
 }
