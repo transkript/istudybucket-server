@@ -2,15 +2,17 @@ package com.elroykanye.istudybucket.business.service.impl;
 
 import com.elroykanye.istudybucket.business.service.RefreshTokenService;
 import com.elroykanye.istudybucket.data.entity.RefreshToken;
-import com.elroykanye.istudybucket.excetion.IstudybucketException;
 import com.elroykanye.istudybucket.data.repository.RefreshTokenRepository;
+import com.elroykanye.istudybucket.excetion.IstudybucketException;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 @Transactional
@@ -35,6 +37,16 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     @Override
     public void deleteRefreshToken(String token) {
-        refreshTokenRepository.deleteByRefreshToken(token);
+        log.info("Deleting refresh token: {}", token);
+
+        refreshTokenRepository.findByRefreshToken(token).ifPresentOrElse((refreshToken) -> {
+            log.info("Deleted refresh token: {}", refreshToken);
+
+            refreshTokenRepository.delete(refreshToken);
+        }, () -> {
+            log.info("Refresh token not found: {}", token);
+
+            throw new IstudybucketException.RefreshTokenException(token);
+        });
     }
 }
