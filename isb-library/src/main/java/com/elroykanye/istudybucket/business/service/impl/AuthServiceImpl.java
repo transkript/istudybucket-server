@@ -18,7 +18,6 @@ import com.elroykanye.istudybucket.data.entity.VerificationToken;
 import com.elroykanye.istudybucket.data.repository.UserRepository;
 import com.elroykanye.istudybucket.data.repository.VerificationTokenRepository;
 import com.elroykanye.istudybucket.excetion.AuthException;
-import com.elroykanye.istudybucket.excetion.UserException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -121,7 +120,7 @@ public class AuthServiceImpl implements AuthService {
             log.error("Verification token not found");
 
             // set the account valid value to false
-            throw new UserException.UserVerificationException(username);
+            throw new AuthException.UserVerificationException(username);
         });
 
         return verTokenValid.get();
