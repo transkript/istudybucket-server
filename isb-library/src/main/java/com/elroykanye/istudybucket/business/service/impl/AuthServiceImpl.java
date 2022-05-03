@@ -1,26 +1,26 @@
 package com.elroykanye.istudybucket.business.service.impl;
 
+import com.elroykanye.istudybucket.api.dto.UserDto;
 import com.elroykanye.istudybucket.api.dto.email.VerificationEmail;
 import com.elroykanye.istudybucket.api.dto.request.LoginRequest;
 import com.elroykanye.istudybucket.api.dto.request.RegisterRequest;
+import com.elroykanye.istudybucket.api.dto.response.LoginResponse;
+import com.elroykanye.istudybucket.api.dto.response.LogoutResponse;
 import com.elroykanye.istudybucket.api.dto.response.RegisterResponse;
 import com.elroykanye.istudybucket.business.service.AuthService;
 import com.elroykanye.istudybucket.business.service.MailService;
 import com.elroykanye.istudybucket.business.service.RefreshTokenService;
 import com.elroykanye.istudybucket.business.service.UserService;
-import com.elroykanye.istudybucket.api.dto.UserDto;
-import com.elroykanye.istudybucket.excetion.AuthException;
+import com.elroykanye.istudybucket.config.jwt.JwtRefreshTokenRequest;
+import com.elroykanye.istudybucket.config.jwt.JwtTokenUtil;
 import com.elroykanye.istudybucket.data.entity.User;
 import com.elroykanye.istudybucket.data.entity.VerificationToken;
 import com.elroykanye.istudybucket.data.repository.UserRepository;
 import com.elroykanye.istudybucket.data.repository.VerificationTokenRepository;
-import com.elroykanye.istudybucket.config.jwt.JwtRefreshTokenRequest;
-import com.elroykanye.istudybucket.config.jwt.JwtResponse;
-import com.elroykanye.istudybucket.config.jwt.JwtTokenUtil;
+import com.elroykanye.istudybucket.excetion.AuthException;
+import com.elroykanye.istudybucket.excetion.UserException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -31,7 +31,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -54,12 +53,15 @@ public class AuthServiceImpl implements AuthService {
 
     /**
      * Implementation for user Registration
+     * Saves the non-existing user to the database, and sends a verification email to the user.
      * @param registerRequest : request body for registration
      * @return response entity based on success
      */
     @Override
     @Transactional
     public RegisterResponse registerAccount(RegisterRequest registerRequest) {
+        // log the info with request body
+        log.info("Registering user {}", registerRequest);
         UserDto userDto = UserDto.builder().email(registerRequest.getEmail())
                 .username(registerRequest.getUsername()).password(this.encodePassword(registerRequest.getPassword()))
                 .build();
@@ -89,17 +91,18 @@ public class AuthServiceImpl implements AuthService {
      * implementation for user verification
      * @param verificationTokenValue: token value
      * @param username: username concerned
-     * @return: logic state of user verification
+     * @return logic state of user verification
      */
     @Override
     @Transactional
     public boolean verifyAccount(String verificationTokenValue, String username) {
+        log.info("Verifying user {}", username);
+
         AtomicBoolean verTokenValid = new AtomicBoolean(false);
 
-        // extract optional verification token from the db
-        Optional<VerificationToken> verificationTokenOpt = verificationTokenRepository.findByTokenValue(verificationTokenValue);
+        verificationTokenRepository.findByTokenValue(verificationTokenValue).ifPresentOrElse((verificationToken) -> {
+            log.info("Verification token found for user {}", username);
 
-        verificationTokenOpt.ifPresent(verificationToken -> {
             // set the account valid value based on the verification
             verTokenValid.set(verificationToken.getUsername().equals(username));
 
@@ -114,17 +117,23 @@ public class AuthServiceImpl implements AuthService {
             }
             // delete the verification token if the operation was successful
             if(userUpdated) verificationTokenRepository.deleteById(verificationToken.getTokenId());
+        }, () -> {
+            log.error("Verification token not found");
+
+            // set the account valid value to false
+            throw new UserException.UserVerificationException(username);
         });
+
         return verTokenValid.get();
     }
 
     /**
      * implementation for user authentication
-     * @param loginRequest: request body for this method
-     * @return: response entity containing status and jwtResponse body
-     * @throws Exception: in case authentication is unsuccessful
+     * @param loginRequest : request body for this method
+     * @return response entity containing status and jwtResponse body
      */
-    public ResponseEntity<?> loginUser(LoginRequest loginRequest) throws Exception {
+    public LoginResponse loginUser(LoginRequest loginRequest) {
+        log.info("Authenticating user {}", loginRequest.getUsername());
 
         authenticateUser(loginRequest);
         final UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getUsername());
@@ -133,69 +142,57 @@ public class AuthServiceImpl implements AuthService {
         final String refreshToken = refreshTokenService.generateRefreshToken().getRefreshToken();
         final Instant jwtExpiration = Instant.now().plusMillis(jwtTokenUtil.getExpirationTimeInMillis(jwtToken));
 
-        return new ResponseEntity<>(
-                JwtResponse.builder()
-                        .jwtToken(jwtToken)
-                        .refreshToken(refreshToken)
-                        .username(userDetails.getUsername())
-                        .expiresAt(jwtExpiration)
-                        .build(),
-                HttpStatus.OK
-        );
+        return LoginResponse.builder().jwtToken(jwtToken).refreshToken(refreshToken)
+                .expiresAt(jwtExpiration).username(userDetails.getUsername()).build();
     }
     
     @Override
-    public ResponseEntity<?> refreshToken(JwtRefreshTokenRequest jwtRefreshTokenRequest) {
+    public LoginResponse refreshToken(JwtRefreshTokenRequest jwtRefreshTokenRequest) {
+        log.info("Refreshing token for user {}", jwtRefreshTokenRequest.getUsername());
+
         refreshTokenService.validateRefreshToken(jwtRefreshTokenRequest.getRefreshToken());
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(jwtRefreshTokenRequest.getUsername());
 
         String jwtToken = jwtTokenUtil.generateToken(userDetails);
-        String jwtRefreshToken = jwtRefreshTokenRequest.getRefreshToken();
+        String refreshToken = jwtRefreshTokenRequest.getRefreshToken();
         Instant jwtExpiration = Instant.now().plusMillis(jwtTokenUtil.getExpirationTimeInMillis(jwtToken));
         String username = jwtRefreshTokenRequest.getUsername();
 
-        return new ResponseEntity<>(
-                JwtResponse.builder()
-                        .jwtToken(jwtToken)
-                        .refreshToken(jwtRefreshToken)
-                        .expiresAt(jwtExpiration)
-                        .username(username)
-                        .build(),
-                HttpStatus.OK
-        );
+        return LoginResponse.builder().jwtToken(jwtToken).refreshToken(refreshToken)
+                .expiresAt(jwtExpiration).username(username).build();
     }
 
     @Override
-    public ResponseEntity<String> logoutUser(JwtRefreshTokenRequest jwtRefreshTokenRequest) {
-        try {
-            refreshTokenService.deleteRefreshToken(jwtRefreshTokenRequest.getRefreshToken());
-            return new ResponseEntity<>(
-                    jwtRefreshTokenRequest.getUsername().concat(" has logged out!"),
-                    HttpStatus.OK
-            );
-        } catch (Exception exception) {
-            return new ResponseEntity<>("Invalid token", HttpStatus.FORBIDDEN);
-        }
+    public LogoutResponse logoutUser(JwtRefreshTokenRequest jwtRefreshTokenRequest) {
+        log.info("Logging out user {} and deleting refresh token", jwtRefreshTokenRequest.getUsername());
+        refreshTokenService.deleteRefreshToken(jwtRefreshTokenRequest.getRefreshToken());
+        return LogoutResponse.builder().username(jwtRefreshTokenRequest.getUsername()).message("Log out successful").build();
     }
 
 
     /* ************* helper methods for this class ************* */
-    private void authenticateUser(LoginRequest loginRequest) throws Exception {
+    private void authenticateUser(LoginRequest loginRequest) {
         String requestUsername = loginRequest.getUsername();
         String requestPassword = loginRequest.getPassword();
+
+
+        log.info("Authenticating user {}", requestUsername);
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(requestUsername, requestPassword)
             );
+            log.info("User {} authenticated successfully", requestUsername);
         } catch (AuthenticationException e) {
+            log.info("Authentication failed for user {}", requestUsername);
             log.error(e.toString());
-            //throw new IstudybucketException("Authentication failed");
             throw new AuthException.LoginFailedException();
         }
     }
 
     private String generateVerificationToken(UserDto newUser) {
+        log.info("Generating verification token for user {}", newUser.getUsername());
+
         String token = UUID.randomUUID().toString();
         VerificationToken verificationToken = VerificationToken.builder() // build the verification token object
                 .tokenValue(token)
@@ -211,6 +208,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private boolean updateUserVerification(User user, Boolean verified) {
+        log.info("Updating user {} verification status to {}", user.getUsername(), verified);
+
         boolean verSuccess = false;
         try {
             user.setUserVerified(verified); // update the value of user enabled
