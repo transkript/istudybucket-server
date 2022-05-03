@@ -1,6 +1,7 @@
 package com.elroykanye.istudybucket.excetion.advice;
 
 import com.elroykanye.istudybucket.excetion.AuthException;
+import com.elroykanye.istudybucket.excetion.EntityException;
 import com.elroykanye.istudybucket.excetion.IstudybucketException;
 import com.elroykanye.istudybucket.excetion.body.ExceptionBody;
 import org.springframework.http.HttpStatus;
@@ -26,12 +27,17 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     public ResponseEntity<ExceptionBody> handleRefreshTokenException(
             IstudybucketException.RefreshTokenException refreshTokenException,
             WebRequest webRequest) {
-        ExceptionBody exceptionBody = ExceptionBody.buildExceptionBody(
-                refreshTokenException,
-                HttpStatus.UNAUTHORIZED,
-                List.of("Refresh token expired"));
+        return getExceptionEntity(refreshTokenException, webRequest, HttpStatus.UNAUTHORIZED, List.of("Refresh token expired"));
+    }
 
-        return new ResponseEntity<>(exceptionBody, exceptionBody.getStatus());
+    /**
+     *
+     */
+    @ExceptionHandler(IstudybucketException.NotAuthorisedException.class)
+    public ResponseEntity<ExceptionBody> handleNotAuthorisedException(
+            IstudybucketException.NotAuthorisedException notAuthorisedException,
+            WebRequest webRequest) {
+        return getExceptionEntity(notAuthorisedException, webRequest, HttpStatus.UNAUTHORIZED, List.of("Action not authorised"));
     }
 
     /**
@@ -44,13 +50,30 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     public ResponseEntity<ExceptionBody> handleLoginFailed(
             AuthException.LoginFailedException loginFailedException,
             WebRequest webRequest) {
-        ExceptionBody exceptionBody = ExceptionBody.buildExceptionBody(
-                loginFailedException,
-                HttpStatus.FORBIDDEN,
-                List.of("Password Incorrect", "User not verified"));
-
-        return new ResponseEntity<>(exceptionBody, exceptionBody.getStatus());
+        return getExceptionEntity(loginFailedException, webRequest, HttpStatus.FORBIDDEN, List.of("Password Incorrect", "User not verified"));
     }
 
+    // ENTITY EXCEPTION HANDLERS
+    @ExceptionHandler(EntityException.EntityNotFoundException.class)
+    public ResponseEntity<ExceptionBody> handleEntityNotFoundException(
+            EntityException.EntityNotFoundException entityNotFoundException,
+            WebRequest webRequest) {
+        return getExceptionEntity(entityNotFoundException, webRequest, HttpStatus.NOT_FOUND, List.of("Entity not found"));
+    }
 
+    @ExceptionHandler(EntityException.EntityAlreadyExists.class)
+    public ResponseEntity<ExceptionBody> handleEntityAlreadyExistsException(
+            EntityException.EntityAlreadyExists entityAlreadyExists,
+            WebRequest webRequest) {
+        return getExceptionEntity(entityAlreadyExists, webRequest, HttpStatus.CONFLICT, List.of("Entity already exists"));
+    }
+
+    private ResponseEntity<ExceptionBody> getExceptionEntity(
+            RuntimeException ex,
+            WebRequest webRequest,
+            HttpStatus status,
+            List<String> messages) {
+        ExceptionBody exceptionBody = ExceptionBody.buildExceptionBody(ex, webRequest, status, messages);
+        return new ResponseEntity<>(exceptionBody, exceptionBody.getStatus());
+    }
 }

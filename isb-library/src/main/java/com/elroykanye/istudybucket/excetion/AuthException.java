@@ -1,19 +1,16 @@
 package com.elroykanye.istudybucket.excetion;
 
-public class AuthException extends RuntimeException {
-    public AuthException() {
-        super("Authentication failed");
-    }
+public class AuthException {
+
     public static class LoginFailedException extends RuntimeException {
         public LoginFailedException() {
             super("Login failed.");
         }
     }
 
-    public static class RegisterFailedException extends RuntimeException {
-        public RegisterFailedException() {
-            super("Registeration failed.");
+    public static class UserVerificationException extends RuntimeException {
+        public UserVerificationException(String username) {
+            super("User with username: " + username + " not verified.");
         }
     }
-
 }

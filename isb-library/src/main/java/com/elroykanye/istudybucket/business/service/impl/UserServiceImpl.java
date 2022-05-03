@@ -5,7 +5,7 @@ import com.elroykanye.istudybucket.business.service.UserService;
 import com.elroykanye.istudybucket.data.entity.User;
 import com.elroykanye.istudybucket.data.enums.UserRole;
 import com.elroykanye.istudybucket.data.repository.UserRepository;
-import com.elroykanye.istudybucket.excetion.UserException;
+import com.elroykanye.istudybucket.excetion.EntityException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
                 user -> {
                     userId[0] = null;
                     log.error("User already exists: {}", user);
-                    throw new UserException.UserAlreadyExists(user.getUsername(), user.getEmail());
+                    throw new EntityException.EntityAlreadyExists("user", user.getUsername(), user.getEmail());
                 },
                 () -> {
                     log.info("User does not exist, creating new user");
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
         if(userOptional.isPresent()) {
             return userOptional.get();
         } else {
-            throw new UserException.UserNotFound(id);
+            throw new EntityException.EntityNotFoundException("user", id);
         }
     }
 
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
         if(userOptional.isPresent()) {
             return userOptional.get();
         } else {
-            throw new UserException.UserNotFound(username);
+            throw new EntityException.EntityNotFoundException("user", username);
         }
     }
 
