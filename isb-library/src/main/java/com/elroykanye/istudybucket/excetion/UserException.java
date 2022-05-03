@@ -15,4 +15,10 @@ public class UserException {
             super("User with username: " + username + " not found.");
         }
     }
+
+    public static class UserVerificationException extends RuntimeException {
+        public UserVerificationException(String username) {
+            super("User with username: " + username + " not verified.");
+        }
+    }
 }
