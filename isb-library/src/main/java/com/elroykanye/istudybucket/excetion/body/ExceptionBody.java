@@ -22,6 +22,8 @@ public class ExceptionBody {
     private String message;
     @JsonProperty("status")
     private HttpStatus status;
+    @JsonProperty("code")
+    private Integer code;
     @JsonProperty("timestamp")
     private Instant timestamp;
     @JsonProperty("errors")
@@ -34,6 +36,7 @@ public class ExceptionBody {
                 .message(exception.getMessage())
                 .timestamp(Instant.now())
                 .status(httpStatus)
+                .code(httpStatus.value())
                 .errors(errors)
                 .path(webRequest.getContextPath())
                 .build();
