@@ -3,6 +3,8 @@ package com.elroykanye.istudybucket.business.service.impl;
 import com.elroykanye.istudybucket.api.dto.CommentDto;
 import com.elroykanye.istudybucket.business.mapper.CommentMapper;
 import com.elroykanye.istudybucket.business.service.CommentService;
+import com.elroykanye.istudybucket.business.service.PostService;
+import com.elroykanye.istudybucket.business.service.UserService;
 import com.elroykanye.istudybucket.data.entity.Comment;
 import com.elroykanye.istudybucket.data.entity.Post;
 import com.elroykanye.istudybucket.data.entity.User;
@@ -27,34 +29,24 @@ public class CommentServiceImpl implements CommentService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
+    private final UserService userService;
+    private final PostService postService;
 
     @Override
     @Transactional
     public String addComment(CommentDto commentDto) {
-        postRepository.findById(commentDto.getPostId())
-                .ifPresentOrElse(
-                        sourcePost -> {
-                            log.info("Creating comment: post found");
-                            userRepository.findById(commentDto.getAuthorId())
-                                    .ifPresentOrElse(
-                                            authorUser -> {
-                                                log.info("Creating comment: user found");
-                                                Comment comment = commentMapper.mapDtoToComment(commentDto);
-                                                comment.setAuthor(authorUser);
-                                                comment.setSourcePost(sourcePost);
-                                                commentRepository.save(comment);
-                                            },
-                                            () -> {
-                                                log.warn("Creating comment: user not found");
-                                                throw new EntityException.EntityNotFoundException("user", commentDto.getAuthorId());
-                                            }
-                                    );
-                        },
-                        () -> {
-                            log.warn("Creating comment: post not found");
-                            throw new EntityException.EntityNotFoundException("post", commentDto.getPostId());
-                        } // post not found
-                );
+        Post post = postService.getPost(commentDto.getPostId());
+        User user = userService.getUser(commentDto.getAuthorId());
+
+        if(commentDto.getCommentId() != null && commentRepository.existsById(commentDto.getCommentId())) {
+            log.error("Adding comment: comment already exists");
+            throw new EntityException.EntityAlreadyExistsException("comment", commentDto.getCommentId());
+        }
+        log.info("Adding new comment to post {}", post.getPostId());
+        Comment comment = commentMapper.mapDtoToComment(commentDto);
+        comment.setSourcePost(post);
+        comment.setAuthor(user);
+        commentRepository.save(comment);
         return "Comment added";
     }
 
