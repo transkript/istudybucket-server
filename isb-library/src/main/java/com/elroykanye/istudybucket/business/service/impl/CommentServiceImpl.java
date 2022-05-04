@@ -9,8 +9,6 @@ import com.elroykanye.istudybucket.data.entity.Comment;
 import com.elroykanye.istudybucket.data.entity.Post;
 import com.elroykanye.istudybucket.data.entity.User;
 import com.elroykanye.istudybucket.data.repository.CommentRepository;
-import com.elroykanye.istudybucket.data.repository.PostRepository;
-import com.elroykanye.istudybucket.data.repository.UserRepository;
 import com.elroykanye.istudybucket.excetion.EntityException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -26,8 +23,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CommentServiceImpl implements CommentService {
     private final CommentMapper commentMapper;
-    private final PostRepository postRepository;
-    private final UserRepository userRepository;
     private final CommentRepository commentRepository;
     private final UserService userService;
     private final PostService postService;
@@ -53,42 +48,23 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public List<CommentDto> getCommentsByPost(Long postId) {
-        Optional<Post> sourcePostOptional = postRepository.findById(postId);
-        List<CommentDto> commentDtoList = sourcePostOptional.map(post -> post
-                .getComments()
-                .stream()
-                .map(commentMapper::mapCommentToDto)
-                .collect(Collectors.toList())).orElse(null);
-        if (commentDtoList == null) {
-            log.warn("Getting comments: post not found");
-            throw new EntityException.EntityNotFoundException("post", postId);
-        } else {
-            log.info("Getting comments: post found");
-            return commentDtoList;
-        }
+        log.info("Getting comments for post {}", postId);
+        Post sourcePost = postService.getPost(postId);
+        return commentRepository.findAll().stream()
+                .filter(comment -> comment.getSourcePost().equals(sourcePost))
+                .map(commentMapper::mapCommentToDto).collect(Collectors.toList());
+
     }
 
     @Override
     @Transactional
     public List<CommentDto> getCommentsByPostAndAuthor(Long postId, Long authorId) {
-        Optional<Post> sourcePostOptional = postRepository.findById(postId);
+        log.info("Getting comments for post {} and author {}", postId, authorId);
 
-        if (sourcePostOptional.isPresent()) {
-            Optional<User> authorUser = userRepository.findById(authorId);
-            List<CommentDto> commentDtoList = authorUser.map(user -> commentRepository.findAll().stream()
-                    .filter(comment -> comment.getSourcePost().equals(sourcePostOptional.get()) && comment.getAuthor().equals(user))
-                    .map(commentMapper::mapCommentToDto)
-                    .collect(Collectors.toList())).orElse(null);
-            if(commentDtoList != null) {
-                log.info("Getting comments: user found");
-                return commentDtoList;
-            } else {
-                log.warn("Getting comments: user not found");
-                throw new EntityException.EntityNotFoundException("user", authorId);
-            }
-        }
-        log.warn("Getting comments: post or author not found");
-        throw new EntityException.EntityNotFoundException("post", postId);
+        return commentRepository.findAll().stream()
+                .filter(comment -> comment.getSourcePost().getPostId().equals(postService.getPost(postId).getPostId())
+                        && comment.getAuthor().getUserId().equals(authorId))
+                .map(commentMapper::mapCommentToDto).collect(Collectors.toList());
     }
 
 
