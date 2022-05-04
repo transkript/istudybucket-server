@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and() // AND
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and() //AND
-                // using statesless session so we do not store the user's state
+                // using stateless session, so we do not store the user's state
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         // Add a filter to validate the tokens with every request
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

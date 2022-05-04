@@ -31,10 +31,19 @@ public class PostServiceImpl implements PostService {
         userRepository.findById(postDto.getAuthorId()).ifPresentOrElse(
                 user -> {
                     log.info("Post author is valid");
-                    Post post = postMapper.mapDtoToPost(postDto);
-                    post.setAuthor(user);
-                    postRepository.save(post);
-                },
+                    if(postDto.getPostId() != null) {
+                        postRepository.findById(postDto.getPostId()).ifPresentOrElse(
+                                post -> {
+                                    log.warn("Post with id {} already exists", postDto.getPostId());
+                                    throw new EntityException.EntityAlreadyExists("post", postDto.getPostId());
+                                },
+                                ()-> {
+                                    log.info("Post with id {} not found, creating new post", postDto.getPostId());
+                                    Post post = postMapper.mapDtoToPost(postDto);
+                                    post.setAuthor(user);
+                                    postRepository.save(post);
+                                });
+                    }},
                 () -> {
                     log.error("Post author is invalid");
                     throw new IstudybucketException.NotAuthorisedException("Invalid user id " + postDto.getAuthorId() + " for post");

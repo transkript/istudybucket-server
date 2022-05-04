@@ -11,10 +11,13 @@ import java.util.List;
 public interface UserService {
     Long saveUser(UserDto userDto);
 
-
-    User getUser(Long id);
-
     User getUser(String username);
 
-    List<User> getAllUsers();
+    UserDto getUserById(Long id);
+
+    List<UserDto> getAllUsers();
+
+    UserDto getUserByUsername(String username);
+
+    String updateUser(UserDto userDto);
 }
