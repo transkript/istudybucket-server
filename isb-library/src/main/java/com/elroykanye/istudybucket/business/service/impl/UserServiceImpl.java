@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
                 user -> {
                     userId[0] = null;
                     log.error("User already exists: {}", user);
-                    throw new EntityException.EntityAlreadyExists("user", user.getUsername(), user.getEmail());
+                    throw new EntityException.EntityAlreadyExistsException("user", user.getUsername(), user.getEmail());
                 },
                 () -> {
                     log.info("User does not exist, creating new user");
@@ -52,12 +52,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUser(Long id) {
+        log.info("Getting user with userid: {}", id);
+        Optional<User> userOptional = userRepository.findById(id);
+        if(userOptional.isPresent()) {
+            log.info("User with userid {} found", id);
+            return userOptional.get();
+        } else {
+            log.warn("User with userid {} not found", id);
+            throw new EntityException.EntityNotFoundException("user", id);
+        }
+    }
+
+    @Override
     public User getUser(String username) {
         log.info("Getting user with username: {}", username);
         Optional<User> userOptional = userRepository.findByUsername(username);
         if(userOptional.isPresent()) {
+            log.info("User with username {} found", username);
             return userOptional.get();
         } else {
+            log.warn("User with username {} not found", username);
             throw new EntityException.EntityNotFoundException("user", username);
         }
     }

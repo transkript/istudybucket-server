@@ -61,11 +61,11 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return getExceptionEntity(entityNotFoundException, webRequest, HttpStatus.NOT_FOUND, List.of("Entity not found"));
     }
 
-    @ExceptionHandler(EntityException.EntityAlreadyExists.class)
+    @ExceptionHandler(EntityException.EntityAlreadyExistsException.class)
     public ResponseEntity<ExceptionBody> handleEntityAlreadyExistsException(
-            EntityException.EntityAlreadyExists entityAlreadyExists,
+            EntityException.EntityAlreadyExistsException entityAlreadyExistsException,
             WebRequest webRequest) {
-        return getExceptionEntity(entityAlreadyExists, webRequest, HttpStatus.CONFLICT, List.of("Entity already exists"));
+        return getExceptionEntity(entityAlreadyExistsException, webRequest, HttpStatus.CONFLICT, List.of("Entity already exists"));
     }
 
     private ResponseEntity<ExceptionBody> getExceptionEntity(

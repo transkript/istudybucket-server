@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -35,7 +34,7 @@ public class PostServiceImpl implements PostService {
                         postRepository.findById(postDto.getPostId()).ifPresentOrElse(
                                 post -> {
                                     log.warn("Post with id {} already exists", postDto.getPostId());
-                                    throw new EntityException.EntityAlreadyExists("post", postDto.getPostId());
+                                    throw new EntityException.EntityAlreadyExistsException("post", postDto.getPostId());
                                 },
                                 ()-> {
                                     log.info("Post with id {} not found, creating new post", postDto.getPostId());
@@ -68,12 +67,20 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDto getPostById(Long postId) {
-        Optional<Post> postOptional = postRepository.findById(postId);
-        if(postOptional.isPresent()) {
-            log.info("Post with id {} found", postId);
-            return postMapper.mapPostToDto(postOptional.get());
-        }
-        log.warn("Post with id {} not found", postId);
-        throw new EntityException.EntityNotFoundException("post", postId);
+        log.info("Getting post with id {}", postId);
+        return postRepository.findById(postId).map(postMapper::mapPostToDto)
+                .orElseThrow(() -> {
+                    log.error("Post with id {} not found", postId);
+                    throw new EntityException.EntityNotFoundException("post", postId);
+                });
+    }
+
+    @Override
+    public Post getPost(Long id) {
+        log.info("Getting post with id {}", id);
+        return postRepository.findById(id).orElseThrow(() -> {
+            log.error("Post with id {} not found", id);
+            throw new EntityException.EntityNotFoundException("post", id);
+        });
     }
 }

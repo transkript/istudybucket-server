@@ -1,94 +1,92 @@
 package com.elroykanye.istudybucket.business.service.impl;
 
+import com.elroykanye.istudybucket.api.dto.CommentDto;
 import com.elroykanye.istudybucket.business.mapper.CommentMapper;
 import com.elroykanye.istudybucket.business.service.CommentService;
-import com.elroykanye.istudybucket.api.dto.CommentDto;
+import com.elroykanye.istudybucket.business.service.PostService;
+import com.elroykanye.istudybucket.business.service.UserService;
 import com.elroykanye.istudybucket.data.entity.Comment;
 import com.elroykanye.istudybucket.data.entity.Post;
 import com.elroykanye.istudybucket.data.entity.User;
 import com.elroykanye.istudybucket.data.repository.CommentRepository;
-import com.elroykanye.istudybucket.data.repository.PostRepository;
-import com.elroykanye.istudybucket.data.repository.UserRepository;
+import com.elroykanye.istudybucket.excetion.EntityException;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class CommentServiceImpl implements CommentService {
     private final CommentMapper commentMapper;
-    private final PostRepository postRepository;
-    private final UserRepository userRepository;
     private final CommentRepository commentRepository;
+    private final UserService userService;
+    private final PostService postService;
 
     @Override
     @Transactional
-    public ResponseEntity<String> addComment(CommentDto commentDto) {
-        AtomicBoolean commentAdded = new AtomicBoolean(false);
-        postRepository.findById(commentDto.getPostId())
-                .ifPresentOrElse( // if post exists
-                        sourcePost -> userRepository.findById(commentDto.getAuthorId())
-                                .ifPresentOrElse(
-                                        authorUser -> {
-                                            Comment comment = commentMapper.mapDtoToComment(commentDto);
-                                            comment.setAuthor(authorUser);
-                                            comment.setSourcePost(sourcePost);
-                                            commentRepository.save(comment);
+    public String addComment(CommentDto commentDto) {
+        Post post = postService.getPost(commentDto.getPostId());
+        User user = userService.getUser(commentDto.getAuthorId());
 
-                                            // comment added
-                                            commentAdded.set(true);
-                                        },
-                                        () -> commentAdded.set(false) // author not found
-                                ),
-                        () -> commentAdded.set(false) // post not found
-                );
-        return commentAdded.get() ?
-                new ResponseEntity<>("Comment added", HttpStatus.CREATED):
-                new ResponseEntity<>("Comment not added", HttpStatus.FORBIDDEN);
+        if(commentDto.getCommentId() != null && commentRepository.existsById(commentDto.getCommentId())) {
+            log.error("Adding comment: comment already exists");
+            throw new EntityException.EntityAlreadyExistsException("comment", commentDto.getCommentId());
+        }
+        log.info("Adding new comment to post {}", post.getPostId());
+        Comment comment = commentMapper.mapDtoToComment(commentDto);
+        comment.setSourcePost(post);
+        comment.setAuthor(user);
+        commentRepository.save(comment);
+        return "Comment added successfully";
     }
 
     @Override
     @Transactional
-    public ResponseEntity<List<CommentDto>> getCommentsByPost(Long postId) {
-        Optional<Post> sourcePostOptional = postRepository.findById(postId);
-        if (sourcePostOptional.isPresent()) {
-            List<CommentDto> commentDtoList = sourcePostOptional.get()
-                    .getComments()
-                    .stream()
-                    .map(commentMapper::mapCommentToDto)
-                    .collect(Collectors.toList());
-            return new ResponseEntity<>(commentDtoList, HttpStatus.OK);
-        }
-        return null;
-        // TODO add exceptions
+    public List<CommentDto> getCommentsByPost(Long postId) {
+        log.info("Getting comments for post {}", postId);
+        Post sourcePost = postService.getPost(postId);
+        return commentRepository.findAll().stream()
+                .filter(comment -> comment.getSourcePost().equals(sourcePost))
+                .map(commentMapper::mapCommentToDto).collect(Collectors.toList());
+
     }
 
     @Override
     @Transactional
-    public ResponseEntity<List<CommentDto>> getCommentsByPostAndAuthor(Long postId, Long authorId) {
-        Optional<Post> sourcePostOptional = postRepository.findById(postId);
-        if (sourcePostOptional.isPresent()) {
-            Optional<User> authorUser = userRepository.findById(authorId);
-            if(authorUser.isPresent()) {
-                List<CommentDto> commentDtoList = sourcePostOptional.get()
-                        .getComments()
-                        .stream()
-                        .map(commentMapper::mapCommentToDto)
-                        .collect(Collectors.toList());
-                return new ResponseEntity<>(commentDtoList, HttpStatus.OK);
-            }
+    public List<CommentDto> getCommentsByPostAndAuthor(Long postId, Long authorId) {
+        log.info("Getting comments for post {} and author {}", postId, authorId);
 
-        }
+        return commentRepository.findAll().stream()
+                .filter(comment -> comment.getSourcePost().getPostId().equals(postService.getPost(postId).getPostId())
+                        && comment.getAuthor().getUserId().equals(authorId))
+                .map(commentMapper::mapCommentToDto).collect(Collectors.toList());
+    }
 
-        // TODO add exception
-        return null;
+    @Override
+    public String updateComment(CommentDto commentDto) {
+        Comment comment = commentRepository.findById(commentDto.getCommentId()).orElseThrow(() -> {
+            log.error("Updating comment: comment does not exist");
+            throw new EntityException.EntityNotFoundException("comment", commentDto.getCommentId());
+        });
+        log.info("Updating comment {}", commentDto.getCommentId());
+        comment.setContent(commentDto.getContent());
+        commentRepository.save(comment);
+        return "Comment updated successfully";
+    }
+
+    @Override
+    public String deleteComment(Long commentId) {
+        commentRepository.delete(commentRepository.findById(commentId).orElseThrow(() -> {
+            log.error("Deleting comment: comment does not exist");
+            throw new EntityException.EntityNotFoundException("comment", commentId);
+        }));
+        log.info("Deleting comment {}", commentId);
+        return "Comment deleted successfully";
     }
 
 
