@@ -42,7 +42,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setSourcePost(post);
         comment.setAuthor(user);
         commentRepository.save(comment);
-        return "Comment added";
+        return "Comment added successfully";
     }
 
     @Override
@@ -65,6 +65,28 @@ public class CommentServiceImpl implements CommentService {
                 .filter(comment -> comment.getSourcePost().getPostId().equals(postService.getPost(postId).getPostId())
                         && comment.getAuthor().getUserId().equals(authorId))
                 .map(commentMapper::mapCommentToDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public String updateComment(CommentDto commentDto) {
+        Comment comment = commentRepository.findById(commentDto.getCommentId()).orElseThrow(() -> {
+            log.error("Updating comment: comment does not exist");
+            throw new EntityException.EntityNotFoundException("comment", commentDto.getCommentId());
+        });
+        log.info("Updating comment {}", commentDto.getCommentId());
+        comment.setContent(commentDto.getContent());
+        commentRepository.save(comment);
+        return "Comment updated successfully";
+    }
+
+    @Override
+    public String deleteComment(Long commentId) {
+        commentRepository.delete(commentRepository.findById(commentId).orElseThrow(() -> {
+            log.error("Deleting comment: comment does not exist");
+            throw new EntityException.EntityNotFoundException("comment", commentId);
+        }));
+        log.info("Deleting comment {}", commentId);
+        return "Comment deleted successfully";
     }
 
 

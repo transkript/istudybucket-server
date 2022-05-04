@@ -10,4 +10,8 @@ public interface CommentService {
     List<CommentDto> getCommentsByPost(Long postId);
 
     List<CommentDto> getCommentsByPostAndAuthor(Long postId, Long authorId);
+
+    String updateComment(CommentDto commentDto);
+
+    String deleteComment(Long commentId);
 }
