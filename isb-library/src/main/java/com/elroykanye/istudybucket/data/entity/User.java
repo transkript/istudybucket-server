@@ -4,9 +4,26 @@ import com.elroykanye.istudybucket.data.entity.relation.UserInBucket;
 import com.elroykanye.istudybucket.data.entity.relation.UserLinkUser;
 import com.elroykanye.istudybucket.data.enums.Gender;
 import com.elroykanye.istudybucket.data.enums.UserRole;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
@@ -81,11 +98,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     @ToString.Exclude
     private List<UserInBucket> memberships;
-
-    // one to one relation with a post vote
-    @Builder.Default
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Vote> votes = new ArrayList<>();
 
 
     // one to one relationship with Address

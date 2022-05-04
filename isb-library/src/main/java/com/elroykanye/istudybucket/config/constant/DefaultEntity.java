@@ -5,7 +5,6 @@ import com.elroykanye.istudybucket.data.entity.Chat;
 import com.elroykanye.istudybucket.data.entity.Comment;
 import com.elroykanye.istudybucket.data.entity.Post;
 import com.elroykanye.istudybucket.data.entity.User;
-import com.elroykanye.istudybucket.data.entity.*;
 import com.elroykanye.istudybucket.data.enums.Gender;
 import com.elroykanye.istudybucket.data.enums.PostType;
 import com.elroykanye.istudybucket.data.enums.UserRole;
@@ -24,7 +23,7 @@ public class DefaultEntity {
             .userId(1L).username("user").password("password").email("user@mail.com")
             .firstName("First").lastName("Last").phoneNumber("1234567890")
             .dob(new Date()).gender(Gender.MALE).userRole(UserRole.USER).userVerified(true)
-            .createdDate(Instant.now()).buckets(List.of()).posts(List.of()).votes(List.of()).messages(List.of())
+            .createdDate(Instant.now()).buckets(List.of()).posts(List.of()).messages(List.of())
             .trophies(List.of()).linkOfUsers(List.of()).linkToUsers(List.of()).buckets(List.of())
             .build();
 
