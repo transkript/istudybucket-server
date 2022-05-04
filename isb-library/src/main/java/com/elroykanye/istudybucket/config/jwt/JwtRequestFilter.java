@@ -42,7 +42,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 System.out.println("JWT Token has expired");
             }
         } else {
-            logger.warn("JWT token does not begin with ISB String");
+            logger.warn("JWT token does not begin with Bearer");
         }
 
         // validate the token
