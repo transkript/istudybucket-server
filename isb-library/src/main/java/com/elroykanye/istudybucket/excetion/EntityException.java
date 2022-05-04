@@ -11,11 +11,11 @@ public class EntityException {
             super(String.format("%s with identifier %s not found.", entityName, identifier));
         }
     }
-    public static class EntityAlreadyExists extends RuntimeException {
-        public EntityAlreadyExists(String entityName, Long id) {
+    public static class EntityAlreadyExistsException extends RuntimeException {
+        public EntityAlreadyExistsException(String entityName, Long id) {
             super(String.format("%s with id %d already exists.", entityName, id));
         }
-        public EntityAlreadyExists(String entityName, String... identifiers) {
+        public EntityAlreadyExistsException(String entityName, String... identifiers) {
             super(String.format(("%s with any of following identifiers already exists: " + Arrays.toString(identifiers)), entityName));
         }
     }

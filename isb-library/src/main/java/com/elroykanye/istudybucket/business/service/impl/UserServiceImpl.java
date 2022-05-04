@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
                 user -> {
                     userId[0] = null;
                     log.error("User already exists: {}", user);
-                    throw new EntityException.EntityAlreadyExists("user", user.getUsername(), user.getEmail());
+                    throw new EntityException.EntityAlreadyExistsException("user", user.getUsername(), user.getEmail());
                 },
                 () -> {
                     log.info("User does not exist, creating new user");

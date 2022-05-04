@@ -35,7 +35,7 @@ public class PostServiceImpl implements PostService {
                         postRepository.findById(postDto.getPostId()).ifPresentOrElse(
                                 post -> {
                                     log.warn("Post with id {} already exists", postDto.getPostId());
-                                    throw new EntityException.EntityAlreadyExists("post", postDto.getPostId());
+                                    throw new EntityException.EntityAlreadyExistsException("post", postDto.getPostId());
                                 },
                                 ()-> {
                                     log.info("Post with id {} not found, creating new post", postDto.getPostId());
