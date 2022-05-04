@@ -22,7 +22,6 @@ public interface UserMapper {
             @Mapping(target = "posts", ignore = true),
             @Mapping(target = "comments", ignore = true),
             @Mapping(target = "memberships", ignore = true),
-            @Mapping(target = "votes", ignore = true),
             @Mapping(target = "address", ignore = true),
             @Mapping(target = "messages", ignore = true),
             @Mapping(target = "trophies", ignore = true),
