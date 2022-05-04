@@ -1,25 +1,25 @@
 package com.elroykanye.istudybucket.business.service.impl;
 
+import com.elroykanye.istudybucket.api.dto.CommentDto;
 import com.elroykanye.istudybucket.business.mapper.CommentMapper;
 import com.elroykanye.istudybucket.business.service.CommentService;
-import com.elroykanye.istudybucket.api.dto.CommentDto;
 import com.elroykanye.istudybucket.data.entity.Comment;
 import com.elroykanye.istudybucket.data.entity.Post;
 import com.elroykanye.istudybucket.data.entity.User;
 import com.elroykanye.istudybucket.data.repository.CommentRepository;
 import com.elroykanye.istudybucket.data.repository.PostRepository;
 import com.elroykanye.istudybucket.data.repository.UserRepository;
+import com.elroykanye.istudybucket.excetion.EntityException;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class CommentServiceImpl implements CommentService {
@@ -30,65 +30,73 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    public ResponseEntity<String> addComment(CommentDto commentDto) {
-        AtomicBoolean commentAdded = new AtomicBoolean(false);
+    public String addComment(CommentDto commentDto) {
         postRepository.findById(commentDto.getPostId())
-                .ifPresentOrElse( // if post exists
-                        sourcePost -> userRepository.findById(commentDto.getAuthorId())
-                                .ifPresentOrElse(
-                                        authorUser -> {
-                                            Comment comment = commentMapper.mapDtoToComment(commentDto);
-                                            comment.setAuthor(authorUser);
-                                            comment.setSourcePost(sourcePost);
-                                            commentRepository.save(comment);
-
-                                            // comment added
-                                            commentAdded.set(true);
-                                        },
-                                        () -> commentAdded.set(false) // author not found
-                                ),
-                        () -> commentAdded.set(false) // post not found
+                .ifPresentOrElse(
+                        sourcePost -> {
+                            log.info("Creating comment: post found");
+                            userRepository.findById(commentDto.getAuthorId())
+                                    .ifPresentOrElse(
+                                            authorUser -> {
+                                                log.info("Creating comment: user found");
+                                                Comment comment = commentMapper.mapDtoToComment(commentDto);
+                                                comment.setAuthor(authorUser);
+                                                comment.setSourcePost(sourcePost);
+                                                commentRepository.save(comment);
+                                            },
+                                            () -> {
+                                                log.warn("Creating comment: user not found");
+                                                throw new EntityException.EntityNotFoundException("user", commentDto.getAuthorId());
+                                            }
+                                    );
+                        },
+                        () -> {
+                            log.warn("Creating comment: post not found");
+                            throw new EntityException.EntityNotFoundException("post", commentDto.getPostId());
+                        } // post not found
                 );
-        return commentAdded.get() ?
-                new ResponseEntity<>("Comment added", HttpStatus.CREATED):
-                new ResponseEntity<>("Comment not added", HttpStatus.FORBIDDEN);
+        return "Comment added";
     }
 
     @Override
     @Transactional
-    public ResponseEntity<List<CommentDto>> getCommentsByPost(Long postId) {
+    public List<CommentDto> getCommentsByPost(Long postId) {
         Optional<Post> sourcePostOptional = postRepository.findById(postId);
-        if (sourcePostOptional.isPresent()) {
-            List<CommentDto> commentDtoList = sourcePostOptional.get()
-                    .getComments()
-                    .stream()
-                    .map(commentMapper::mapCommentToDto)
-                    .collect(Collectors.toList());
-            return new ResponseEntity<>(commentDtoList, HttpStatus.OK);
+        List<CommentDto> commentDtoList = sourcePostOptional.map(post -> post
+                .getComments()
+                .stream()
+                .map(commentMapper::mapCommentToDto)
+                .collect(Collectors.toList())).orElse(null);
+        if (commentDtoList == null) {
+            log.warn("Getting comments: post not found");
+            throw new EntityException.EntityNotFoundException("post", postId);
+        } else {
+            log.info("Getting comments: post found");
+            return commentDtoList;
         }
-        return null;
-        // TODO add exceptions
     }
 
     @Override
     @Transactional
-    public ResponseEntity<List<CommentDto>> getCommentsByPostAndAuthor(Long postId, Long authorId) {
+    public List<CommentDto> getCommentsByPostAndAuthor(Long postId, Long authorId) {
         Optional<Post> sourcePostOptional = postRepository.findById(postId);
+
         if (sourcePostOptional.isPresent()) {
             Optional<User> authorUser = userRepository.findById(authorId);
-            if(authorUser.isPresent()) {
-                List<CommentDto> commentDtoList = sourcePostOptional.get()
-                        .getComments()
-                        .stream()
-                        .map(commentMapper::mapCommentToDto)
-                        .collect(Collectors.toList());
-                return new ResponseEntity<>(commentDtoList, HttpStatus.OK);
+            List<CommentDto> commentDtoList = authorUser.map(user -> commentRepository.findAll().stream()
+                    .filter(comment -> comment.getSourcePost().equals(sourcePostOptional.get()) && comment.getAuthor().equals(user))
+                    .map(commentMapper::mapCommentToDto)
+                    .collect(Collectors.toList())).orElse(null);
+            if(commentDtoList != null) {
+                log.info("Getting comments: user found");
+                return commentDtoList;
+            } else {
+                log.warn("Getting comments: user not found");
+                throw new EntityException.EntityNotFoundException("user", authorId);
             }
-
         }
-
-        // TODO add exception
-        return null;
+        log.warn("Getting comments: post or author not found");
+        throw new EntityException.EntityNotFoundException("post", postId);
     }
 
 
