@@ -60,7 +60,6 @@ Once you have successfully had the application running on your machine, you can 
 
 You however do not need a specific HTTP Client as we have SwaggerUI in this application which can show you all the API endpoints and offers a simple interface for communicating with the application.
 
- - Open your browser and open this link to access the SwaggerUI build: {link}
  - To view and communicate with all endpoints using swagger on your local machine, visit http://localhost:8080/swagger-ui/
  - Using SwaggerUI Client or your favorite HTTP Client, try out the application by making a simple request to this endpoint: {sample endpoint}
  - Explore more by trying out these various endpoints: {various endpoints}
