@@ -83,4 +83,13 @@ public class PostServiceImpl implements PostService {
             throw new EntityException.EntityNotFoundException("post", id);
         });
     }
+
+    @Override
+    public void updatePost(Post post) {
+        log.info("Updating post with id {}", post.getPostId());
+        postRepository.save(postRepository.findById(post.getPostId()).orElseThrow(() -> {
+            log.error("Post with id {} not found", post.getPostId());
+            throw new EntityException.EntityNotFoundException("post", post.getPostId());
+        }));
+    }
 }
