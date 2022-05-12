@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 /**
  * @author Abongwa Bonalais
@@ -41,7 +42,7 @@ public class Trophy {
     private String imageUrl;
 
     @Column(name = "awarded_date")
-    private Instant awardedDate;
+    private LocalDateTime awardedDate;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_user_id", nullable = false)
