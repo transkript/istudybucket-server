@@ -84,7 +84,7 @@ public interface PostMapper {
         if(postType == null) return PostType.DEFAULT;
         return switch(postType.toLowerCase(Locale.ENGLISH)) {
             case "question" -> PostType.QUESTION;
-            case "answer" -> PostType.RESOURCE;
+            case "resource" -> PostType.RESOURCE;
             case "comment" -> PostType.COMMENT;
             default -> PostType.DEFAULT;
         };
