@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Builder
@@ -38,7 +40,7 @@ public class PostDto {
     private String postType;
 
     @JsonProperty(value = "created_date")
-    private String createdDate;
+    private LocalDateTime createdDate;
 
     // from relationship
     @JsonProperty(value = "author_id")

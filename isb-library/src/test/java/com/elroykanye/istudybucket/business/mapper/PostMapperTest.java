@@ -40,7 +40,7 @@ class PostMapperTest {
         assertEquals(post.getPostTitle(), postDto1.getPostTitle());
         assertEquals(post.getContent(), postDto1.getContent());
         assertEquals(post.getPostType(), PostType.valueOf(postDto1.getPostType()));
-        assertEquals(post.getCreatedDate().toString(), postDto1.getCreatedDate());
+        assertEquals(post.getCreatedDate(), postDto1.getCreatedDate());
 
 
         assertEquals(post.getAuthor().getUserId(), postDto1.getAuthorId());
