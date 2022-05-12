@@ -43,4 +43,7 @@ public class PostDto {
     // from relationship
     @JsonProperty(value = "author_id")
     private Long authorId;
+
+    @JsonProperty(value = "source_post_id")
+    private Long sourcePostId;
 }

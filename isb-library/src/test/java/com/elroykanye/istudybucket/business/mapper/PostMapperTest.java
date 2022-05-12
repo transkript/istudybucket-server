@@ -5,7 +5,6 @@ import com.elroykanye.istudybucket.config.constant.DefaultDto;
 import com.elroykanye.istudybucket.config.constant.DefaultEntity;
 import com.elroykanye.istudybucket.data.entity.Post;
 import com.elroykanye.istudybucket.data.enums.PostType;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
