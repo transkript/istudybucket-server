@@ -1,8 +1,17 @@
 package com.elroykanye.istudybucket.data.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.Instant;
 
 @Getter
@@ -14,7 +23,7 @@ import java.time.Instant;
 @Entity
 public class VerificationToken {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "token_id")
     private Long tokenId;
 
@@ -22,12 +31,12 @@ public class VerificationToken {
     private String tokenValue;
 
     @Column(name = "expiry_date")
-    private Instant expirtyDate;
+    private Instant expiryDate;
 
     @Column(name = "username")
     private String username;
 
     @Column(name = "user_email")
-    private String userEmail;
+    private String email;
 
 }

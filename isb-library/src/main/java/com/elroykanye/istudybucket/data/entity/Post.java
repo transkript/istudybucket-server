@@ -36,7 +36,7 @@ import java.util.List;
 @Entity
 public class Post {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
 
     @Column(name = "post_title", length = 32)
@@ -66,6 +66,7 @@ public class Post {
     private Post sourcePost;
 
     @OneToMany(mappedBy = "sourcePost", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<Post> comments = new ArrayList<>();
 
 
