@@ -20,7 +20,7 @@
     <description>Demo project for Spring Boot</description>
     <properties>
         <!-- java versions -->
-        <java.version>11</java.version>
+        <java.version>14</java.version>
         <!-- extra dep versions -->
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <org.projectlombok.version>1.18.20</org.projectlombok.version>
