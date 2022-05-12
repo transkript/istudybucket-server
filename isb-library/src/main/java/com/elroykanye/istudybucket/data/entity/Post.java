@@ -1,10 +1,24 @@
 package com.elroykanye.istudybucket.data.entity;
 
 import com.elroykanye.istudybucket.data.enums.PostType;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,19 +52,21 @@ public class Post {
     private Instant createdDate;
 
     // many to one relationship to User entity (author)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    @ToString.Exclude
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "user_user_id", nullable = false)
     private User author;
-
-    // one to many relationship with Comment entity
-    @OneToMany(mappedBy = "sourcePost", fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private List<Comment> comments;
 
     @OneToMany(mappedBy = "post", orphanRemoval = true)
     @ToString.Exclude
     private List<Vote> votes;
+
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "source_post_post_id", unique = true)
+    private Post sourcePost;
+
+    @OneToMany(mappedBy = "sourcePost", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> comments = new ArrayList<>();
 
 
 }
