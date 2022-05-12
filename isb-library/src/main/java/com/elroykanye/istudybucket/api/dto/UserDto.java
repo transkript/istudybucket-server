@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -34,7 +35,7 @@ public class UserDto {
     private String phoneNumber;
 
     @JsonProperty("dob")
-    private Date dob;
+    private LocalDateTime dob;
 
     @JsonProperty("gender")
     private String gender;
@@ -43,7 +44,7 @@ public class UserDto {
     private String userRole;
 
     @JsonProperty("created_date")
-    private Instant createdDate;
+    private LocalDateTime createdDate;
 
     @JsonProperty("user_verified")
     private Boolean userVerified;
