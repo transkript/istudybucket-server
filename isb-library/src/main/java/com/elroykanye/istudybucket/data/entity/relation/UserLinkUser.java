@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -19,7 +20,7 @@ public class UserLinkUser {
     private UserLinkUserKey id;
 
     @Column(name = "link_date")
-    private Instant linkDate;
+    private LocalDateTime linkDate;
 
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @MapsId("rightLinkUserId")
