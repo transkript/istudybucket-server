@@ -3,6 +3,8 @@ package com.elroykanye.istudybucket.api.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Builder
@@ -19,7 +21,7 @@ public class BucketDto {
     private String description;
 
     @JsonProperty(value = "creation_date")
-    private String creationDate;
+    private LocalDateTime creationDate;
 
     @JsonProperty(value = "group_image")
     private String groupImage;
