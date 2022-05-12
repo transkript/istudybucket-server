@@ -6,6 +6,7 @@ import com.elroykanye.istudybucket.data.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -30,5 +31,5 @@ public class UserInBucket {
     private Bucket bucket;
 
     @Column(name = "joined_date")
-    private Date joinedDate;
+    private LocalDateTime joinedDate;
 }
