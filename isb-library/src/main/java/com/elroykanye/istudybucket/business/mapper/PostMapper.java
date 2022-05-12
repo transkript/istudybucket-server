@@ -74,7 +74,6 @@ public interface PostMapper {
         } return null;
     }
 
-
     /**
      * Converts the string representation of the post type to the enum
      * @param postType the string rep
@@ -89,5 +88,4 @@ public interface PostMapper {
             default -> PostType.DEFAULT;
         };
     }
-
 }

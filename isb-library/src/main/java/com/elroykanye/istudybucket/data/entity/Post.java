@@ -24,8 +24,8 @@ import java.util.List;
 /**
  * @author Elroy Kanye
  *
- * Modified By: ...
- * Modified Date: ...
+ * Modified By: Elroy Kanye
+ * Modified Date: 12/05/2022
  */
 @Getter
 @Setter
@@ -58,8 +58,8 @@ public class Post {
 
     @OneToMany(mappedBy = "post", orphanRemoval = true)
     @ToString.Exclude
-    private List<Vote> votes;
-
+    @Builder.Default
+    private List<Vote> votes = new ArrayList<>();
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "source_post_post_id", unique = true)
@@ -67,7 +67,6 @@ public class Post {
 
     @OneToMany(mappedBy = "sourcePost", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
+    @Builder.Default
     private List<Post> comments = new ArrayList<>();
-
-
 }
