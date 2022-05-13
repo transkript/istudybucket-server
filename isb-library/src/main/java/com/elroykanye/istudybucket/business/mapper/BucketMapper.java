@@ -8,14 +8,12 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-import java.time.Instant;
 import java.util.List;
 
 @Mapper(componentModel = "spring", implementationPackage = "<PACKAGE_NAME>.impl")
 public interface BucketMapper {
     @Mappings({
             @Mapping(target = "memberCount", expression = "java(mapMemberships(bucket.getMemberships()))"),
-            @Mapping(target = "creationDate", expression = "java(mapCreationDate(bucket.getCreationDate()))"),
             @Mapping(target = "creatorId", expression = "java(bucket.getCreator().getUserId())"),
             @Mapping(target = "chatId", expression = "java(bucket.getChatRoom().getChatId())"),
     })
@@ -25,10 +23,6 @@ public interface BucketMapper {
         return memberships.size();
     }
 
-    default String mapCreationDate(Instant creationDate) {
-        return creationDate.toString().split("T")[0];
-
-    }
 
     @InheritInverseConfiguration
     @Mappings({

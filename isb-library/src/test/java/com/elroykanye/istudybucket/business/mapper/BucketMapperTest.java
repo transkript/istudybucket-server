@@ -38,7 +38,7 @@ class BucketMapperTest {
         assertEquals(bucket.getBucketId(), bucketDto1.getBucketId());
         assertEquals(bucket.getBucketTitle(), bucketDto1.getBucketTitle());
         assertEquals(bucket.getDescription(), bucketDto1.getDescription());
-        assertEquals(bucket.getCreationDate().toString().split("T")[0], bucketDto1.getCreationDate());
+        assertEquals(bucket.getCreationDate(), bucketDto1.getCreationDate());
         assertEquals(bucket.getGroupImage(), bucketDto1.getGroupImage());
 
         assertEquals(bucket.getMemberships().size(), bucketDto1.getMemberCount());

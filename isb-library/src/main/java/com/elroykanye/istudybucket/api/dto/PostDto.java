@@ -1,11 +1,14 @@
 package com.elroykanye.istudybucket.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -38,7 +41,8 @@ public class PostDto {
     private String postType;
 
     @JsonProperty(value = "created_date")
-    private String createdDate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createdDate;
 
     // from relationship
     @JsonProperty(value = "author_id")

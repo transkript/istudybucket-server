@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -31,7 +32,7 @@ public class VerificationToken {
     private String tokenValue;
 
     @Column(name = "expiry_date")
-    private Instant expiryDate;
+    private LocalDateTime expiryDate;
 
     @Column(name = "username")
     private String username;

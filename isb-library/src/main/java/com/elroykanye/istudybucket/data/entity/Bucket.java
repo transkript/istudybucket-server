@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -50,7 +51,7 @@ public class Bucket {
     private String groupImage;
 
     @Column(name = "creation_date")
-    private Instant creationDate;
+    private LocalDateTime creationDate;
 
     // one to one relationship with Chat entity
     @OneToOne(cascade = CascadeType.ALL)

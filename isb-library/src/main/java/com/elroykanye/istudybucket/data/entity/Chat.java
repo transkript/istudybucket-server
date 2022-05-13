@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -48,7 +49,7 @@ public class Chat {
     private String chatDescription;
 
     @Column(name = "created_at")
-    private Instant creationDate;
+    private LocalDateTime creationDate;
 
     // one to many relationship with Message entity
     @OneToMany(mappedBy = "chat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
