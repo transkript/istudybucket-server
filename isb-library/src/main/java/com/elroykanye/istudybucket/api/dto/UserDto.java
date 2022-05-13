@@ -1,5 +1,6 @@
 package com.elroykanye.istudybucket.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -35,6 +36,7 @@ public class UserDto {
     private String phoneNumber;
 
     @JsonProperty("dob")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dob;
 
     @JsonProperty("gender")
@@ -44,6 +46,7 @@ public class UserDto {
     private String userRole;
 
     @JsonProperty("created_date")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdDate;
 
     @JsonProperty("user_verified")
