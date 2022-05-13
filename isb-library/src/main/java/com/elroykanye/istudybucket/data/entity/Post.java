@@ -17,7 +17,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +62,7 @@ public class Post {
     private List<Vote> votes = new ArrayList<>();
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "source_post_post_id", unique = true)
+    @JoinColumn(name = "source_post_post_id")
     private Post sourcePost;
 
     @OneToMany(mappedBy = "sourcePost", cascade = CascadeType.ALL, orphanRemoval = true)
