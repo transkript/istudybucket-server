@@ -56,9 +56,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 );
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
 
-                // after setting the auth in the context, we specify
-                // that the current user is authenticated
-                // so it passes the security config successfully.
+                /*
+                 * after setting the auth in the context, we specify that the current user is authenticated,
+                 * so it passes the security config successfully.
+                 */
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         }
