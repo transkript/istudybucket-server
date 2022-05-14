@@ -1,17 +1,17 @@
 package com.elroykanye.istudybucket.business.service;
 
-import com.elroykanye.istudybucket.api.dto.CommentDto;
+import com.elroykanye.istudybucket.api.dto.PostDto;
 
 import java.util.List;
 
 public interface CommentService {
-    String addComment(CommentDto commentDto);
+    String addComment(PostDto postDto);
 
-    List<CommentDto> getCommentsByPost(Long postId);
+    List<PostDto> getCommentsByPost(Long postId);
 
-    List<CommentDto> getCommentsByPostAndAuthor(Long postId, Long authorId);
+    List<PostDto> getCommentsByPostAndAuthor(Long postId, Long authorId);
 
-    String updateComment(CommentDto commentDto);
+    String updateComment(PostDto postDto);
 
-    String deleteComment(Long commentId);
+    String deleteComment(Long postId);
 }

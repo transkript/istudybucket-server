@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserService {
                             .username(userDto.getUsername())
                             .email(userDto.getEmail())
                             .password(userDto.getPassword()) // encode password
-                            .createdDate(Instant.now())
+                            .createdDate(LocalDateTime.now())
                             .userVerified(Boolean.FALSE)
                             .userRole(UserRole.USER)
                             .build();

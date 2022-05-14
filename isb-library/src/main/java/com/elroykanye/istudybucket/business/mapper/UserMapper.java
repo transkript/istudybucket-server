@@ -19,8 +19,6 @@ public interface UserMapper {
 
     @InheritInverseConfiguration
     @Mappings({
-            @Mapping(target = "posts", ignore = true),
-            @Mapping(target = "comments", ignore = true),
             @Mapping(target = "memberships", ignore = true),
             @Mapping(target = "address", ignore = true),
             @Mapping(target = "messages", ignore = true),

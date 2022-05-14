@@ -196,7 +196,7 @@ public class AuthServiceImpl implements AuthService {
         VerificationToken verificationToken = VerificationToken.builder() // build the verification token object
                 .tokenValue(token)
                 .username(newUser.getUsername())
-                .userEmail(newUser.getEmail())
+                .email(newUser.getEmail())
                 .build();
         verificationTokenRepository.save(verificationToken); // save to the table
         return token;

@@ -23,6 +23,7 @@ public interface PostMapper {
             @Mapping(target = "upVotes", expression = "java(mapUpVotes(post.getVotes()))"),
             @Mapping(target = "downVotes", expression = "java(mapDownVotes(post.getVotes()))"),
             @Mapping(target = "voteCount", expression = "java(post.getVotes().size())"),
+            @Mapping(target = "sourcePostId", expression = "java(mapSourcePost(post))"),
     })
     PostDto mapPostToDto(Post post);
 
@@ -32,6 +33,7 @@ public interface PostMapper {
     @Mapping(target = "votes", ignore = true)
     @Mapping(target = "author", ignore = true)
     @Mapping(target = "createdDate", ignore = true)
+    @Mapping(target = "sourcePost", ignore = true)
     @Mapping(target = "postType", expression = "java(inverseMapPostType(postDto.getPostType()))")
     Post mapDtoToPost(PostDto postDto);
 
@@ -42,10 +44,9 @@ public interface PostMapper {
      * @return the streamed count of all relations with a true value of vote
      */
     default Integer mapUpVotes(List<Vote> postVotes) {
-        return Math.toIntExact(
-                postVotes.stream()
-                        .filter(vote -> VoteType.valueOf(vote.getVote()) == 1)
-                        .count()
+        return Math.toIntExact(postVotes.stream()
+                .filter(vote -> VoteType.valueOf(vote.getVote()) == 1)
+                .count()
         );
     }
 
@@ -62,6 +63,16 @@ public interface PostMapper {
         );
     }
 
+    /**
+     * Gets the source post id if the post is a reply
+     * @param post the post
+     * @return the source post id if the post is a reply
+     */
+    default Long mapSourcePost(Post post) {
+        if(post.getSourcePost() != null) {
+            return post.getSourcePost().getPostId();
+        } return null;
+    }
 
     /**
      * Converts the string representation of the post type to the enum
@@ -69,7 +80,12 @@ public interface PostMapper {
      * @return the Enum of the string rep
      */
     default PostType inverseMapPostType(String postType) {
-        return PostType.valueOf(postType.toUpperCase(Locale.ROOT));
+        if(postType == null) return PostType.DEFAULT;
+        return switch(postType.toLowerCase(Locale.ENGLISH)) {
+            case "question" -> PostType.QUESTION;
+            case "resource" -> PostType.RESOURCE;
+            case "comment" -> PostType.COMMENT;
+            default -> PostType.DEFAULT;
+        };
     }
-
 }

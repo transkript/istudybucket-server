@@ -16,7 +16,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,6 +24,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,8 +32,8 @@ import java.util.List;
 /**
  * @author Elroy Kanye
  *
- * Modified by: ...
- * Modified on: ...
+ * Modified by: Elroy Kanye
+ * Modified on: 12/05/2022
  */
 @Getter
 @Setter
@@ -67,7 +67,7 @@ public class User {
     private String phoneNumber;
 
     @Column(name = "dob")
-    private Date dob;
+    private LocalDateTime dob;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", length = 16)
@@ -79,26 +79,10 @@ public class User {
     private UserRole userRole;
 
     @Column(name = "created_date")
-    private Instant createdDate;
+    private LocalDateTime createdDate;
 
     @Column(name = "user_verified")
     private Boolean userVerified;
-
-    // one to many relationship with Post entity
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private List<Post> posts;
-
-    // one to many relationship with Comment entity
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private List<Comment> comments;
-
-    // [special] many to many relationship with Bucket entity
-    @OneToMany(mappedBy = "user")
-    @ToString.Exclude
-    private List<UserInBucket> memberships;
-
 
     // one to one relationship with Address
     @OneToOne(orphanRemoval = true)
@@ -124,4 +108,8 @@ public class User {
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Bucket> buckets = new ArrayList<>();
 
+    // [special] many to many relationship with Bucket entity
+    @OneToMany(mappedBy = "user")
+    @ToString.Exclude
+    private List<UserInBucket> memberships;
 }

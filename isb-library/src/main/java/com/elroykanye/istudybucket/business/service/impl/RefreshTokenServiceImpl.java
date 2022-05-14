@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Slf4j
@@ -24,7 +25,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     public RefreshToken generateRefreshToken() {
         RefreshToken refreshToken =  RefreshToken.builder()
                 .refreshToken(UUID.randomUUID().toString())
-                .createdDate(Instant.now()).build();
+                .createdDate(LocalDateTime.now()).build();
 
         return refreshTokenRepository.save(refreshToken);
     }

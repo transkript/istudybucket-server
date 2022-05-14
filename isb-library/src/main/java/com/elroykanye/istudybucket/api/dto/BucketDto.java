@@ -1,7 +1,14 @@
 package com.elroykanye.istudybucket.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -19,7 +26,8 @@ public class BucketDto {
     private String description;
 
     @JsonProperty(value = "creation_date")
-    private String creationDate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime creationDate;
 
     @JsonProperty(value = "group_image")
     private String groupImage;

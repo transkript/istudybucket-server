@@ -1,6 +1,6 @@
 package com.elroykanye.istudybucket.api.controller;
 
-import com.elroykanye.istudybucket.api.dto.CommentDto;
+import com.elroykanye.istudybucket.api.dto.PostDto;
 import com.elroykanye.istudybucket.business.service.CommentService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,27 +27,27 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> addComment(@RequestBody CommentDto commentDto) {
-        log.info("adding comment to post: {}", commentDto.getPostId());
-        return new ResponseEntity<>(commentService.addComment(commentDto), HttpStatus.CREATED);
+    public ResponseEntity<String> addComment(@RequestBody PostDto postDto) {
+        log.info("adding comment to post: {}", postDto.getSourcePostId());
+        return new ResponseEntity<>(commentService.addComment(postDto), HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/{postId}")
-    public ResponseEntity<List<CommentDto>> getCommentsByPost(@PathVariable(value = "postId") Long postId) {
+    public ResponseEntity<List<PostDto>> getCommentsByPost(@PathVariable(value = "postId") Long postId) {
         return ResponseEntity.ok(commentService.getCommentsByPost(postId));
     }
 
     @GetMapping(value = "/{postId}/{authorId}")
-    public ResponseEntity<List<CommentDto>> getCommentByPostAndAuthor(
+    public ResponseEntity<List<PostDto>> getCommentByPostAndAuthor(
             @PathVariable(value = "postId") Long postId,
             @PathVariable(value = "authorId") Long authorId) {
         return ResponseEntity.ok(commentService.getCommentsByPostAndAuthor(postId, authorId));
     }
 
     @PutMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updateComment(@RequestBody CommentDto commentDto) {
-        log.info("Updating comment: {}", commentDto.getCommentId());
-        return new ResponseEntity<>(commentService.updateComment(commentDto), HttpStatus.OK);
+    public ResponseEntity<String> updateComment(@RequestBody PostDto postDto) {
+        log.info("Updating comment: {}", postDto.getPostId());
+        return new ResponseEntity<>(commentService.updateComment(postDto), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{commentId}")

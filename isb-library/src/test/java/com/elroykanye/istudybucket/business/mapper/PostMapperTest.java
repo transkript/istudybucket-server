@@ -5,7 +5,6 @@ import com.elroykanye.istudybucket.config.constant.DefaultDto;
 import com.elroykanye.istudybucket.config.constant.DefaultEntity;
 import com.elroykanye.istudybucket.data.entity.Post;
 import com.elroykanye.istudybucket.data.enums.PostType;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +40,7 @@ class PostMapperTest {
         assertEquals(post.getPostTitle(), postDto1.getPostTitle());
         assertEquals(post.getContent(), postDto1.getContent());
         assertEquals(post.getPostType(), PostType.valueOf(postDto1.getPostType()));
-        assertEquals(post.getCreatedDate().toString(), postDto1.getCreatedDate());
+        assertEquals(post.getCreatedDate(), postDto1.getCreatedDate());
 
 
         assertEquals(post.getAuthor().getUserId(), postDto1.getAuthorId());

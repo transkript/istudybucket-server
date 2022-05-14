@@ -28,7 +28,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Vote {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long voteId;
 
     @Enumerated
