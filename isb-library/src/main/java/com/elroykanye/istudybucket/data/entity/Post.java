@@ -48,8 +48,9 @@ public class Post {
     @Column(name = "post_type", length = 16)
     private PostType postType;
 
+    @Builder.Default
     @Column(name = "created_date")
-    private LocalDateTime createdDate;
+    private LocalDateTime createdDate = LocalDateTime.now(); //set created date to today's date by default
 
     // many to one relationship to User entity (author)
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
