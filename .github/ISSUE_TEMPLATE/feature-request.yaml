@@ -8,7 +8,7 @@ body:
       label: Is your feature request related to a problem?
       options:
         - label: Yes, it is
-          required: true
+          required: false
   - type: textarea
     attributes:
       label: Please describe the problem this request is related to. If you didn't mark the checkbox above, please skip this question.
