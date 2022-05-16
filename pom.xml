@@ -5,7 +5,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>isb-application</module>
-        <module>isb-library</module>
+        <module>isb-utils</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
