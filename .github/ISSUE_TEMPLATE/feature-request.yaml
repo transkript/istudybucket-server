@@ -3,11 +3,14 @@ description: Suggest an idea for this project
 title: "[Feature Request] <title>"
 labels: [feature, enhancement]
 body:
-  - type: checkboxes
+  - type: dropdown
     attributes:
       label: Is your feature request related to a problem?
       options:
-        - label: Yes
+        - Yes, it is
+        - No, it isn't
+        - I am not sure
+        validations:
           required: true
   - type: textarea
     attributes:
