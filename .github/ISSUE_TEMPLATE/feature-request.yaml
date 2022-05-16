@@ -10,8 +10,8 @@ body:
         - Yes, it is
         - No, it isn't
         - I am not sure
-      validations:
-        required: true
+    validations:
+      required: true
   - type: textarea
     attributes:
       label: Please describe the problem this request is related to. If you didn't mark the checkbox above, please skip this question.
