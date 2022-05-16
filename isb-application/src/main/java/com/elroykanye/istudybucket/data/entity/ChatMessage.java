@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.time.LocalDateTime;
 
 /**
  * @author Andrew Tatah
@@ -30,26 +31,26 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Message {
+public class ChatMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long messageId;
+    private Long id;
 
     @Column(name = "content")
     private String content;
 
-    @Column(name = "sender_id")
-    private Long senderId;
+    @Builder.Default
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-    // many to one relationship to Chat entity
+    // many-to-one relationship to Chat entity
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "chat_id", nullable = false)
     @ToString.Exclude
     private Chat chat;
 
-    // many to one relationship with user
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "user_user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "user_user_id_sender", nullable = false)
+    private User sender;
 
 }
