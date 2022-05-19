@@ -67,19 +67,17 @@ public class ChatServiceImpl implements ChatService {
                             .message("Chat already exists").build();
                 }
             }
-        } else if (chat.getType() == ChatType.GROUP_PUBLIC || chat.getType() == ChatType.GROUP_PRIVATE) {
-            if(chatDto.getParticipants().size() < 2) {
-                // TODO add proper exception handling
-                throw new IllegalArgumentException("Chat must have at least 2 participants");
-            }
         }
 
         chat.setCreator(creator);
         chat.setBucket(bucket);
         Chat savedChat = chatRepository.save(chat);
-        System.out.println(savedChat);
 
-        chatDto.getParticipants().add(chatDto.getCreatorId());
+        if(chatDto.getParticipants() == null || chatDto.getParticipants().size() == 0) {
+            chatDto.setParticipants(List.of(chatDto.getCreatorId()));
+        } else {
+            chatDto.getParticipants().add(chatDto.getCreatorId());
+        }
         chatDto.getParticipants().forEach(userId -> {
             UserInChat userInChat = UserInChat.builder().chat(savedChat).participant(
                     userService.getUser(userId)
