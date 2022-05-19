@@ -18,5 +18,5 @@ public interface ChatService {
     EntityResponse updateChat(Long id, ChatDto chatDto);
 
     // entity methods
-    Chat getChatById(Long id);
+    Chat getChatEntity(Long id);
 }

@@ -2,7 +2,7 @@ package com.elroykanye.istudybucket.excetion.advice;
 
 import com.elroykanye.istudybucket.excetion.AuthException;
 import com.elroykanye.istudybucket.excetion.EntityException;
-import com.elroykanye.istudybucket.excetion.IstudybucketException;
+import com.elroykanye.istudybucket.excetion.IStudyBucketException;
 import com.elroykanye.istudybucket.excetion.body.ExceptionBody;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +23,9 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
      * @param webRequest the web request
      * @return the response entity
      */
-    @ExceptionHandler(IstudybucketException.RefreshTokenException.class)
+    @ExceptionHandler(IStudyBucketException.RefreshTokenException.class)
     public ResponseEntity<ExceptionBody> handleRefreshTokenException(
-            IstudybucketException.RefreshTokenException refreshTokenException,
+            IStudyBucketException.RefreshTokenException refreshTokenException,
             WebRequest webRequest) {
         return getExceptionEntity(refreshTokenException, webRequest, HttpStatus.UNAUTHORIZED, List.of("Refresh token expired"));
     }
@@ -33,9 +33,9 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     /**
      *
      */
-    @ExceptionHandler(IstudybucketException.NotAuthorisedException.class)
+    @ExceptionHandler(IStudyBucketException.NotAuthorisedException.class)
     public ResponseEntity<ExceptionBody> handleNotAuthorisedException(
-            IstudybucketException.NotAuthorisedException notAuthorisedException,
+            IStudyBucketException.NotAuthorisedException notAuthorisedException,
             WebRequest webRequest) {
         return getExceptionEntity(notAuthorisedException, webRequest, HttpStatus.UNAUTHORIZED, List.of("Action not authorised"));
     }

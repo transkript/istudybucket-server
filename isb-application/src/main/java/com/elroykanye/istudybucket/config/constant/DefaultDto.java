@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class DefaultDto {
     public static final BucketDto DEFAULT_BUCKET_DTO = BucketDto.builder()
             .id(10L).title("Default BucketDto").description("MY default bucket dto")
-            .creationDate(LocalDateTime.now()).groupImage("/path/to/image").memberCount(0)
+            .createdAt(LocalDateTime.now()).groupImage("/path/to/image").memberCount(0)
             .build();
 
     public static final PostDto DEFAULT_POST_DTO = PostDto.builder()

@@ -29,7 +29,7 @@ public class VoteServiceImpl implements VoteService {
     @Transactional
     public String addVote(VoteDto voteDto) {
         Post post = postService.getPost(voteDto.getPostId());
-        User user = userService.getUser(voteDto.getUserId());
+        User user = userService.getUserEntity(voteDto.getUserId());
 
 
         Vote vote = voteMapper.mapDtoToVote(voteDto);

@@ -106,7 +106,7 @@ public class AuthServiceImpl implements AuthService {
             verTokenValid.set(verificationToken.getUsername().equals(username));
 
             // get the Optional value for the user from the userRep object
-            User userToBeVerified = userService.getUser(verificationToken.getUsername());
+            User userToBeVerified = userService.getUserEntity(verificationToken.getUsername());
 
             // if user is present, perform the action declared,
             // pass call to update the user's verification

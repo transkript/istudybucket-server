@@ -17,7 +17,10 @@ import com.elroykanye.istudybucket.data.repository.UserInChatRepository;
 import com.elroykanye.istudybucket.excetion.EntityException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -31,17 +34,19 @@ public class ChatServiceImpl implements ChatService {
     private final UserInChatRepository userInChatRepository;
     private final ChatMapper chatMapper;
     private final UserService userService;
+    @Lazy @Autowired
     private final BucketService bucketService;
 
     @Override
+    @Transactional
     public EntityResponse addChat(ChatDto chatDto) {
         Chat chat = chatMapper.mapDtoToChat(chatDto);
-        User creator = userService.getUser(chatDto.getCreatorId());
+        User creator = userService.getUserEntity(chatDto.getCreatorId());
         Bucket bucket = null;
 
         if (chatDto.getBucketId() != null) {
             try {
-                bucket = bucketService.getBucket(chatDto.getBucketId());
+                bucket = bucketService.getBucketEntity(chatDto.getBucketId());
             } catch (Exception e) {
                 log.error("Bucket for creating chat with id {} not found", chatDto.getId());
             }
@@ -54,7 +59,7 @@ public class ChatServiceImpl implements ChatService {
             }
             Long[] participants = new Long[]{chatDto.getParticipants().get(0), chatDto.getCreatorId()};
             for (Long participant : participants) {
-                User user = userService.getUser(participant);
+                User user = userService.getUserEntity(participant);
                 Set<Chat> existingChats = chatRepository.findAllByCreator(user).stream().filter(c -> c.getUsersInChat().stream()
                                 // retrieve all participants in all chats created by this creator
                                 .map(UserInChat::getParticipant)
@@ -80,9 +85,8 @@ public class ChatServiceImpl implements ChatService {
         }
         chatDto.getParticipants().forEach(userId -> {
             UserInChat userInChat = UserInChat.builder().chat(savedChat).participant(
-                    userService.getUser(userId)
+                    userService.getUserEntity(userId)
             ).userInChatKey(UserInChatKey.builder().chatId(savedChat.getId()).userId(userId).build()).build();
-            System.out.println(userInChat);
             userInChatRepository.save(userInChat);
         });
 
@@ -96,10 +100,11 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public ChatDto getChat(Long id) {
-        return chatMapper.mapChatToDto(getChatById(id));
+        return chatMapper.mapChatToDto(getChatEntity(id));
     }
 
     @Override
+    @Transactional
     public EntityResponse deleteChat(Long id) {
         if(!chatRepository.existsById(id)) {
             throw new EntityException.EntityNotFoundException("chat", id);
@@ -129,7 +134,7 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public Chat getChatById(Long id) {
+    public Chat getChatEntity(Long id) {
         if (id == null ) {
             throw new IllegalArgumentException("Chat id cannot be null");
         }

@@ -3,13 +3,12 @@ package com.elroykanye.istudybucket.business.service.impl;
 import com.elroykanye.istudybucket.business.service.RefreshTokenService;
 import com.elroykanye.istudybucket.data.entity.RefreshToken;
 import com.elroykanye.istudybucket.data.repository.RefreshTokenRepository;
-import com.elroykanye.istudybucket.excetion.IstudybucketException;
+import com.elroykanye.istudybucket.excetion.IStudyBucketException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -33,7 +32,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     @Override
     public void validateRefreshToken(String token) {
         refreshTokenRepository.findByRefreshToken(token)
-                .orElseThrow(() -> new IstudybucketException("Invalid refresh token"));
+                .orElseThrow(() -> new IStudyBucketException("Invalid refresh token"));
     }
 
     @Override
@@ -47,7 +46,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
         }, () -> {
             log.info("Refresh token not found: {}", token);
 
-            throw new IstudybucketException.RefreshTokenException(token);
+            throw new IStudyBucketException.RefreshTokenException(token);
         });
     }
 }

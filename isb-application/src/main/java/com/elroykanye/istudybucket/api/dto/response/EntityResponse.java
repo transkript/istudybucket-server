@@ -13,8 +13,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EntityResponse {
-    @JsonProperty("id")
+    @JsonProperty(value = "id")
     private Long id;
-    @JsonProperty("message")
+
+    @JsonProperty(value = "message")
     private String message;
+
+    @JsonProperty(value = "entity")
+    private String entity;
 }

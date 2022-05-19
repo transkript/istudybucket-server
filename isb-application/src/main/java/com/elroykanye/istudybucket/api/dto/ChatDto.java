@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -39,6 +40,7 @@ public class ChatDto {
     @JsonProperty(value = "bucket_id")
     private Long bucketId;
 
+    @Builder.Default
     @JsonProperty(value = "participants")
-    private List<Long> participants;
+    private List<Long> participants = new ArrayList<>();
 }

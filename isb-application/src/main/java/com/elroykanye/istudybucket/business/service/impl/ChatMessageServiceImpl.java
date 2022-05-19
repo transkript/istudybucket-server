@@ -34,8 +34,8 @@ public class ChatMessageServiceImpl implements ChatMessageService {
             throw new IllegalArgumentException("Sender id must not be null");
         }
 
-        Chat chat = chatService.getChatById(chatId);
-        User sender = userService.getUser(chatMessageDto.getSenderId());
+        Chat chat = chatService.getChatEntity(chatId);
+        User sender = userService.getUserEntity(chatMessageDto.getSenderId());
         ChatMessage chatMessage = chatMessageMapper.mapDtoToChatMessage(chatMessageDto);
         chatMessage.setId(null);
         chatMessage.setChat(chat);
@@ -47,7 +47,7 @@ public class ChatMessageServiceImpl implements ChatMessageService {
 
     @Override
     public List<ChatMessageDto> getChatMessages(Long chatId) {
-        Chat chat = chatService.getChatById(chatId);
+        Chat chat = chatService.getChatEntity(chatId);
         return chatMessageRepository.findAllByChat(chat).stream().map(chatMessageMapper::mapChatMessageToDto)
                 .collect(java.util.stream.Collectors.toList());
     }
