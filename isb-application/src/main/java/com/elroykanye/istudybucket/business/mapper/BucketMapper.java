@@ -12,15 +12,15 @@ public interface BucketMapper {
     @Mappings({
             @Mapping(target = "memberCount", expression = "java(bucket.getMemberships().size())"),
             @Mapping(target = "creatorId", expression = "java(bucket.getCreator().getId())"),
-            @Mapping(target = "chatId", expression = "java(bucket.getChatRoom().getId())"),
     })
     BucketDto mapBucketToDto(Bucket bucket);
 
     @InheritInverseConfiguration
     @Mappings({
             @Mapping(target = "memberships", ignore = true),
-            @Mapping(target = "creationDate", ignore = true),
-            @Mapping(target = "chatRoom", ignore = true),
+            @Mapping(target = "createdAt", ignore = true),
+            @Mapping(target = "updatedAt", ignore = true),
+            @Mapping(target = "chatRooms", ignore = true),
             @Mapping(target = "creator", ignore = true),
     })
     Bucket mapDtoToBucket(BucketDto bucketDto);

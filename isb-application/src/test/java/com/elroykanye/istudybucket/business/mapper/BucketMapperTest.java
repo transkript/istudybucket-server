@@ -29,7 +29,7 @@ class BucketMapperTest {
         bucketDto = DefaultDto.DEFAULT_BUCKET_DTO;
 
         bucket.setCreator(DefaultEntity.DEFAULT_USER);
-        bucket.setChatRoom(DefaultEntity.DEFAULT_CHAT);
+        bucket.setDefaultChatId(DefaultEntity.DEFAULT_CHAT.getId());
     }
 
     @Test
@@ -38,11 +38,11 @@ class BucketMapperTest {
         assertEquals(bucket.getId(), bucketDto1.getId());
         assertEquals(bucket.getTitle(), bucketDto1.getTitle());
         assertEquals(bucket.getDescription(), bucketDto1.getDescription());
-        assertEquals(bucket.getCreationDate(), bucketDto1.getCreationDate());
+        assertEquals(bucket.getCreatedAt(), bucketDto1.getCreatedAt());
         assertEquals(bucket.getGroupImage(), bucketDto1.getGroupImage());
 
         assertEquals(bucket.getMemberships().size(), bucketDto1.getMemberCount());
-        assertEquals(bucket.getChatRoom().getId(), bucketDto1.getChatId());
+        assertEquals(bucket.getDefaultChatId(), bucketDto1.getDefaultChatId());
         assertEquals(bucket.getCreator().getId(), bucketDto1.getCreatorId());
     }
 
