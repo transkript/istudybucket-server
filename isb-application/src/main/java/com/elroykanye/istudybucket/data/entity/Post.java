@@ -53,7 +53,7 @@ public class Post {
     private LocalDateTime createdDate = LocalDateTime.now(); //set created date to today's date by default
 
     // many to one relationship to User entity (author)
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "user_user_id", nullable = false)
     private User author;
 
@@ -62,7 +62,7 @@ public class Post {
     @Builder.Default
     private List<Vote> votes = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "source_post_post_id")
     private Post sourcePost;
 

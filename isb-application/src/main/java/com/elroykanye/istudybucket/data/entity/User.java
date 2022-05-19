@@ -106,18 +106,19 @@ public class User {
     private List<UserLinkUser> linkOfUsers;
 
     @Builder.Default
-    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
+    @OneToMany(mappedBy = "creator")
     private List<Bucket> buckets = new ArrayList<>();
 
     // [special] many to many relationship with Bucket entity
-    @OneToMany(mappedBy = "user")
+    @Builder.Default
     @ToString.Exclude
-    private List<UserInBucket> memberships;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserInBucket> memberships = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
+    @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserInChat> userInChats = new LinkedHashSet<>();
 
 }
