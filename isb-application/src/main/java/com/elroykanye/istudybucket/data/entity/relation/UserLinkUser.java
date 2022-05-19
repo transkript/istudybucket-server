@@ -1,11 +1,19 @@
 package com.elroykanye.istudybucket.data.entity.relation;
 
-import com.elroykanye.istudybucket.data.entity.composite.UserLinkUserKey;
 import com.elroykanye.istudybucket.data.entity.User;
-import lombok.*;
+import com.elroykanye.istudybucket.data.entity.composite.UserLinkUserKey;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.*;
-import java.time.Instant;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import java.time.LocalDateTime;
 
 @Getter
@@ -22,11 +30,11 @@ public class UserLinkUser {
     @Column(name = "link_date")
     private LocalDateTime linkDate;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne( optional = false)
     @MapsId("rightLinkUserId")
     private User rightLinkUser;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(optional = false)
     @MapsId("leftLinkUserId")
     private User leftLinkUser;
 

@@ -32,7 +32,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public String addComment(PostDto postDto) {
         Post post = postService.getPost(postDto.getSourcePostId());
-        User user = userService.getUser(postDto.getAuthorId());
+        User user = userService.getUserEntity(postDto.getAuthorId());
 
         if(postDto.getPostId() != null && postRepository.existsById(postDto.getPostId())) {
             log.error("Adding comment: comment already exists");
@@ -64,7 +64,7 @@ public class CommentServiceImpl implements CommentService {
     public List<PostDto> getCommentsByPostAndAuthor(Long postId, Long authorId) {
         log.info("Getting comments for post {} and author {}", postId, authorId);
         return postRepository
-                .findAllBySourcePostAndAuthor(postService.getPost(postId), userService.getUser(authorId))
+                .findAllBySourcePostAndAuthor(postService.getPost(postId), userService.getUserEntity(authorId))
                 .stream()
                 .map(postMapper::mapPostToDto).collect(Collectors.toList());
     }

@@ -7,7 +7,7 @@ import com.elroykanye.istudybucket.data.entity.Post;
 import com.elroykanye.istudybucket.data.repository.PostRepository;
 import com.elroykanye.istudybucket.data.repository.UserRepository;
 import com.elroykanye.istudybucket.excetion.EntityException;
-import com.elroykanye.istudybucket.excetion.IstudybucketException;
+import com.elroykanye.istudybucket.excetion.IStudyBucketException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -45,7 +45,7 @@ public class PostServiceImpl implements PostService {
                     }},
                 () -> {
                     log.error("Post author is invalid");
-                    throw new IstudybucketException.NotAuthorisedException("Invalid user id " + postDto.getAuthorId() + " for post");
+                    throw new IStudyBucketException.NotAuthorisedException("Invalid user id " + postDto.getAuthorId() + " for post");
                 }
         );
         return "Post created successfully";

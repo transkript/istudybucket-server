@@ -11,8 +11,8 @@ import java.util.List;
 public interface UserService {
     Long saveUser(UserDto userDto);
 
-    User getUser(Long id);
-    User getUser(String username);
+    User getUserEntity(Long id);
+    User getUserEntity(String username);
 
     UserDto getUserById(Long id);
 

@@ -17,8 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,21 +49,29 @@ public class Bucket {
     @Column(name = "group_image")
     private String groupImage;
 
-    @Column(name = "creation_date")
-    private LocalDateTime creationDate;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
-    // one to one relationship with Chat entity
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "bucket_id", referencedColumnName = "chat_id")
-    private Chat chatRoom;
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
-    // [special] many to many relation with User entity
-    @OneToMany(mappedBy = "bucket")
+    @Column(name = "default_chat_id", nullable = false)
+    private Long defaultChatId;
+
+    // [special] many-to-many relation with User entity
+    @Builder.Default
     @ToString.Exclude
-    private List<UserInBucket> memberships;
+    @OneToMany(mappedBy = "bucket")
+    private List<UserInBucket> memberships = new ArrayList<>();
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "creator_user_id", nullable = false)
     private User creator;
+
+    // one-to-many relationship with Chat entity
+    @Builder.Default
+    @ToString.Exclude
+    @OneToMany(mappedBy = "bucket", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Chat> chatRooms = new ArrayList<>();
 
 }

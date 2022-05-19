@@ -20,7 +20,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -53,7 +52,7 @@ public class Chat {
     private LocalDateTime createdAt;
 
     // many-to-one relationship with User entity
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "creator_user_id", nullable = false)
     private User creator;
 
@@ -63,15 +62,14 @@ public class Chat {
     @OneToMany(mappedBy = "chat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ChatMessage> chatMessages = new ArrayList<>();
 
-    // one-to-one relationship with Bucket entity
-    @OneToOne(mappedBy = "chatRoom")
+    // many-to-one relationship with Bucket entity
+    @ManyToOne
+    @JoinColumn(name = "bucket_bucket_id")
     private Bucket bucket;
 
     @Builder.Default
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private Set<UserInChat> usersInChat = new LinkedHashSet<>();
-
-
 
 }

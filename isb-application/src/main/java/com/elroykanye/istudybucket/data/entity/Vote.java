@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -39,7 +38,7 @@ public class Vote {
     @JoinColumn(name = "post_post_id", nullable = false)
     private Post post;
 
-    @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
+    @OneToOne(optional = false, orphanRemoval = true)
     @JoinColumn(name = "user_user_id", nullable = false, unique = true)
     private User user;
 

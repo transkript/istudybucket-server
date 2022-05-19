@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -31,12 +30,12 @@ public class UserInChat {
     private UserInChatKey userInChatKey;
 
     @MapsId("chatId")
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "chat_chat_id", nullable = false)
     private Chat chat;
 
     @MapsId("userId")
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "participant_user_id", nullable = false)
     private User participant;
 

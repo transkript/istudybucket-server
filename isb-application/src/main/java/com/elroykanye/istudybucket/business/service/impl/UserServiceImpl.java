@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(Long id) {
+    public User getUserEntity(Long id) {
         log.info("Getting user with userid: {}", id);
         Optional<User> userOptional = userRepository.findById(id);
         if(userOptional.isPresent()) {
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(String username) {
+    public User getUserEntity(String username) {
         log.info("Getting user with username: {}", username);
         Optional<User> userOptional = userRepository.findByUsername(username);
         if(userOptional.isPresent()) {

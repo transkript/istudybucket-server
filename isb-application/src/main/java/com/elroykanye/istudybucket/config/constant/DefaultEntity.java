@@ -15,7 +15,7 @@ import java.util.List;
 public class DefaultEntity {
     public final static Bucket DEFAULT_BUCKET = Bucket.builder()
             .id(1L).title("Default Bucket").description("This is the default bucket")
-            .groupImage("/path/to/image").creationDate(LocalDateTime.now()).memberships(List.of())
+            .groupImage("/path/to/image").createdAt(LocalDateTime.now()).memberships(List.of())
             .build();
 
     public final static User DEFAULT_USER = User.builder()

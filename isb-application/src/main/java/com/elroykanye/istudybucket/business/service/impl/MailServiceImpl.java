@@ -4,7 +4,7 @@ import com.elroykanye.istudybucket.api.dto.email.VerificationEmail;
 import com.elroykanye.istudybucket.business.service.MailContentBuilder;
 import com.elroykanye.istudybucket.business.service.MailService;
 import com.elroykanye.istudybucket.data.enums.Email;
-import com.elroykanye.istudybucket.excetion.IstudybucketException;
+import com.elroykanye.istudybucket.excetion.IStudyBucketException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailException;
@@ -37,7 +37,7 @@ public class MailServiceImpl implements MailService {
             log.info("Verification email sent");
         } catch(MailException mailException) {
             log.error("Verification email not sent");
-            throw new IstudybucketException("Could not send email");
+            throw new IStudyBucketException("Could not send email");
         }
 
 
